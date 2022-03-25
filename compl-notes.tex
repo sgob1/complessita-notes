@@ -3,47 +3,16 @@
 \usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
 \usepackage[document]{ragged2e}
-%\usepackage{amsfonts}
-%\usepackage{amssymb}
 \usepackage{microtype}
-%\usepackage{lmodern}
-%\usepackage{fontspec}
-%\usepackage{plex-serif} %
-%\usepackage{plex-mono}
-%\usepackage{stickstootext}
-%\usepackage[usefilenames,DefaultFeatures={Ligatures=Common}]{plex-otf} %
-%\usepackage[stickstoo,vvarbb]{newtxmath}
 \usepackage{notomath}
 \usepackage{CharisSIL}
-%\usepackage[libertine]{newtxmath}
-%\usepackage{erewhon}
-%\usepackage{libertinus}
-%\usepackage{inconsolata}
-%\usepackage[bitstream-charter]{mathdesign}
-%\usepackage[sfdefault]{AlegreyaSans}
-%\usepackage[sfdefault,book]{FiraSans} %% option 'sfdefault' activates Fira Sans as the default text font
-%\usepackage{FiraMono}
-%\renewcommand*\oldstylenums[1]{{\firaoldstyle #1}}
 \usepackage[all]{nowidow}
-\usepackage{lettrine}
 \usepackage{graphicx}
 \usepackage{svg}
 \usepackage[pdfa]{hyperref}
 \usepackage{color}
 \usepackage{setspace}
 \usepackage{parskip}
-\usepackage[Conny]{fncychap}
-%\usepackage{fancyhdr}
-%\pagestyle{fancy}
-%\fancyhead[C,C]{\chaptermark}
-%\fancyhead[R]{\textsc{Programmazione Avanzata}}
-%\fancyfoot[R]{\thechapter}
-%\fancyhead[LE,RO]{\textsc{\rightmark}}
-%\fancyhead[LO,RE]{\textsc{\leftmark}}
-%\fancyfoot[R]{\thepage}
-%\renewcommand{\headrulewidth}{0.4pt}
-%\renewcommand{\footrulewidth}{2pt}
-%\renewcommand{\footrulewidth}{0.4pt}% default is 0pt
 \usepackage[a4paper, inner=4.0cm, outer=5.0cm]{geometry}
 \usepackage{listings}
 \definecolor{dkgreen}{rgb}{0.1,0.5,0.1}
@@ -71,26 +40,31 @@
 }
 
 \newtheorem{thm}{Teorema}
+\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+{\renewcommand{\arraystretch}{1.35}% for the vertical padding
 
 \begin{document}
-TODO rifai tutti i disegni presi dall'insegnante.
 \setmonofont[Scale=.85]{Fira Code Retina}
+
+
+\include{compl-titlepage}
 \setstretch{1.35}
 
-\title{Complessità}
-\author{Marco Sgobino}
-\maketitle
+%\title{Complessità}
+%\author{Marco Sgobino}
+%\maketitle
 \tableofcontents
 
-\part{Complessità}
+%\part{Complessità}
 \chapter{La macchina di Turing}
 \section{Descrizione}
+TODO rifai tutti i disegni presi dall'insegnante.
 
 Una \emph{macchina di Turing} è una macchina che è descritta da un insieme di
-\emph{simboli} $\Gamma = \{\alpha, \beta, \gamma, \delta, \dots\}$ finito e da
+\emph{simboli} $\Gamma = \{\alpha, \beta, \gamma, \delta, \dots\}$ \emph{finito} e da
 un insieme di \emph{stati} $\mathcal{Q} = \{q_1, q_2, \dots, q_n\}$ anch'esso
-finito. La macchina di Turing dispone di un nastro di memoria potenzialmente
-illimitato a destra e a sinistra; essa è in grado di identificare il simbolo
+\emph{finito}. La macchina di Turing dispone di un nastro di memoria \emph{potenzialmente
+illimitato} a destra e a sinistra; essa è in grado di identificare il simbolo
 nella posizione dove la \emph{testina} della macchina è collocata sul nastro.
 Ad ogni iterazione della macchina di Turing, viene letto il simbolo
 ove sia collocata la sua testina; a seconda dello stato $q_i$, viene intrapresa
@@ -127,6 +101,7 @@ stato al simbolo collocato immediatamente sotto alla testina nel nastro di
 memoria, stabilendo in maniera univoca l'azione da intraprendere. L'insieme
 delle azioni che la macchina di Turing compie è quindi la realizzazione del
 programma stesso.
+
 
 
 \begin{table}[ht]
@@ -392,8 +367,9 @@ risolverlo in virtù della sua superiore potenza di computazione.
 
 \chapter{Le macchine non deterministiche}
 
-Altre macchine, oltre a quella di Turing, sono possibili, con vari livelli di
-gerarchia fra potenze di calcolo. Il seguente elenco ne illustra alcune,
+Oltre alla macchina di Turing, sono possibili altre tipologie di macchine, con
+vari livelli di gerarchia fra potenze di calcolo. Il seguente elenco ne
+illustra alcune,
 
 \begin{itemize}
     \item macchine a \emph{stati finiti}: in questo caso, hanno $0$
