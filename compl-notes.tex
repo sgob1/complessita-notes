@@ -45,6 +45,7 @@
 
 \usepackage{fancyhdr}
 
+
 \pagestyle{fancy}
 \fancyhf{}
 \fancyhead[LE,RO]{\leftmark}
@@ -71,6 +72,10 @@
 
 \include{compl-titlepage}
 \setstretch{1.35}
+\setlength{\headsep}{30pt}
+\setlength{\footskip}{40pt}
+\setlength{\marginparsep}{20pt}
+\setlength{\marginparwidth}{60pt}
 
 %\title{Complessità}
 %\author{Marco Sgobino}
@@ -81,7 +86,7 @@
 \chapter{La macchina di Turing}
 \section{Descrizione della macchina}
 
-Una \emph{macchina di Turing} è una macchina che è descritta da un insieme di
+Una \emph{macchina di Turing}\marginpar{\footnotesize \textsc{Macchina di Turing}} è una macchina che è descritta da un insieme di
 \emph{simboli} $\Gamma = \{\alpha, \beta, \gamma, \delta, \dots\}$ \emph{finito} e da
 un insieme di \emph{stati} $\mathcal{Q} = \{q_1, q_2, \dots, q_n\}$ anch'esso
 \emph{finito}. La macchina di Turing dispone di un nastro di memoria \emph{potenzialmente
@@ -97,7 +102,7 @@ intrapresa un'azione fra le $3$ seguenti:
         appartenente all'alfabeto di simboli.
 \end{itemize}
 
-Nello specifico, una macchina di Turing è univocamente identificata dalla sua
+Nello specifico\marginpar{\footnotesize \textsc{Matrice di Transizione}}, una macchina di Turing è univocamente identificata dalla sua
 \emph{matrice di transizione} $\delta  : \mathcal Q \times \Gamma \rightarrow
 \mathcal Q \times (\Gamma \cup \{L,R\})$\footnote{In talune circostanze, è
 possibile trovare una definizione differente, cioè $$\delta  : \mathcal Q \times
@@ -118,7 +123,7 @@ macchina di Turing compie è quindi la realizzazione del programma stesso,
 quello che nei termini del modello RAM si sarebbe detto essere la sequenza di
 istruzioni elementari.
 
-Una macchina di Turing può anche essere accompagnata da un alfabeto
+Una macchina di Turing\marginpar{\footnotesize \textsc{Alfabeto ausiliario}} può anche essere accompagnata da un alfabeto
 \emph{ausiliario}, ovverosia un alfabeto $\mathcal V$ comprendente simboli
 simili a quelli di $\Gamma$, ma che vengono utilizzati qualora la macchina di
 Turing avesse \emph{già processato} la cella in questione (i simboli ausiliari
@@ -168,7 +173,7 @@ ogni cella non può essere contenuta una quantità \emph{arbitraria} di
 informazione, come invece avveniva per il modello RAM, che faceva uso dei
 numeri naturali.
 
-Tipicamente, all'alfabeto che definisce una macchina di Turing viene definito
+Tipicamente, assieme all'alfabeto che definisce una macchina di Turing viene definito
 un sottoinsieme sigma di \emph{simboli di input}, $\Sigma \subset \Gamma$, in
 concomitanza al quale viene definito un simbolo vuoto, \emph{blank}, $b \in
 \Gamma - \Sigma$. Il simbolo $b$ incarna dunque l'idea di \emph{cella
@@ -208,7 +213,7 @@ In parole povere, una macchina di Turing può sovrascrivere un simbolo presente
 sulla cella con un altro presente nel suo alfabeto, $\Gamma$, può spostare la
 testina di un'unità a destra, e può fare altrettanto a sinistra.
 
-Resta da scogliere il nodo relativo alla terminazione della macchina di Turing.
+Resta da scogliere il nodo\marginpar{\footnotesize \textsc{Stop della computazione}} relativo alla terminazione della macchina di Turing.
 Nel modello RAM, la terminazione avveniva qualora le istruzioni si fossero
 esaurite, o più precisamente qualora l'indice dell'istruzione successiva fosse
 quello di un'istruzione assente nella sequenza che definisce la procedura. In
@@ -223,7 +228,7 @@ finale di computazione, espresso similmente al caso del modello RAM con una
 convenzione che permetta di identificare il valore finale del risultato della
 computazione.
 
-Se lo stop della computazione è stato chiarito, ora resta da definire il metodo
+Se lo stop della computazione\marginpar{\footnotesize \textsc{Esito della computazione}} è stato chiarito, ora resta da definire il metodo
 con cui andremo a recuperare il valore finale della computazione.
 Convenzionalmente, l'esito di una macchina di Turing è una particolare
 configurazione di memoria dello stato finale. Si è infatti scelto che
@@ -256,7 +261,7 @@ un insieme di istruzioni da applicare direttamente, ma è necessario determinare
 prima di tutto la matrice di transizione relativa a ciò che bisogna calcolare,
 stato per stato e simbolo per simbolo.
 
-Una macchina di Turing, non importa come sia stata definita, può essere
+Una macchina di Turing\marginpar{\footnotesize \textsc{Utilizzo della macchina di Turing}}, non importa come sia stata definita, può essere
 adoperata sostanzialmente per compiere $3$ operazioni:
 \begin{enumerate}
     \item per il \emph{calcolo} di una funzione \--- la macchina di Turing è
@@ -360,7 +365,7 @@ Figura~\ref{fig:mdtSomma}.
 
 \subsection{Estensioni e menomazioni}
 
-Una macchina di Turing può essere apparentemente potenziata mediante
+Una macchina di Turing\marginpar{\footnotesize \textsc{Nastri multitraccia}} può essere apparentemente potenziata mediante
 l'estensione di essa tramite l'uso di \emph{nastri multitraccia}. In altre
 parole, anziché adoperare un singolo nastro, si adoperano più nastri
 contemporaneamente. La macchina di Turing viene espansa tramite l'aggiunta di
@@ -402,7 +407,7 @@ qualsiasi computer moderno\footnote{Un computer può a sua volta simulare da una
 macchina di Turing, dal momento che possono essere applicati potenzialmente
 infiniti banchi di memoria al computer \-- nella pratica, tuttavia, sappiamo
 che ciò non è possibile, e i banchi di memoria non saranno mai del tutto
-\emph{illmitati}} semplicemente introducendo tanti nastri e tante tracce quante
+\emph{illmitati}.} semplicemente introducendo tanti nastri e tante tracce quante
 sono quelle dei dispositivi fisici adoperati dal calcolatore moderno. Nella
 fattispecie, si avrà un nastro ed una traccia per la memoria RAM, un altro
 nastro ed un'altra traccia per la memoria a disco rigido, e così via. In
@@ -411,7 +416,7 @@ un collegamento fra il calcolatore moderno e la macchina di Turing, poiché una
 macchina multinastro, sia essa multitraccia, può essere \emph{emulata} da una
 macchina di Turing a nastro singolo.
 
-Il medesimo discorso si applica anche al tentativo di \emph{menomare} la
+Il medesimo discorso si applica anche al tentativo di \emph{menomare}\marginpar{\footnotesize \textsc{Nastro semi-illimitato}} la
 macchina di Turing, nel senso che potremmo pensare di rendere il nastro
 semi-infinito, cioè illimitato solo a destra o solo a sinistra. In tal caso,
 benché questa apparente limitazione venga messa in atto, la macchina
@@ -582,7 +587,7 @@ seguente elenco ne illustra alcune,
 \end{itemize}
 
 
-Perciò, la gerarchia delle potenze di calcolo è la seguente, dall'alto verso il basso:
+Perciò, la gerarchia\marginpar{\footnotesize \textsc{Gerarchia delle potenze di calcolo}} delle potenze di calcolo è la seguente, dall'alto verso il basso:
 \begin{enumerate}
     \item Macchine non deterministiche di Turing, con due memorie
         push-down~\----~Macchine di Turing, Modello RAM, Macchine di Post,
@@ -637,7 +642,7 @@ Il \emph{non determinismo} viene introdotto per due ragioni:
         computazione (ad esempio, computazione parallela).
 \end{itemize}
 
-Una \emph{macchina di Turing non deterministica} può avere nel suo diagramma di
+Una \emph{macchina di Turing non deterministica}\marginpar{\footnotesize \textsc{Macchina non deterministica}} può avere nel suo diagramma di
 flusso dei \emph{nodi di decisione} dove a fronte di un medesimo simbolo vi
 sono \emph{più archi possibili} \-- il non determinismo viene dunque introdotto
 da questo fenomeno: una macchina di Turing non deterministica può scegliere il
@@ -769,13 +774,13 @@ soluzione, poiché ciascun DNA è infinitesimamente piccolo, e dunque può esser
 esaminato in parallelo.} è una tipologia di calcolo che, nella realtà, non
 differisce sostanzialmente dal metodo procedurale.
 
-Esistono due filoni di reti neuronali; il primo associato ai
+Esistono due filoni di reti neuronali\marginpar{\footnotesize \textsc{Perceptron}}; il primo associato ai
 \textbf{perceptron}, macchine a strati che fungono da riconoscitori di pattern
 e configurazioni. Le variabili di ingresso rappresentano un ente, una
 configurazione del sistema esterno, e il perceptron è in grado di fornire in
 output una risposta che consente di riconoscere tale configurazione o pattern
 in base a come essa sia stata configurata e ai suoi parametri. Il secondo
-filone, invece, è quello della \emph{rete di Hopfield}; tale filone sarebbe in
+filone, invece, è quello della \emph{rete di Hopfield}\marginpar{\footnotesize \textsc{Rete di Hopfield}}; tale filone sarebbe in
 grado, in linea di principio, di \textbf{risolvere problemi} di natura
 matematica. Mediante una rete di Hopfield è possibile risolvere ad esempio il
 \emph{travelling salesman problem}, un problema presumibilmente
