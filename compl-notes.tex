@@ -43,6 +43,28 @@
 \setlength{\tabcolsep}{0.5em} % for the horizontal padding
 {\renewcommand{\arraystretch}{1.35}% for the vertical padding
 
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE,RO]{\leftmark}
+%\fancyhead[RE,LO]{Programmazione Avanzata}
+%\fancyfoot[CE,CO]{\leftmark}
+\fancyfoot[LE,RO]{\thepage}
+
+\renewcommand{\headrulewidth}{1pt}
+%\renewcommand{\footrulewidth}{1pt}
+
+\usepackage{titlesec}
+\titleformat{\part}[display]
+{\Huge\bfseries}{}{10pt}{\center{ Parte \thepart\ \ \\ \ \ }}
+\titleformat{\chapter}[display]
+{\huge\bfseries}{}{0pt}{\thechapter\ \ \--\ \ }
+\titleformat{\section}[display]
+{\Large\bfseries}{}{0pt}{\medskip\thesection\ \ \--\ \ }
+\titleformat{\subsection}[display]
+{\large\bfseries}{}{0pt}{\medskip\thesubsection\ \ \--\ \ }
+
 \begin{document}
 \setmonofont[Scale=.85]{Fira Code Retina}
 
@@ -57,33 +79,23 @@
 
 %\part{Complessità}
 \chapter{La macchina di Turing}
-\section{Descrizione}
-TODO rifai tutti i disegni presi dall'insegnante.
+\section{Descrizione della macchina}
 
 Una \emph{macchina di Turing} è una macchina che è descritta da un insieme di
 \emph{simboli} $\Gamma = \{\alpha, \beta, \gamma, \delta, \dots\}$ \emph{finito} e da
 un insieme di \emph{stati} $\mathcal{Q} = \{q_1, q_2, \dots, q_n\}$ anch'esso
 \emph{finito}. La macchina di Turing dispone di un nastro di memoria \emph{potenzialmente
-illimitato} a destra e a sinistra; essa è in grado di identificare il simbolo
-nella posizione dove la \emph{testina} della macchina è collocata sul nastro.
-Ad ogni iterazione della macchina di Turing, viene letto il simbolo
-ove sia collocata la sua testina; a seconda dello stato $q_i$, viene intrapresa
-un'azione, che può essere una fra le $3$ seguenti:
+illimitato} a destra e a sinistra, avente delle celle contenenti i simboli;
+essa identifica il simbolo nella posizione dove la
+\emph{testina} della macchina è collocata sul nastro. Ad ogni iterazione della
+macchina di Turing viene letto il simbolo, e a seconda dello stato $q_i$, viene
+intrapresa un'azione fra le $3$ seguenti:
 \begin{itemize}
     \item spostamento della testina a destra;
     \item spostamento della testina a sinistra;
     \item riscrittura del simbolo sotto la testina con uno qualsiasi
         appartenente all'alfabeto di simboli.
 \end{itemize}
-
-Una macchina di Turing può anche essere accompagnato da un alfabeto
-\emph{ausiliario}, ovverosia un alfabeto $\mathcal V$ comprendente simboli
-simili a quelli di $\Gamma$, ma che vengono utilizzati qualora la macchina di
-Turing avesse \emph{già processato} la cella in questione. Tipicamente,
-l'utilizzo dell'alfabeto ausiliario è importante nel caso specifico in cui si
-adoperino algoritmi e procedure per le quali è d'interesse ricordare se una
-cella sia già stata in precedenza processata dalla macchina di Turing, oppure
-no.
 
 Nello specifico, una macchina di Turing è univocamente identificata dalla sua
 \emph{matrice di transizione} $\delta  : \mathcal Q \times \Gamma \rightarrow
@@ -98,10 +110,29 @@ versatilità della macchina di Turing.}, dove i simboli $L$ ed $R$ sono
 rappresentativi dell'azione di spostarsi, rispettivamente, a sinistra e a
 destra del nastro di memoria. La matrice di transizione lega, dunque, ciascuno
 stato al simbolo collocato immediatamente sotto alla testina nel nastro di
-memoria, stabilendo in maniera univoca l'azione da intraprendere. L'insieme
-delle azioni che la macchina di Turing compie è quindi la realizzazione del
-programma stesso.
+memoria, stabilendo in maniera univoca l'azione da intraprendere. Si può dire
+dunque che la matrice di transizione fornisce alla macchina di Turing l'elenco
+delle possibili azioni da intraprendere, alla lettura di un simbolo sulla cella
+corrente, a seconda dello stato in cui si trova. L'insieme delle azioni che la
+macchina di Turing compie è quindi la realizzazione del programma stesso,
+quello che nei termini del modello RAM si sarebbe detto essere la sequenza di
+istruzioni elementari.
 
+Una macchina di Turing può anche essere accompagnata da un alfabeto
+\emph{ausiliario}, ovverosia un alfabeto $\mathcal V$ comprendente simboli
+simili a quelli di $\Gamma$, ma che vengono utilizzati qualora la macchina di
+Turing avesse \emph{già processato} la cella in questione (i simboli ausiliari
+sono ``simili'' a quelli dell'alfabeto tradizionale, ma hanno una differenza
+che ne permette il riconoscimento). Tipicamente, l'utilizzo dell'alfabeto
+ausiliario è importante nel caso specifico in cui si adoperino procedure per le
+quali è utile ricordare se una cella sia già stata in precedenza processata
+dalla macchina di Turing, oppure no \-- in ogni caso, l'alfabeto ausiliario è
+meramente un sussidio che permette una semplificazione della procedura o aiuta
+ad interpretare il comportamento della macchina, non è in nessun modo un
+qualsivoglia tipo di estensione della macchina di Turing. Come sarà mostrato in
+seguito, ciascuna altra possibile definizione di macchina di Turing è, dal
+punto di vista della potenza computazione, del tutto equivalente alla
+definizione già data sopra.
 
 
 \begin{table}[ht]
@@ -117,7 +148,8 @@ $\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ &
 \caption{Possibile matrice di transizione per una macchina di Turing. Le righe
 corrispondono ai simboli dell'alfabeto $\Gamma$, mentre le colonne sono
 corrispondenti ai singoli stati dell'insieme $\mathcal
-Q$.}\label{tab:matriceTransizione}
+Q$. Ogni elemento della tabella indica il simbolo da scrivere/stato in cui la
+macchina dovrà trovarsi al passo successivo,}\label{tab:matriceTransizione}
 \end{table}
 \bigskip
 
@@ -128,16 +160,28 @@ simboli, quelli appunto dell'insieme $\Gamma$. Ciononostante, la macchina di
 Turing si presta meglio alla trattazione di stringhe, poiché i simboli possono
 rappresentare qualsivoglia tipologia di entità astratta, mentre per il modello
 RAM si avrebbe necessità di una codifica fra numeri reali e simboli da
-trattare: non vi è più dunque la limitazione imposta dal fatto che all'interno
+trattare. Non vi è più dunque la limitazione imposta dal fatto che all'interno
 di una cella possa risiedere esclusivamente un numero naturale, non importa
 quanto grande sia; nella macchina di Turing le celle possono contenere simboli
-di qualsiasi natura essi siano.
+di qualsiasi natura essi siano. Lo ``svantaggio'', tuttavia, è che all'interno di
+ogni cella non può essere contenuta una quantità \emph{arbitraria} di
+informazione, come invece avveniva per il modello RAM, che faceva uso dei
+numeri naturali.
 
 Tipicamente, all'alfabeto che definisce una macchina di Turing viene definito
-un sottoinsieme sigma di simboli di input, $\Sigma \subset \Gamma$, in
+un sottoinsieme sigma di \emph{simboli di input}, $\Sigma \subset \Gamma$, in
 concomitanza al quale viene definito un simbolo vuoto, \emph{blank}, $b \in
-\Gamma - \Sigma$. Il simbolo $b$ rappresenta dunque l'idea di \emph{cella
-vuota}. Ricapitolando, ogni macchina di Turing viene univocamente definita da:
+\Gamma - \Sigma$. Il simbolo $b$ incarna dunque l'idea di \emph{cella
+vuota} \-- si pensi infatti al valore che una cella di memoria primaria
+qualsiasi di un computer reale avrebbe, al momento immediatamente successivo
+all'accensione: essa risulterebbe posta allo zero logico, di fatto non
+conterrebbe alcun valore d'interesse, dato che essa non è ancora stata
+``toccata'' dall'esecuzione di alcun programma. Il simbolo \emph{blank} sta a
+significare proprio questo, ed è l'equivalente del valore `zero' del modello
+RAM, dove all'avvio del programma ogni cella di memoria fuorché quelle
+contenenti i valori di ingresso contiene il numero reale $0$. 
+
+Ricapitolando, ogni macchina di Turing viene univocamente definita da:
 \begin{itemize}
     \item un insieme finito di simboli $\Gamma$ \--- essi comprendono sia i
         simboli di input $\Sigma$ che il simbolo \emph{blank} $b$;
@@ -149,35 +193,71 @@ vuota}. Ricapitolando, ogni macchina di Turing viene univocamente definita da:
 Una diversa maniera per definire una macchina di Turing è tramite la
 \emph{quaterna} o \emph{quadrupla} $q_i, s_j, \alpha, q_k$, dove $q_i$ è lo
 \emph{stato in cui si trova la macchina}, $s_j$ è il \emph{simbolo letto dalla
-testina}, $\alpha$ è il \emph{simbolo scritto nella matrice di transizione}, $q_k$ è
-lo \emph{stato successivo} in cui la macchina di Turing si troverà al termine
-dell'esecuzione di $\alpha$. In particolare, l'operazione che la macchina di
-Turing effettua dipende dal simbolo $\alpha$ scritto nella matrice di
-transizione:
+testina}, $\alpha$ è il \emph{simbolo scritto nella matrice di transizione} e
+$q_k$ è lo \emph{stato successivo} in cui la macchina di Turing si troverà al
+termine dell'esecuzione di $\alpha$. In particolare, l'operazione che la
+macchina di Turing effettua dipende dal simbolo $\alpha$ scritto nella matrice
+di transizione:
 \begin{itemize}
     \item se $\alpha = s_i$, sostituisci il simbolo $s_j$ con $s_i$;
     \item se $\alpha = R$, muovi la testina a destra;
-    \item se $\alpha = L$, muovi la testina a sinistra;
+    \item se $\alpha = L$, muovi la testina a sinistra.
 \end{itemize}
 
+In parole povere, una macchina di Turing può sovrascrivere un simbolo presente
+sulla cella con un altro presente nel suo alfabeto, $\Gamma$, può spostare la
+testina di un'unità a destra, e può fare altrettanto a sinistra.
+
+Resta da scogliere il nodo relativo alla terminazione della macchina di Turing.
+Nel modello RAM, la terminazione avveniva qualora le istruzioni si fossero
+esaurite, o più precisamente qualora l'indice dell'istruzione successiva fosse
+quello di un'istruzione assente nella sequenza che definisce la procedura. In
+assenza del concetto di ``istruzione'', secondo quale regole dovrebbe terminare
+una macchina di Turing? 
+
 Lo \emph{stop} della computazione di una macchina di Turing avviene qualora la
-coppia $q_i, s_j$ \textbf{non} sia presente nella matrice di transizione.
-Questa tecnica è analoga a quanto osservato per il modello RAM, nel quale la
-macchina ha termine se si è giunti al termine della procedura e sono state
-esaurite le istruzioni nella sequenza. Nel caso di una coppia simbolo\----stato
-non presente nella matrice di transizione, la macchina di Turing si fermerà, e
-vi sarà il riconoscimento del valore finale di computazione, espresso come nel
-caso del modello RAM con una convenzione che permetta di identificare il valore
-finale del risultato della computazione.
+coppia $q_i, s_j$ \textbf{non} sia presente nella matrice di transizione. Nel
+caso di una coppia simbolo\----stato non presente nella matrice di transizione,
+la macchina di Turing avrà terminazione, e vi sarà il riconoscimento del valore
+finale di computazione, espresso similmente al caso del modello RAM con una
+convenzione che permetta di identificare il valore finale del risultato della
+computazione.
 
-\section{Uso di una macchina di Turing}
+Se lo stop della computazione è stato chiarito, ora resta da definire il metodo
+con cui andremo a recuperare il valore finale della computazione.
+Convenzionalmente, l'esito di una macchina di Turing è una particolare
+configurazione di memoria dello stato finale. Si è infatti scelto che
+il risultato $f(x)$ sia da leggersi come il numero totale di occorrenze di $1$
+(meno una) sul nastro nella configurazione iniziale, se la computazione è
+andata a convergenza \-- indefinito altrimenti. La sequenza di occorrenze del
+simbolo $1$ è delimitata dal carattere \emph{blank}. Quindi vi saranno $f(x) +
+1$ simboli \textquotesingle1\textquotesingle, e pertanto sarà da contare un
+simbolo \textquotesingle1\textquotesingle\ in meno (lo
+\textquotesingle0\textquotesingle\   sarà indicato con la presenza di un
+singolo simbolo \textquotesingle1\textquotesingle). Per quanto invece riguarda
+i risultati di tipo \emph{vettoriale}, cioè del tipo $f(x_1,x_2,\dots,x_n)$,
+ebbene sarà sufficiente costruire $n$ ``quadrati'' in cui racchiudere gli $x+1$
+simboli $1$, ciascuno delimitato dal simbolo \emph{b}. In altre parole, la
+situazione è quella descritta dalla Figura~\ref{fig:mdtRisultato}.
 
-Una macchina di Turing, come verrà illustrato in seguito, può essere espressa
-anche mediante \emph{grafo} oltre che mediante matrice di sostituzione. In ogni
-caso, ogni possibile definizione di macchina di Turing è del tutto equivalente,
-e varia esclusivamente nella forma nella quale è proposta. Una macchina di
-Turing, non importa come sia stata definita, può essere adoperata
-sostanzialmente per compiere $3$ diversi operazioni:
+\begin{figure}[b]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/mdtRisultato.png}
+    \caption{Risultato singolo (sopra) e \emph{vettoriale} (sotto) di una macchina di Turing.}
+    \label{fig:mdtRisultato}
+\end{figure}
+
+
+
+Per via dell'utilizzo tramite la matrice di transizione è particolarmente
+difficile programmare sulla macchina di Turing~\--~questo è principalmente
+dovuto al fatto che la macchina di Turing è una macchina `a stati', dove non vi è
+un insieme di istruzioni da applicare direttamente, ma è necessario determinare
+prima di tutto la matrice di transizione relativa a ciò che bisogna calcolare,
+stato per stato e simbolo per simbolo.
+
+Una macchina di Turing, non importa come sia stata definita, può essere
+adoperata sostanzialmente per compiere $3$ operazioni:
 \begin{enumerate}
     \item per il \emph{calcolo} di una funzione \--- la macchina di Turing è
         intesa come \emph{calcolatore}, e lo scopo è quello di calcolare una
@@ -193,128 +273,199 @@ sostanzialmente per compiere $3$ diversi operazioni:
         intesa come \emph{decisore}.
 \end{enumerate}
 
-Convenzionalmente, l'esito di una macchina di Turing è una particolare
-configurazione di memoria dello stato finale. In particolare, si è scelto che
-il risultato $f(x)$ sia da leggersi come il numero totale di occorrenze di $1$
-(meno una) sul nastro nella configurazione iniziale, se la computazione è
-andata a convergenza \-- indefinito altrimenti. La sequenza di occorrenze del
-simbolo $1$ è delimitata dal carattere \emph{blank}. Per quanto invece riguarda
-i risultati di tipo \emph{vettoriale}, cioè del tipo $f(x_1,x_2,\dots,x_n)$,
-ebbene sarà sufficiente costruire $n$ ``quadrati'' in cui racchiudere gli $x+1$
-simboli $1$, ciascuno delimitato dal simbolo \emph{b}. In altre parole, la
-situazione è quella descritta dalla Figura~\ref{fig:mdtRisultato}.
-
-TODO figura mdtRisultato
-
-Solitamente, è particolarmente difficile programmare sulla macchina di
-Turing~\--~questo è principalmente dovuto al fatto che la macchina di Turing è
-una macchina a stati, dove non vi è un insieme di istruzioni da applicare
-direttamente, ma bisogna determinare la matrice di transizione relativa a ciò
-che bisogna calcolare, stato per stato e simbolo per simbolo.
-
-
-\section{Equivalenza fra macchina di Turing e $\mathcal R$}
+\subsection{Equivalenza fra macchina di Turing e $\mathcal R$}
 
 Un importante teorema definisce l'equivalenza della macchina di Turing (avente
 insieme delle funzioni computabili $\mathcal{TC}$ all'insieme delle funzioni
 parziali ricorsive $\mathcal R$, e lo lega indissolubilmente all'insieme delle
 funzioni computabili dal modello RAM $\mathcal C$.
 
-\begin{thm}{dell'equivalenza della macchina di Turing all'insieme $\mathcal R$}
+\begin{thm}{dell'equivalenza della macchina di Turing all'insieme $\mathcal R$
+    delle funzioni parziali ricorsive}
     $$\mathcal R \equiv \mathcal {TC} \equiv \mathcal C$$
 \end{thm}
 
-Un possibile spunto di dimostrazione di $\mathcal {TC} \subseteq \mathcal R$ si
-ha per il fatto che la configurazione e lo stato della MdT durante la
+\textsc{Dimostrazione} \---- Un possibile spunto di dimostrazione di $\mathcal {TC} \subseteq \mathcal R$ si
+ha grazie al fatto che la configurazione e lo stato della MdT durante la
 computazione possono essere codificati da un numero naturale; le operazioni
 sulla macchina sono rappresentate da funzioni ricorsive su questi numeri. Il
 viceversa è invece mostrabile tenendo conto che si può verificare che
 $\mathcal{TC}$ contiene le funzioni di base ed è chiusa rispetto a sostituzione,
 ricorsione e minimazione illimitata.
 
-\section{Potenziamento apparente della macchina di Turing}
+\subsection{Macchina di Turing per il calcolo della somma}
 
-Una macchina di Turing può essere potenziata mediante l'estensione di essa
-tramite l'uso di \emph{nastri multitraccia}. In altre parole, anziché adoperare
-un singolo nastro, si adoperano più nastri contemporaneamente. La macchina di
-Turing viene espansa tramite l'aggiunta di uno \emph{stato della memoria
-suppletiva}, che sostanzialmente ci indica il numero del nastro dove la
-macchina di Turing sta agendo. Dunque, ci possiamo immaginare una macchina di
-Turing con tanti nastri e tante testine che lavorano contemporaneamente, come
-elencato in Figura~\ref{fig:macchina-turing-multinastro}.
+Supponiamo di voler fare la somma fra due numeri interi naturali, $x$ ed $y$.
+In questo caso, la macchina di Turing dovrebbe calcolare la funzione $f(x,y) =
+x + y$. Per fare ciò, costruiremo gli elementi fondamentali della macchina di
+Turing. In particolare, avremo che l'alfabeto di simboli $\Gamma = \{0, 1,
+b\}$, cioè avremo bisogno esclusivamente di $2$ simboli eccezion fatta per il
+simbolo \emph{blank}, mentre invece faremo uso di $3$ stati $\mathcal Q =
+\{q_1, q_2, q_3\}$. Lo stato iniziale è lo stato $q_1$, mentre lo stato finale
+è $q_3$. Resta ora da definire la matrice di transizione. Uno fra i tanti modi
+di definirla è il seguente (faremo uso delle quadruple),
+
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{cccc}
+    $q_1$ & $1$ & $b$ & $q_1$\\
+    $q_1$ & $b$ & $R$ & $q_2$\\
+    $q_2$ & $1$ & $b$ & $q_3$\\
+    $q_2$ & $b$ & $R$ & $q_2$
+
+\end{tabular}
+\caption{Matrice di transizione per la macchina di Turing che calcola $f(x,y) =
+x + y$.}\label{tab:mdtSomma}
+\end{table}
+\bigskip
+
+L'idea è quella di togliere due simboli $1$, di modo che gli $1$ rimanenti
+corrispondano al valore del risultato finale. Infatti, provando a calcolare
+$f(2, 1) = 3$ avremo che
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{cccccccc}
+   $q_1$&     &     &     &     &     &     &     \\
+    $1$ & $1$ & $1$ & $b$ & $1$ & $1$ & $b$ & $b$ \\
+   $q_1$&     &     &     &     &     &     &     \\
+    $b$ & $1$ & $1$ & $b$ & $1$ & $1$ & $b$ & $b$ \\
+        &$q_2$&     &     &     &     &     &     \\
+    $b$ & $1$ & $1$ & $b$ & $1$ & $1$ & $b$ & $b$ \\
+        &     &$q_3$&     &     &     &     &     \\
+    $b$ & $b$ & $1$ & $b$ & $1$ & $1$ & $b$ & $b$
+\end{tabular}
+\end{table}
+\bigskip
+
+ed il numero finale di simboli $1$ corrisponde proprio al valore della somma,
+$2 + 1 = 3$.
+
+Possiamo anche costruire un grafo della macchina di cui sopra, mostrato in
+Figura~\ref{fig:mdtSomma}.
+
+
+\begin{figure}[b]
+    \centering
+    \includegraphics[ width=0.6\linewidth, height=\textheight, keepaspectratio]{./pics/mdtSomma.png}
+    \caption{Grafo della macchina di Turing per le somme.}
+    \label{fig:mdtSomma}
+\end{figure}
+
+
+
+
+\section{Altre versioni della macchina di Turing}
+
+\subsection{Estensioni e menomazioni}
+
+Una macchina di Turing può essere apparentemente potenziata mediante
+l'estensione di essa tramite l'uso di \emph{nastri multitraccia}. In altre
+parole, anziché adoperare un singolo nastro, si adoperano più nastri
+contemporaneamente. La macchina di Turing viene espansa tramite l'aggiunta di
+uno \emph{stato della memoria suppletiva}, che ci indica il numero del nastro
+dove la macchina di Turing sta agendo. Dunque, ci possiamo immaginare una
+macchina di Turing con tanti nastri e tante testine che lavorano
+contemporaneamente, come illustrato in
+Figura~\ref{fig:macchina-turing-multinastro}.
 
 \begin{figure}[b]
     \centering
     \includegraphics[ width=.8\linewidth, height=\textheight, keepaspectratio]{./pics/macchina-turing-multinastro.png}
-    \caption{Macchina con memoria con nastro multitraccia.}
+    \caption{Macchina di Turing avente memoria con nastro multitraccia. La
+    testina può collocarsi, una alla volta, su ciascuna delle nastre. La
+memoria suppletiva rende possibile tenere traccia di quale nastro si sta
+adoperando per l'esecuzione delle operazioni.}
     \label{fig:macchina-turing-multinastro}
 \end{figure}
 
-Dal punto di vista della capacità computazione, una macchina di Turing
-multinastro non aumenta né diminuisce le capacità \-- tuttavia, tale
-rappresentazione può avere il vantaggio di presentare una maggiore somiglianza
-con il tipo di computazione svolto all'interno di un computer moderno. Si pensi
-infatti alla memoria RAM, alla memoria cache, al disco rigido e così via; una
-macchina di Turing può dunque ``simulare'' qualsiasi computer
-moderno\footnote{Un computer può a sua volta simulare da una macchina di
-Turing, dal momento che possono essere applicati potenzialmente infiniti banchi
-di memoria al computer \-- nella pratica, tuttavia, sappiamo che ciò non è
-possibile, e i banchi di memoria non saranno mai del tutto \emph{illmitati}}.
+La domanda ora è se l'introduzione della multitraccia consenta di generare una
+nuova macchina, con capacità di calcolo superiori a quelle della macchina di
+Turing. La risposta è negativa: dal punto di vista della capacità computazione,
+una macchina di Turing multinastro non aumenta né diminuisce le capacità. Una
+macchina di Turing multinastro può essere implementata con un \emph{sistema
+multitraccia} \-- in altre parole, vengono adoperate \emph{tante testine quante
+sono i nastri}. Ci si può facilmente ricondurre alla macchina di Turing
+convenzionale semplicemente eliminando il sistema multitraccia e facendo agire
+la macchina su un nastro alla volta, o per meglio dire, una macchina di Turing
+multitraccia può essere \emph{simulata} da una macchina di Turing
+convenzionale: essa dunque, non produce alcun tipo di miglioramento dal punto
+di vista della computazione, cioè le due macchine hanno \textbf{la stessa}
+potenza computazionale (Figura~\ref{fig:mdt-equivalenza-multitraccia}). 
 
-Una macchina di Turing multinastro deve essere implementata con un
-\emph{sistema multitraccia} \-- in altre parole, vengono adoperate \emph{tante
-testine quante sono i nastri}. Ci si può facilmente ricondurre alla macchina di
-Turing convenzionale semplicemente eliminando il sistema multitraccia, o per
-meglio dire, una macchina di Turing multitraccia può essere \emph{simulata} da
-una macchina di Turing convenzionale: essa dunque, non produce alcun tipo di
-miglioramento dal punto di vista computazione, cioè le due macchine hanno la
-\emph{stessa} potenza computazionale
-(Figura~\ref{fig:mdt-equivalenza-multitraccia}. 
+Tale rappresentazione, tuttavia, può avere il vantaggio di presentare una
+maggiore somiglianza con il tipo di computazione svolto all'interno di un
+computer moderno. Si pensi infatti alla memoria RAM, alla memoria cache, al
+disco rigido e così via; una macchina di Turing può dunque ``simulare''
+qualsiasi computer moderno\footnote{Un computer può a sua volta simulare da una
+macchina di Turing, dal momento che possono essere applicati potenzialmente
+infiniti banchi di memoria al computer \-- nella pratica, tuttavia, sappiamo
+che ciò non è possibile, e i banchi di memoria non saranno mai del tutto
+\emph{illmitati}} semplicemente introducendo tanti nastri e tante tracce quante
+sono quelle dei dispositivi fisici adoperati dal calcolatore moderno. Nella
+fattispecie, si avrà un nastro ed una traccia per la memoria RAM, un altro
+nastro ed un'altra traccia per la memoria a disco rigido, e così via. In
+realtà, si tratta esclusivamente di un artificio che ci consente di tracciare
+un collegamento fra il calcolatore moderno e la macchina di Turing, poiché una
+macchina multinastro, sia essa multitraccia, può essere \emph{emulata} da una
+macchina di Turing a nastro singolo.
 
 Il medesimo discorso si applica anche al tentativo di \emph{menomare} la
 macchina di Turing, nel senso che potremmo pensare di rendere il nastro
-semi-infinito, cioè illimitato solo a destra o solo a sinistra
-(Figura~\ref{fig:macchina-turing-riduzione}). In tal caso, tuttavia, benché
-questa apparente limitazione venga messa in atto, di fatto la macchina di
-Turing menomata avrà la medesima capacità computazionale di quella
+semi-infinito, cioè illimitato solo a destra o solo a sinistra. In tal caso,
+benché questa apparente limitazione venga messa in atto, la macchina
+di Turing menomata avrà di fatto la medesima capacità computazionale di quella
 ``standard'', perché possiamo sempre avere a disposizione una quantità
-illimitata di memoria, o far uso di trucchi come quello dell'alfabeto
-ausiliario $\mathcal V$.
+illimitata di memoria da un lato (un po' come per il modello RAM), o far uso di
+trucchi come quello dell'alfabeto ausiliario $\mathcal V$ che comunque
+faciliterebbero le computazioni in una situazione simile. Comunque la si veda,
+una macchina di Turing non si può né potenziare né depotenziare, a meno di non
+effettuare operazioni che sconvolgano il suo funzionamento, oppure
+rimuovendo l'ipotesi della memoria illimitata da entrambi i lati.
 \begin{figure}[b]
     \centering
     \includegraphics[ width=1.2\linewidth, height=\textheight, keepaspectratio]{./pics/mdt-equivalenza-multitraccia.png}
     \caption{Equivalenza fra una macchina di Turing a multitraccia e una
-    macchina di Turing a singola testina.}
+    macchina di Turing a singola testina. Non importa il numero di testine: la
+macchina a singola testina potrà sempre percorrere un nastro dopo l'altro,
+simulando la macchina multitraccia.}
     \label{fig:mdt-equivalenza-multitraccia}
-\end{figure}
-
-\begin{figure}[b]
-    \centering
-    \includegraphics[ width=.7\linewidth, height=\textheight, keepaspectratio]{./pics/macchina-turing-riduzione.png}
-    \caption{Equivalenza fra macchina di Turing a nastro illimitato solo a
-    destra e a nastro illimitato da ambedue le parti.}
-    \label{fig:macchina-turing-riduzione}
 \end{figure}
 
 \clearpage
 
 
-\section{Macchina RAM per \emph{accettare} stringhe}
+\subsection{Macchina RAM per \emph{accettare} stringhe}
+
+Uno dei possibili utilizzi per una macchina di Turing (o più in generale, per
+una macchina Turing-equivalente) è quello di \emph{accettore} di stringhe: la
+macchina riceve in ingresso un simbolo, una \emph{stringa}; essa si dirà
+\emph{accettata} qualora la computazione risultante terminasse nello stato di
+\textsc{Accettazione}, altrimenti si dirà \emph{rifiutata} qualora la
+computazione terminasse invece in uno stato di \textsc{Rifiuto}. Si osservi
+che, in ogni caso, una macchina di Turing potrebbe ciclare all'infinito; in
+quel caso saremmo di fronte ad una divergenza.
 
 Nel modello RAM, per accettare una stringa è necessario operare una codifica.
 In particolare, la stringa viene codificata in un numero naturale e la macchina
 risponde con ``1'' o ``0'' a seconda che la stringa venga o meno accettata. Con
 la macchina di Turing, invece, si può far intervenire direttamente uno
 \emph{stato di accettazione} \textsc{Accettazione} $q_Y$ o uno \emph{stato di
-rifiuto} \textsc{Rifiuto} $q_N$. Un'altra possibilità è quella di semi-decidere
-riguardo l'accettazione di una stringa, cioè una macchina in grado di
-riconoscere la stringa in questione, ma di non poter rifiutare la stringa,
-poiché ci sarebbe un'infinita computazione, e dunque divergenza. Tipicamente,
-lo stato iniziale viene denotato con $q_0$, e potrebbero esserci degli stati
-ulteriori ``intermedi''. Un esempio di accettazione è dato dalla macchina
-illustrata in Figura~\ref{fig:mdtAccettazione1}. La macchina riconosce il
-linguaggio dato dalle stringhe con due ``zeri'' nelle ultime due posizioni a
-destra, in particolare tutte le stringhe che terminano con ``00''.
+rifiuto} \textsc{Rifiuto} $q_N$. La computazione terminerà qualora uno fra
+questi due stati venisse raggiunto dalla macchina \-- con conseguente
+accettazione o rifiuto della stringa a seconda dello stato finale. Un'altra
+possibilità è quella di accontentarci di \emph{semi-decidere} riguardo
+l'accettazione di una stringa, cioè di dotarsi di una macchina in grado di
+riconoscere sì la stringa in questione, ma di \emph{non poterla rifiutare},
+poiché in tal caso vi sarebbe un'infinita computazione, una divergenza. 
+
+Lo stato iniziale viene di solito denotato con $q_0$, e potrebbero esserci degli
+stati ulteriori ``intermedi'' fra quello iniziale e quelli terminanti. Un
+esempio di accettazione è dato dalla macchina illustrata in
+Figura~\ref{fig:mdtAccettazione1}. La macchina riconosce il linguaggio dato
+dalle stringhe con due ``zeri'' nelle ultime due posizioni a destra, in
+particolare essa riconosce tutte le stringhe che terminano con ``00''.
 
 \begin{figure}[b]
     \centering
@@ -324,7 +475,9 @@ nelle ultime due posizioni a destra, e suo funzionamento.}
     \label{fig:mdtAccettazione1}
 \end{figure}
 
-TODO aggiungi mdt definita a grafo
+\clearpage
+
+\subsection{Macchina di Turing definita a grafo}
 
 Una macchina di Turing può anche essere ``definita a grafo''. In questo modello
 di definizione, la macchina di Turing,
@@ -342,46 +495,86 @@ di definizione, la macchina di Turing,
 \end{itemize}
 
 Ciascun arco è della forma
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=.4\linewidth, height=\textheight, keepaspectratio]{./pics/mdtGrafo.png}
+    \label{fig:mdtGrago}
+\end{figure}
 
-TODO rifai
-\begin{verbatim}
-(i) ---(alpha, beta, gamma) ---> (j)
-\end{verbatim}
 
 dove $$\alpha \in \Sigma \cup \mathcal V \cup \{\Delta\}, \beta \in \Sigma \cup
 \mathcal V \cup \{\Delta\} \mbox{ e } \gamma \in \{L, R\}.$$ Dunque, siamo
 nello stato $i$; la macchina legge $\alpha$, scrive $\beta$ al posto di
 $\alpha$, e infine va a destra oppure a sinistra a seconda che il simbolo
-$\gamma$ sia pari ad $R$ o ad $L$.
+$\gamma$ sia pari ad $R$ o ad $L$. Una proprietà importante è che tutti gli
+archi che partono da un medesimo vertice devono avere $\alpha$ diversi.
 
-TODO aggiungi esempio lettura stringa speciale
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=.4\linewidth, height=\textheight, keepaspectratio]{./pics/mdtArchiDiversi.png}
+    \label{fig:mdtArchiDiversi}
+\end{figure}
 
-Tale problema espresso qui sopra (add figure) è molto noto nella teoria della
-computabilità, poiché è un tipico esempio di problema che è risolubile da una
-macchina di Turing, ma \textbf{non risolubile} mediante una macchina \emph{a
-stati finiti}. Le macchine a stati finiti, infatti, non presentano alcun tipo
-di \emph{memoria}, e dunque per questa particolare mancanza non sono in grado
-di risolvere il problema. La macchina di Turing, invece, è in grado di
-risolverlo in virtù della sua superiore potenza di computazione.
+Se così non fosse, si avrebbero più cammini possibili per uno stesso
+simbolo~\--~un'ipotesi che come vedremo in seguito sarà violata assumendo che
+una macchina di Turing possa non essere di tipo \emph{deterministico}.
+
+\begin{figure}[b]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/mdtLetturaStringaSpeciale.png}
+    \caption{Macchina di Turing in grado di riconoscere una stringa della forma
+    $a^nb^n | n\geq 0$.}
+    \label{fig:mdtLetturaStringaSpeciale}
+\end{figure}
+
+Si possono disegnare le macchine di Turing direttamente con i grafi. Il
+problema espresso in Figura~\ref{fig:mdtLetturaStringaSpeciale} è il problema
+del riconoscimento di una stringa avente forma $a^nb^n | n\geq 0$, ed è molto
+noto nella teoria della computabilità, poiché è un tipico esempio di problema
+che è risolubile da una macchina di Turing, ma \textbf{non risolubile} mediante
+una \emph{macchina a stati finiti}. Tali macchine, infatti, non presentano
+alcun tipo di \emph{memoria}, e dunque per questa particolare mancanza non sono
+in grado di risolvere il problema del riconoscimento. La macchina di Turing,
+invece, è in grado di risolverlo in virtù della sua superiore potenza di
+computazione.
+
+Un ulteriore esempio dell'applicazione della macchina di Turing a grafo è
+mostrato in Figura~\ref{fig:mdtConcatenazioneStringhe}, dove la macchina in
+questione è in grado di concatenare due stringhe a due lettere $a$ e $b$.
+
+\begin{figure}[b]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/mdtConcatenazioneStringhe.png}
+    \caption{Macchina di Turing in grado di concatenare due stringhe $w_1$ e $w_2$.}
+    \label{fig:mdtConcatenazioneStringhe}
+\end{figure}
+
 
 
 \chapter{Le macchine non deterministiche}
 
-Oltre alla macchina di Turing, sono possibili altre tipologie di macchine, con
-vari livelli di gerarchia fra potenze di calcolo. Il seguente elenco ne
-illustra alcune,
+\section{Gerarchie delle potenze di calcolo}
+
+Oltre alla macchina di Turing nelle sue varie versioni, sono possibili altre
+tipologie di macchine, con vari livelli di gerarchia fra potenze di calcolo. Il
+seguente elenco ne illustra alcune,
 
 \begin{itemize}
     \item macchine a \emph{stati finiti}: in questo caso, hanno $0$
         \emph{memorie push-down} \-- le macchine a stati finiti sono le meno
         potenti in assoluto dal punto di vista computazionale, e non sono in
-        grado di risolvere il problema TODO add figure del riconoscimento di
-        stringhe $a^n b^n$;
-    \item macchine a \emph{$1$ memoria push-down}: dotata di una memoria
-        push-down, ha una maggiore potenza di calcolo rispetto alla macchina a
-        stati finiti;
-    \item macchine a \emph{$2$ memorie push-down}: dotata di $2$ memorie
-        push-down, essa è equivalente alla macchina di Turing.
+        grado di risolvere il problema del riconoscimento di stringhe $a^n
+        b^n$, espresso in Figura~\ref{fig:mdtLetturaStringaSpeciale};
+    \item macchine a \emph{$1$ memoria push-down}: dotate di una memoria
+        push-down che implementa una pila FIFO (\emph{first in\----first out}),
+        hanno una maggiore potenza di calcolo rispetto alla macchina a stati
+        finiti;
+    \item macchine a \emph{$2$ memorie push-down}: dotate di $2$ memorie
+        push-down, esse sono equivalenti alla macchina di Turing.
+    \item macchine \emph{di Post}: sono uno speciale tipo di macchine a memorie
+        push-down, aventi una memoria di tipo LIFO (\emph{last in\----first
+        out}). Esse sono equivalenti alle macchine a $2$ memorie push-down e
+        alle macchine di Turing;
     \item una macchina con $3$ o più pile push-down non fornisce vantaggi dal
         livello della potenza computazionale, e sono tutte Turing-equivalenti
         \-- il vantaggio è semmai nella semplificazione di calcoli fornita
@@ -389,23 +582,7 @@ illustra alcune,
 \end{itemize}
 
 
-\section{Alcune definizioni sulle stringhe}
-
-Sia dato l'alfabeto $\Sigma^*$. Faremo uso di tre fondamentali funzioni
-definite su $\Sigma^*$:
-\begin{itemize}
-    \item l'operazione $testa(x)$, che fornisce la ``testa'' di una stringa,
-        ovverosia la lettera di estrema sinistra della parola $x$;
-    \item l'operazione $coda(x)$, la quale invece fornisce la ``coda'' di una
-        stringa, o la stringa privata della sua testa $x$;
-    \item l'operazione $\sigma \cdot x$, che \emph{concatena} la lettera
-        $\sigma$ e la parola $x$, per formare un'unica parola nuova.
-\end{itemize}
-
-
-\section{Gerarchie delle potenze di calcolo}
-
-La gerarchia delle potenze di calcolo è la seguente, dall'alto verso il basso:
+Perciò, la gerarchia delle potenze di calcolo è la seguente, dall'alto verso il basso:
 \begin{enumerate}
     \item Macchine non deterministiche di Turing, con due memorie
         push-down~\----~Macchine di Turing, Modello RAM, Macchine di Post,
@@ -426,9 +603,33 @@ entrambe le possibilità \-- dunque, è più potente.};
         macchine finite senza memorie push-down \---- automi finiti.
 \end{enumerate}
 
+
+\subsection{Alcune definizioni sulle stringhe}
+
+Sia dato l'alfabeto $\Sigma^*$. Faremo uso di tre fondamentali funzioni
+definite su $\Sigma^*$:
+\begin{itemize}
+    \item l'operazione $testa(x)$, che fornisce la ``testa'' di una stringa,
+        ovverosia la lettera di estrema sinistra della parola $x$;
+    \item l'operazione $coda(x)$, la quale invece fornisce la ``coda'' di una
+        stringa, o la stringa privata della sua testa $x$;
+    \item l'operazione $\sigma \cdot x$, che \emph{concatena} la lettera
+        $\sigma$ e la parola $x$, per formare un'unica parola nuova.
+\end{itemize}
+
+
 \section{La macchina di Turing non deterministica}
 
-La macchina di Turing effettiva è di tipo \emph{deterministico}. Il \emph{non determinismo} viene introdotto per due ragioni:
+La macchina di Turing effettiva è di tipo \emph{deterministico}. Nella
+fattispecie, una macchina deterministica definita a grafo vede ciascun arco che
+parte dallo stesso vertice avere \emph{simboli diversi}. Se ciò non fosse vero,
+leggendo un unico simbolo $\alpha_i$ e trovandosi nello stato $q_j$ la macchina
+di Turing non potrebbe ``scegliere'' il percorso, poiché ne esisterebbe più di
+uno. Viceversa, una macchina \emph{non deterministica} rompe questa assunzione,
+e permette alla macchina di compiere una scelta, sia essa arbitraria o del
+tutto casuale, riguardo quale percorso seguire fra i vari disponibili. 
+
+Il \emph{non determinismo} viene introdotto per due ragioni:
 \begin{itemize}
     \item si desidera osservare se una macchina di Turing non deterministica
         sia o meno più \emph{potente} di una macchina di Turing deterministica;
@@ -436,42 +637,48 @@ La macchina di Turing effettiva è di tipo \emph{deterministico}. Il \emph{non d
         computazione (ad esempio, computazione parallela).
 \end{itemize}
 
-Una \emph{macchina di Turing non deterministica} può avere nel suo diagramma di flusso dei \emph{nodi di decisione} del tipo seguente, TODO add figure
+Una \emph{macchina di Turing non deterministica} può avere nel suo diagramma di
+flusso dei \emph{nodi di decisione} dove a fronte di un medesimo simbolo vi
+sono \emph{più archi possibili} \-- il non determinismo viene dunque introdotto
+da questo fenomeno: una macchina di Turing non deterministica può scegliere il
+suo percorso con una legge non deterministica, ma semmai dettata dal caso o da
+una \emph{scelta arbitraria}. 
 
-ovverosia dei nodi dove a fronte di un medesimo simbolo vi sono \emph{più archi
-possibili} \-- il non determinismo viene dunque introdotto da questo fenomeno:
-una macchina di Turing non deterministica può scegliere il suo percorso con una
-legge non deterministica, ma semmai dettata dal caso o da una \emph{scelta
-arbitraria}. Una macchina non deterministica accetta l'idea che vi siano più
-possibilità di sviluppo di una computazione a fronte di un medesimo simbolo
-identificato sul nastro e stato; sono dunque possibili diversi percorsi di
-computazione. Questo tipo di macchina, ad esempio, potrebbe concepire il
-\emph{parallelismo} nella computazione, nel senso che più possibilità e
-percorsi nel calcolo sono possibili. Questa potenzialità, apparentemente
-migliorativa, \textbf{non aumenta} la potenza di calcolo della macchina di
-Turing. Una macchina di Turing deterministica può, infatti, simulare una
-macchina non deterministica, è sufficiente compiere una ricerca per ogni
-diramazione dell'albero dei nodi \-- con un aumento esponenziale del numero di
-operazioni da effettuare, ma pur sempre realizzabile e computabile da una
-macchina di Turing. Una macchina non deterministica ha dunque il potenziale
-vantaggio di poter risolvere problemi in \emph{tempo lineare} che dalla
-macchinia deterministica sarebbero risolti in in tempo esponenziale.
+Una macchina non deterministica accetta l'idea che vi siano più possibilità di
+sviluppo di una computazione a fronte di un medesimo simbolo identificato sul
+nastro e associato ad un determinato stato; sono dunque possibili diversi
+percorsi di computazione. Questo tipo di macchina, ad esempio, potrebbe
+concepire il \emph{parallelismo} nella computazione, nel senso che più
+possibilità e percorsi nel calcolo sono possibili. Questa potenzialità,
+apparentemente di gran lunga migliorativa, \textbf{non aumenta} la potenza di
+calcolo della macchina di Turing. Una macchina di Turing deterministica può,
+infatti, simulare una macchina non deterministica: è sufficiente compiere una
+ricerca per ogni diramazione dell'albero dei nodi, con un aumento
+esponenziale\footnote{L'aumento esponenziale è dovuto al fatto che, ad ogni
+diramazione effettuata da una macchina di Turing non deterministica, la
+relativa macchina deterministica dovrà (almeno) sdoppiarsi su $2$ percorsi.}
+del numero di operazioni da effettuare, ma pur sempre un'operazione
+realizzabile e computabile da una macchina di Turing. Una macchina non
+deterministica ha dunque il potenziale vantaggio di poter risolvere problemi in
+\emph{tempo lineare} che dalla macchinia deterministica sarebbero risolti in in
+tempo esponenziale.
 
-In questo caso, il parallelismo è insito nella macchina non deterministica, e
-la stringa si considera \emph{accettata} qualora uno qualunque fra i percorsi
-possibili incappa nello stato di \textsc{Accettazione}. Una parola $w \in
-\Sigma^*$ si dice \emph{accettata} da una macchina di Turing non deterministica se
-esiste una computazione della macchina $M$ che cominci con entrata $x=w$, e che
+In questo caso, il parallelismo è insito nella macchina non deterministica;
+supponendo di voler risolvere un problema di accettazione, la stringa si
+considera \emph{accettata} qualora uno qualunque fra i percorsi possibili
+incappa nello stato di \textsc{Accettazione}. Una parola $w \in \Sigma^*$ si
+dice \emph{accettata} da una macchina di Turing non deterministica se esiste
+una computazione della macchina $M$ che cominci con entrata $x=w$, e che
 termini ad un arresto con lo stato di \textsc{Accettazione}. Se $w$ non viene
 accettata e lo stato di arresto è quello del \textsc{Rifiuto}, allora si dice
-che $w$ è \emph{rifiutata}. In alternativa, siamo di fronte ad un ciclo $w \in
-ciclo(M)$.
+che $w$ è \emph{rifiutata}. In alternativa, siamo di fronte ad un ciclo
+infinito $w \in ciclo(M)$, cioè dinanzi ad una divergenza.
 
-In altre parole, possiamo pensare ad una macchina di Turing non deterministica
+Possiamo quindi pensare ad una macchina di Turing non deterministica
 come ad un macchina avente per ogni cella, nella matrice di transizione, un
 \emph{insieme} $\delta(q,s)$ di triple $q_i, s_i, \alpha_i$, dove $\alpha_i \in
 \{L,R\}$ e ad ogni elemento dell'insieme corrisponde una possibile scelta da
-compiere arbitrariamente o casualmente, e dunque da lì è ottenuto il non
+compiere arbitrariamente o casualmente; dunque da lì è ottenuto il non
 determinismo della macchina. Ogni possibile scelta genererà un diverso ramo
 nell'albero della computazione \-- per l'accettazione di un simbolo è
 sufficiente che uno \emph{qualsiasi} fra i rami di computazione termini nello
@@ -513,12 +720,25 @@ $$O(T_M(n)b^{T_M(n)}) = 2^{O(T_M(n))},$$ mentre per una macchina a nastro
 singolo $$(2^{O(T_M(n))})^2 = 2^{O(2T_M(n))} = 2^{O(T_M(n))},$$ dunque l'ordine
 è lo stesso.
 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/ndtmEsempio.png}
+    \caption{Esempio di computazione ``in parallelo'' effettuata dalla macchina
+    non deterministica (a destra), e simulazione da parte della macchina
+deterministica (a sinistra).}
+    \label{fig:ndtmEsempio}
+\end{figure}
+
 In altre parole, una macchina non deterministica è in grado di ``evocare'' un
 numero esponenziale ed arbitrariamente elevato di macchine di Turing
 deterministiche \-- tale funzionalità però è irrealizzabile, poiché
 corrisponderebbe a dotare la propria macchina di un numero arbitrario di unità
 di calcolo, ciascuna per ogni possibile passo della computazione, per farle
-lavorare in parallelo.
+lavorare in parallelo. Se ciò fosse invece possibile nel mondo materiale,
+potremmo effettivamente risolvere problemi difficilmente trattabili in tempo
+polinomiale, rendendoli di fatto trattabili.
+
 
 
 \chapter{Le reti neuronali di Hopfield}
@@ -540,7 +760,7 @@ locali.
 
 Dal punto di vista strettamente logico, il paradigma di computazione a reti
 neuronali è l'unico paradigma radicalmente differente da quello procedurale,
-mentre il paradigma \emph{a DNA}\footnote{Trattasi di un paradigma di calcolo
+mentre il paradigma \emph{a DNA}\footnote{TEST FIXME TODO Trattasi di un paradigma di calcolo
 dove si va a cercare lo spazio delle soluzioni, e si eleggono quelle più
 ``performanti'' \---- talune soluzioni saranno la base dalla quale saranno
 definite le successive soluzioni, convergendo dunque alla soluzione. La potenza
@@ -556,19 +776,21 @@ configurazione del sistema esterno, e il perceptron è in grado di fornire in
 output una risposta che consente di riconoscere tale configurazione o pattern
 in base a come essa sia stata configurata e ai suoi parametri. Il secondo
 filone, invece, è quello della \emph{rete di Hopfield}; tale filone sarebbe in
-grado, in linea di principio, di \textbf{risolvere problemi}. Mediante una
-rete di Hopfield è possibile risolvere il \emph{travelling salesman problem},
-un problema presumibilmente intrattabile\footnote{``Presumibilmente'' si
-riferisce al fatto che, fino ad ora, nessuno è riuscito a dimostrare né che
-tale problema può essere risolto in tempo polinomiale, né che non può esserlo}.
+grado, in linea di principio, di \textbf{risolvere problemi} di natura
+matematica. Mediante una rete di Hopfield è possibile risolvere ad esempio il
+\emph{travelling salesman problem}, un problema presumibilmente
+intrattabile\footnote{``Presumibilmente'' si riferisce al fatto che, fino ad
+ora, nessuno è riuscito a dimostrare né che tale problema può essere risolto in
+tempo polinomiale, né che non può esserlo.}.
 
 Le reti neuronali hanno avuto grande successo in $3$ periodi storici:
 \begin{itemize}
     \item all'inizio degli anni $40$ \-- nel $1948$ fu fornito il primo modello
         di neurone e rete neuronale. L'idea fu quella di avvalersi di una
         macchina fisica per simulare il comportamento dei neuroni naturali,
-        presenti nel nostro cervello. All'epoca uscirono anche articoli su
-        memorie a breve e lungo termine adoperando reti neuronali;
+        presenti nel nostro cervello
+        (Figura~\ref{fig:retiHopfieldNeuroneParagone}. All'epoca uscirono anche
+        articoli su memorie a breve e lungo termine adoperando reti neuronali;
     \item durante gli anni $80$ \-- nei primi anni $80$, Hopfield individuò un
         modello di reti neuronali che associava le reti neuronali ad un
         particolare modello matematico; qualità che prima era assente. Si
@@ -597,6 +819,15 @@ Le reti neuronali hanno avuto grande successo in $3$ periodi storici:
         rispetto al passato per produrre risultati in tempo apprezzabile.
 \end{itemize}
 
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/retiHopfieldNeuroneParagone.png}
+    \caption{Paragone fra neurone naturale e neurone di Hopfield.}
+    \label{fig:retiHopfieldNeuroneParagone}
+\end{figure}
+
+
+
 \section{Il neurone reale ed il neurone simulato}
 
 Una macchina di Hopfield simula un neurone reale. Vi sono all'incirca $10^{11}$
@@ -610,7 +841,6 @@ sviluppano nell'ambito dei \emph{segnali continui} (benché vi siano degli
 manifestando dunque un comportamento del tutto discreto da questo punto di
 vista.
 
-TODO aggiungi figure neuroni, hopfield, e tutto il resto
 
 
 
