@@ -59,8 +59,8 @@
 \usepackage{titlesec}
 \titleformat{\part}[display]
 {\Huge\bfseries}{}{10pt}{\center{ Parte \thepart\ \ \\ \ \ }}
-\titleformat{\chapter}[display]
-{\huge\bfseries}{}{0pt}{\thechapter\ \ \--\ \ }
+%\titleformat{\chapter}[display]
+%{\huge\bfseries}{}{0pt}{\thechapter\ \ \--\ \ }
 \titleformat{\section}[display]
 {\Large\bfseries}{}{0pt}{\medskip\thesection\ \ \--\ \ }
 \titleformat{\subsection}[display]
@@ -601,7 +601,8 @@ Perciò, la gerarchia delle potenze di calcolo è la seguente, dall'alto verso i
     gestire la situazione data dall'incapacità di riconoscere il punto di
 rottura $ww^R$, cioè il punto in cui finisce $w$ ed inizia $w^R$. Con il non
 determinismo, ogniqualvolta si arriva al nodo di decisione si tengono valide
-entrambe le possibilità \-- dunque, è più potente.};
+entrambe le possibilità \-- dunque, è più potente della macchina ad una memoria
+push-down, ma deterministica.};
     \item macchine finite con una memoria push-down, riconoscono $\{a^n
         b^n|n\geq 0\}$;
     \item Macchine finite non deterministiche senza memorie push-down \----
@@ -653,12 +654,13 @@ Una macchina non deterministica accetta l'idea che vi siano più possibilità di
 sviluppo di una computazione a fronte di un medesimo simbolo identificato sul
 nastro e associato ad un determinato stato; sono dunque possibili diversi
 percorsi di computazione. Questo tipo di macchina, ad esempio, potrebbe
-concepire il \emph{parallelismo} nella computazione, nel senso che più
-possibilità e percorsi nel calcolo sono possibili. Questa potenzialità,
-apparentemente di gran lunga migliorativa, \textbf{non aumenta} la potenza di
-calcolo della macchina di Turing. Una macchina di Turing deterministica può,
-infatti, simulare una macchina non deterministica: è sufficiente compiere una
-ricerca per ogni diramazione dell'albero dei nodi, con un aumento
+percorrere \emph{tutti i percorsi simultaneamente}, concependo il
+\textbf{parallelismo} nella computazione, nel senso che più possibilità e
+percorsi nel calcolo sono possibili. Questa potenzialità, apparentemente di
+gran lunga migliorativa, \textbf{non aumenta} la potenza di calcolo della
+macchina di Turing. Una macchina di Turing deterministica può, infatti,
+simulare una macchina non deterministica: è sufficiente compiere una ricerca
+per ogni diramazione dell'albero dei nodi, con un aumento
 esponenziale\footnote{L'aumento esponenziale è dovuto al fatto che, ad ogni
 diramazione effettuata da una macchina di Turing non deterministica, la
 relativa macchina deterministica dovrà (almeno) sdoppiarsi su $2$ percorsi.}
@@ -748,20 +750,26 @@ polinomiale, rendendoli di fatto trattabili.
 
 \chapter{Le reti neuronali di Hopfield}
 
-Le \emph{reti neuronali} incarnano un diverso paradigma rispetto a quello della
-computazione procedurale. Storicamente, esse prendono spunto dalla natura, in
-particolare dal concetto di \emph{neurone}, inteso come singola unità di
-calcolo, dotata di input, di output e di una \emph{funzione caratteristica}.
-Diversamente dall'idea della computazione procedurale, dove la
-\emph{complessità} è definita tramite la complessità di tipo computazionale (o
-temporale), le reti neuronali esprimono la loro complessità attraverso la
-\textbf{complessità strutturale}, o \textbf{complessità circuitale}. La
-computazione è di tipo \emph{collettivo}, ed emerge come proprietà
-dell'\emph{evoluzione dinamica} della rete. Ogni decisore locale, detto
-\emph{neurone}, non ha visibilità della computazione globale, e svolge il
-proprio compito localmente \---- ogni decisore locale concorre alla soluzione
-globale in modo sfumato: la rete è \textbf{robusta} rispetto a malfunzionamenti
-locali.
+Le \emph{reti neuronali} incarnano un diverso paradigma di computazione
+rispetto a quello della computazione procedurale algoritmica. Storicamente esse
+prendono spunto dalla natura, in particolare dal concetto di \emph{neurone},
+inteso come singola unità di calcolo, dotata di input, di output e di una
+\emph{funzione caratteristica}. Diversamente dall'idea della computazione
+procedurale, dove la \emph{complessità} è definita tramite la complessità di
+tipo computazionale (o temporale), le reti neuronali esprimono la loro
+complessità attraverso la \textbf{complessità strutturale}, o
+\textbf{complessità circuitale}. In altre parole, per risolvere un problema
+l'idea è quella di aumentare la complessità di tipo circuitale della rete, ad
+esempio aggiungendo neuroni, facendo variare le conduttanze, adoperando diverse
+funzioni di attivazione. La computazione è di tipo \emph{collettivo}, ed emerge
+come proprietà dell'\emph{evoluzione dinamica} della rete. Ogni decisore
+locale, detto \emph{neurone}, non ha visibilità della computazione globale, e
+svolge il proprio compito localmente \---- ogni decisore locale concorre alla
+soluzione globale in modo sfumato, con il proprio valore in stato alto o basso:
+la rete è \textbf{robusta} rispetto a malfunzionamenti locali, poiché ciascun
+neurone singolo non è critico e non può pregiudicare l'intera rete da solo.
+Spesso è addirittura possibile eliminare qualche neurone senza che la rete ne
+risenta in maniera rilevante.
 
 Dal punto di vista strettamente logico, il paradigma di computazione a reti
 neuronali è l'unico paradigma radicalmente differente da quello procedurale,
@@ -779,14 +787,39 @@ Esistono due filoni di reti neuronali; il primo associato ai
 e configurazioni. Le variabili di ingresso rappresentano un ente, una
 configurazione del sistema esterno, e il perceptron è in grado di fornire in
 output una risposta che consente di riconoscere tale configurazione o pattern
-in base a come essa sia stata configurata e ai suoi parametri. Il secondo
-filone, invece, è quello della \emph{rete di Hopfield}; tale filone sarebbe in
-grado, in linea di principio, di \textbf{risolvere problemi} di natura
-matematica. Mediante una rete di Hopfield è possibile risolvere ad esempio il
-\emph{travelling salesman problem}, un problema presumibilmente
+in base a come essa sia stata configurata e ai suoi parametri. I
+cosiddetti \emph{multilayer perceptron} sono particolari casi di perceptron,
+aventi i neuroni organizzati in \emph{layer}. Vi sono due layer ``principali''
+di input e di output, e dei layer ``nascosti'' (in gergo \emph{hidden layer})
+dove avvengono ulteriori passaggi intermedi. Tipicamente, i layer sono
+costituiti da neuroni aventi particolari \emph{funzioni di attivazione}. Le
+funzioni di attivazione sono ciò che determina il comportamento dei singoli
+neuroni \-- in particolare, esse determinano la maniera in cui un neurone debba
+attivarsi o rimanere nello stato di quiete. I perceptron hanno la
+caratteristica fondamentale di essere \emph{feed-forward}, cioè di avere una
+\emph{direzionalità} nella rete: i neuroni non possono essere connessi in
+cicli, cioè il corrispondente grafo è aciclico. L'infrastruttura dei perceptron
+ha un comportamento di tipo euristico, cioè non esiste alcun modello di
+computazione associato alla struttura, non vi sono teoremi e, di fatto, manca
+un apparato matematico. Per modellare un perceptron, solitamente, si adottano
+tecniche euristiche di \emph{machine learning}, con apprendimenti automatici.
+
+Il secondo filone, invece, è quello della \emph{rete di Hopfield}; tale filone
+sarebbe in grado, in linea di principio, di \textbf{risolvere problemi} di
+natura matematica. Mediante una rete di Hopfield è possibile risolvere ad
+esempio il \emph{travelling salesman problem}, un problema presumibilmente
 intrattabile\footnote{``Presumibilmente'' si riferisce al fatto che, fino ad
 ora, nessuno è riuscito a dimostrare né che tale problema può essere risolto in
-tempo polinomiale, né che non può esserlo.}.
+tempo polinomiale, né che non può esserlo.}. Le reti di Hopfield, diversamente
+dai perceptron, possono essere modellate con grafi ciclici, dunque esistono
+percorsi ciclici fra neuroni.
+
+Ambedue i modelli, tuttavia, non possono essere considerati dei veri e propri
+modelli alternativi a quello della macchina di Turing, in primis per l'assenza
+dell'apparato matematico, e in secondo luogo poiché è stato dimostrato che
+nella sostanza e sotto opportune ipotesi una rete neurale ha la stessa potenza
+di calcolo del modello RAM. Le reti neurali quindi, non sono un modello di
+computazione alternativo, semmai sono un \emph{paradigma} differente.
 
 Le reti neuronali hanno avuto grande successo in $3$ periodi storici:
 \begin{itemize}
@@ -817,17 +850,25 @@ Le reti neuronali hanno avuto grande successo in $3$ periodi storici:
         polinomiale problemi che non sono risolubili in tale maniera già dalla
         macchina di Turing \-- vi è dunque l'\emph{equivalenza} fra le due
         macchine. Le reti di Hopfield caddero pertanto ben presto in disuso;
-    \item il terzo ed ultimo periodo d'oro delle reti neuronali è al giorno
+    \item il terzo ed ultimo periodo d'oro delle reti neuronali è il giorno
         d'oggi, dove la potenza di calcolo superiore delle macchine moderne
-        apre la strada ad un uso maggiormente ampio delle reti neuronali, che
-        si avvalgono della pura potenza computazionale di gran lunga maggiore
-        rispetto al passato per produrre risultati in tempo apprezzabile.
+        apre la strada ad un ampio uso delle reti neuronali in applicazioni
+        concrete, che si avvalgono della pura potenza computazionale di gran
+        lunga maggiore rispetto al passato per produrre risultati in tempo
+        apprezzabile.
 \end{itemize}
 
 \begin{figure}[h]
     \centering
     \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/retiHopfieldNeuroneParagone.png}
-    \caption{Paragone fra neurone naturale e neurone di Hopfield.}
+    \caption{Paragone fra neurone naturale e neurone di Hopfield. Si osservino
+    innanzitutto le somiglianze fra le due strutture. La somiglianza principale
+è il fatto che anche i neuroni naturali presentano vari input e vari output,
+collegati con diversi altri neuroni. Tipicamente, anche un neurone naturale
+presenta una vera e propria funzione di attivazione, che ne determina il
+comportamento ``a soglia''. La stimolazione del neurone naturale è stimolata da
+segnali continui, sebbene il \emph{firing} (eccitazione del neurone) avvenga in
+maniera discreta.}
     \label{fig:retiHopfieldNeuroneParagone}
 \end{figure}
 
@@ -836,16 +877,402 @@ Le reti neuronali hanno avuto grande successo in $3$ periodi storici:
 \section{Il neurone reale ed il neurone simulato}
 
 Una macchina di Hopfield simula un neurone reale. Vi sono all'incirca $10^{11}$
-neuroni (dieci miliardi) nel cervello, i quali formano una rete neuronale di
-una complessità disarmante. Il cervello è in grado di svolgere una quantità di
-compiti enorme, in modo efficiente \-- il cervello dunque è la struttura più
-complessa che esista nell'universo noto. I segnali elettrici nel cervello si
-sviluppano nell'ambito dei \emph{segnali continui} (benché vi siano degli
-\emph{spike}), tuttavia il suo funzionamento si svolge nell'ambito dei
-\emph{segnali discreti}; un neurone si ``eccita'' o si ``rilassa'',
-manifestando dunque un comportamento del tutto discreto da questo punto di
-vista.
+neuroni (cento miliardi) nel cervello, i quali formano una rete neuronale di
+una complessità strabiliante. Il cervello è in grado di svolgere una quantità di
+compiti enorme, in modo molto efficiente \-- il cervello è infatti la struttura più
+complessa che esista nell'universo noto, non paragonabile ad alcun altro tipo
+di struttura, sia essa già esistente in natura o creata artificialmente. I
+segnali elettrici nel cervello si sviluppano nell'ambito dei \emph{segnali
+continui}, tuttavia il funzionamento di un neurone si svolge, in realtà, 
+propriamente nell'ambito dei \emph{segnali discreti}. Vi sono infatti i
+cosiddetti \emph{spike}: un neurone si ``eccita'' o si ``rilassa'',
+manifestando dunque un comportamento discreto secondo questo punto di vista,
+anche se il sottostante segnale è, di fatto, un segnale elettrochimico di
+natura continua.
 
+\section{La rete discreta di Hopfield}
+
+La rete discreta di Hopfield è composta da singoli neuroni, modellati tramite
+le tensioni elettriche. Ciascun $i$-esimo neurone ha la forma illustrata in
+Figura~\ref{fig:retiHopfieldNeuroneParagone}: esso è dotato di $n$ ingressi
+$V_j$ collegati ad altri neuroni, delle ``conduttanze'' dal valore $T_{i,j}$
+che simulano i contatti fra neuroni\footnote{Il valore di tali conduttanze
+\emph{varia} in funzione del tempo, in particolare in base a quanto
+frequentemente il neurone viene sollecitato \-- questo modello artificiale è
+basato su quello reale, dove i dendriti variano a seconda della frequenza con
+cui il neurone viene sollecitato.}; ciascuno degli ingressi si sommerà e la
+somma verrà valutata dalla \emph{funzione di attivazione}, collocata nella
+parte centrale. Il neurone di Hopfield è un dispositivo dal comportamento
+\emph{a soglia} (sigmoide): la funzione di attivazione pesa la somma degli
+ingressi, producendo un output $V_{i}$ \textbf{pressoché discreto} da dirigere
+agli ingressi di altri neuroni. Nel caso discreto, la soglia si dice essere
+\emph{rigida}: stabilita la soglia $U_i$ del neurone, avremo due possibilità,
+\begin{itemize}
+    \item o $V_{i} = 1$ se $\sum_{j\neq i} T_{ij} V_j > U_i$;
+    \item oppure $V_{i} = 0$ se $\sum_{j\neq i} T_{ij} V_j < U_i$;
+\end{itemize}
+
+cioè la soglia determina il comportamento che l'uscita del neurone presenta a
+seconda dei valori dell'ingresso (o più precisamente, a seconda di quanto vale
+la loro somma pesata dalle conduttanze $T_{ij}$).
+
+In un certo senso quindi, si può affermare che un neurone di Hopfield si
+comporta ``discretamente'', nel senso che il suo valore di uscita può assumere
+valori o prossimi allo $0$, o prossimi all'$1$, con possibili valori intermedi
+dipendenti esclusivamente dalla forma che la funzione di attivazione presenta
+(si assume che essa difficilmente possa avere la forma di un perfetto gradino,
+e che esistano porzioni di essa in cui il valore è compreso fra $0$ ed $1$ con
+valori continui. Ciononostante, è sufficiente interpretare il segnale continuo
+in senso discreto, cioè valutando con un'opportuna soglia il valore dell'output
+di un neurone, un po' come avviene nei circuiti digitali). Nella fattispecie,
+consideriamo un comportamento a soglia di tipo ideale, cioè nel quale la
+funzione di attivazione è un gradino ideale.
+
+Per quanto concerne le reti di Hopfield, è importante fare due osservazioni. La
+prima è che se $V_i = 1$, in ogni caso (sia che fosse già in $1$ o che fosse in
+$0$) si ha che $\Delta V_i \geq 0$. Viceversa, se $V_i = 0$, in ogni caso si
+avrà che $\Delta V_i \leq 0$: questa cruciale osservazione ci permette di
+stabilire che
+
+$$\Delta E = -\Delta V_i (\sum_{j \neq i} T_{ij}V_j - U_i) \leq 0,$$ cioè la
+variazione di energia, ovvero la potenza, \emph{è sempre minore di zero}. La
+\textbf{variazione dell'energia della rete}, dunque, \textbf{è sempre
+negativa}. Questo fatto è di fondamentale interesse, poiché ci definisce la
+maniera in cui la rete tende ad evolversi, riducendo ad ogni passo la quantità
+di energia totale.
+
+La seconda importante osservazione è che nel caso in cui si assuma una
+simmetria della rete (cioè quando il neurome $i$-esimo incide sul neurone
+$j$-esimo tanto quanto il neurone $j$-esimo incide su quello $i$-esimo),
+l'energia $E_i$ del neurone $i$-esimo sarà pari a
+
+$$E_i = -V_i(\sum_{j\neq i} T_{ij}V_{j} - U_i),$$ e sotto ipotesi $T_{ij} =
+T_{ji}$, si ha infine che l'\textbf{energia della rete di Hopfield} $E$ è pari
+a
+
+\begin{equation}
+    E = -\frac{1}{2} \sum_{ij, j\neq i} T_{ij}V_i V_j + \sum_{i} V_i U_i,
+\end{equation}
+
+un termine corrispondente ad una \emph{forma quadratica}.
+
+Dunque, per come è stata impostata la rete e per le due osservazioni effettuate
+sopra, l'energia della rete decresce sempre: tenendo conto di tale risultato
+fondamentale, si può costruire una rete di Hopfield.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.1\linewidth, height=\textheight, keepaspectratio]{./pics/reteHopfieldBase.png}
+    \caption{Rete di Hopfield costituita da $3$ neuroni, collegati ad anello.
+    Ciascun neurone è collegato ad ogni altro mediante una particolare
+conduttanza $T_{ij}$, che soddisfa la relazione di simmetria $T_{ij} = T_{ji}$.
+Si osserva, sulla destra, l'evoluzione probabilistica della rete, con
+decremento dell'energia. Non sono ammessi incrementi energetici.}
+    \label{fig:reteHopfieldBase}
+\end{figure}
+
+I neuroni possono, almeno secondo una particolare configurazione iniziale, non
+presentare un valore dell'uscita adeguato ai valori presenti all'ingresso. In
+ogni istante discreto, ciascun neurone ha la medesima probabilità di essere
+eccitato (firing), cioè si può verificare la compatibilità del suo valore di
+uscita sulla base della somma pesata degli ingressi. Potrebbe darsi che la
+somma degli ingressi sia maggiore della soglia $U_i$, ma che il valore d'uscita
+sia basso, o viceversa che la somma degli ingressi presenti un valore basso, con uscita alta \-- in tal caso, avremo che il neurone \emph{non è soddisfatto}, cioè
+è in una condizione di disagio. Esso vorrebbe vedere la propria coerenza
+soddisfatta: tanto più i neuroni di una rete di Hopfield sono soddisfatti,
+tanto minore sarà l'energia associata allo stato che produrrà tale
+soddisfacimento. 
+
+Il modello che Hopfield suggerisce per superare tale
+difficoltà è quello di \emph{verificare}, neurone per neurone, la coerenza fra i
+valori ai suoi ingressi e il suo valore d'uscita, con una verifica che avviene
+in tempo discreto. Qualora non ci fosse coerenza, il neurone andrà modificato,
+ottenendo un nuovo stato della rete. In ogni caso, il fenomeno a cui si assiste
+è quello per cui ad ogni variazione l'energia della rete cala complessivamente.
+Il procedimento di verifica proposto da Hopfield è del tutto aleatorio, e consiste
+nell'aggiustamento progressivo dei pesi, calando di volta in volta di energia. Secondo la legge dei grandi numeri, la rete si evolverà percorrendo i vari passi, fino a terminare in una configurazione a minima energia: la configurazione di \emph{minimo locale} dell'energia della rete.
+Una volta raggiunta la configurazione di minimo locale dell'energia, non
+si può più uscire dalla configurazione. Il minimo dell'energia della rete,
+dunque, dovrà corrispondere in qualche maniera alla soluzione cercata. 
+
+Risolvere un problema con una rete di Hopfield, dunque, necessita di un passo
+iniziale di \emph{codifica}, cioè che il procedimento di minimazione
+dell'energia della rete, cioè la minimazione di una forma quadratica, abbia un
+corrispettivo con la soluzione del problema desiderato. In linea di principio,
+avendo a disposizione una valida codifica, è possibile risolvere il problema
+semplicemente minimizzando l'energia della rete corrispondente, con il
+procedimento di verifica in tempi discreti visibile in
+Figura~\ref{fig:reteHopfieldBase}.
+
+\subsection{Gli stati stabili}
+
+Specialmente per le macchina a topologia più complessa, possono esistere
+configurazioni di minimo locale dell'energia della rete che però non sono
+configurazioni di \emph{minimo globale}.
+
+A volte potrebbe risultare comodo imporre la stabilità di uno stato, per
+esempio per l'applicazione delle reti al concetto di \emph{memoria
+indirizzabile}. Per fare ciò, si impongono delle equazioni alla rete, di modo
+da eleggere determinati neuroni della rete come stabili. Un esempio di ciò è
+mostrato in Figura~\ref{fig:reteHopfieldWellState}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.2\linewidth, height=\textheight, keepaspectratio]{./pics/reteHopfieldWellState.png}
+    \caption{Reti di Hopfield, dove i neuroni al livello di energia più basso
+    sono eletti \emph{stati stabili}.}
+    \label{fig:reteHopfieldWellState}
+\end{figure}
+
+
+
+Tipicamente, per reti aventi $n$ neuroni è possibile eleggere $\log (n)$ stati
+come stabili, esibendo dunque una crescita di tipo logaritmico.
+
+Se si vuole imporre uno stato stabile, è necessario determinarlo con l'opportuna equazione. Supponiamo di voler imporre lo stato stabile $V_1 = 0$; per fare ciò, bisogna imporre $$T_{12} V_2 + T_{13} V_3 - U_1 < 0,$$ relativo al sistema di equazioni 
+
+
+$$
+\left\{
+    \begin{array}{l}
+    T_{12} - U_1 < 0 \\
+    U_2 < 0 \\
+    T_{23} - U_3 < 0
+    \end{array}
+\right.,
+$$
+
+che corrisponde all'imposizione dello stato stabile A in
+Figura~\ref{fig:reteHopfieldWellState}. Sempre facendo riferimento alla stessa
+rete, imporre lo stato stabile B significherebbe vedere soddisfatto il sistema
+di equazioni
+
+$$
+\left\{
+    \begin{array}{l}
+        T_{12} + T_{13} - U_1 < 0 \\
+        T_{12} + T_{23} - U_2 > 0 \\
+        T_{23} + T_{13} - U_3 > 0 \\
+    \end{array}
+\right. .
+$$
+
+Infatti, avendo definito le quantità nella seguente maniera,
+
+$$
+\begin{array}{ll}
+    T_{12} = T_{21} = 0,5 & U_1 = +0,7\\
+    T_{13} = T_{31} = 0,4 & U_1 = -0,2\\
+    T_{23} = T_{32} = 0,1 & U_1 = +0,4
+\end{array}
+$$
+
+si ha che, per l'equazione di stato A (a sinistra), e l'equazione di stato B (a
+destra)
+
+$$
+\left\{
+    \begin{array}{llllll}
+        0,5 - 0,7 < 0 & \leftrightarrow & \mbox{ Sì } & 0,5 + 0,4 - 0,7 > 0 & \leftrightarrow & \mbox{ Sì } \\
+        -0,2  < 0 & \leftrightarrow & \mbox{ Sì } & 0,5 + 0,1 + 0,2 > 0 & \leftrightarrow & \mbox{ Sì } \\
+        -0,1 - 0,4 < 0 & \leftrightarrow & \mbox{ Sì } & 0,1 + 0,4 - 0,4 > 0 & \leftrightarrow & \mbox{ Sì }
+    \end{array}
+\right.
+$$
+
+ed ambedue gli stati sono, di conseguenza, soddisfatti. In
+Figura~\ref{fig:reteHopfieldWellState} essi corrispondono agli stati stabili
+$010$ e $111$.
+
+\subsection{La macchina di Boltzmann}
+
+Può capitare che per una data rete di Hopfield vi siano alcuni minimi locali,
+detti anche \emph{falsi minimi}; come ad esempio mostrato in
+Figura~\ref{fig:retiMinimiLocali}; la soluzione corrispondente al minimo
+globale potrebbe quindi non corrispondere a quella trovata mediante
+l'evoluzione, se la rete è incappata in un minimo locale. Ciascun minimo locale
+è, di fatto, uno stato stabile, dal quale nel caso vi si incappasse, non si
+potrebbe uscire, poiché il livello di energia non può mai aumentare. Di solito,
+si desidera che l'evoluzione converga verso gli stati stabili scelti, oppure
+verso un minimo globale \---- i minimi locali, tuttavia, risulterebbero essere
+alla stregua di ``falsi'' stati stabili, che andrebbero a minare il
+comportamento desiderato della rete, per il quale sarebbe desiderabile ottenere
+una soluzione unica, e corrispondente al minimo globale (o comunque a stati
+stabili dal valore sufficientemente basso di energia). 
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.2\linewidth, height=\textheight, keepaspectratio]{./pics/retiMinimiLocali.png}
+    \caption{Il problema dei \emph{falsi minimi}, anche detti minimi locali.}
+    \label{fig:retiMinimiLocali}
+\end{figure}
+
+
+
+Con un po' di fortuna, i minimi locali possono avere un valore prossimo al
+minimo assoluto; tuttavia ciò non è per nulla garantito, e non esistono criteri
+matematici per stabilire la qualità della soluzione ottenuta. In altre parole,
+\emph{non possiamo sapere a priori se la qualità della soluzione ottenuta},
+incappando in uno stato stabile artificiale o di minimo locale, \emph{è
+sufficientemente buona oppure non lo è.} 
+
+Ciò rappresenta in ultima analisi un evidente difetto delle reti neurali di
+Hopfield, poiché diversamente al paradigma della computazione procedurale dove
+è sempre e comunque possibile ricondursi in qualche maniera al modello di
+Turing o al modello RAM, e dunque ai teoremi studiati in tale ambito, nel
+modello di computazione delle reti di Hopfield non c'è alcun criterio
+matematico in grado di stabilire \textbf{a priori} la qualità di una
+determinata soluzione.
+
+Una soluzione al problema dei minimi locali imprevisti arrivò a cavallo degli
+anni $80$, quando si cercò di superare il problema evocando la cosiddetta
+\textbf{Boltzmann machine}, un modello della rete di Hopfield dove uno stato può
+vedere \emph{aumentata la propria energia secondo una legge probabilistica},
+violando dunque l'assunzione di base tale per cui l'energia complessiva della
+rete può soltanto diminuire. Ciò viene attuato riscaldando in maniera
+\emph{probabilistica} la rete, introducendo cioè una funzione \emph{sigmoidale}
+dipendente da un parametro $T$, detto \emph{temperatura del neurone}; le
+funzioni sigmoidali della macchina di Boltzmann sono progettate in modo tale
+che una temperatura più elevata corrisponda a sigmoidi meno rigide, e
+temperature che tendono allo $0$ termico corrispondono a sigmoidi molto simili
+al tradizionale gradino.
+
+Dunque, con il modello della macchina di Boltzmann,
+temperature della rete molto basse e prossime allo zero termico produrrebbero
+un comportamento della rete di Hopfield del tutto simile a quanto incontrato
+sino ad ora, cioè ad un'evoluzione nella quale non sono ammessi aumenti del
+livello dell'energia \---- viceversa, ad alte temperature del neurone si
+assiste mano a mano a potenziali fenomeni in cui, al passaggio successivo, la
+rete si è evoluta verso uno stato avente una maggiore energia rispetto a quello
+precedente. L'idea di base della macchina di Boltzmann è quella di poter
+``sfuggire'' all'attrazione dovuta ai minimi locali, introducendo la
+possibilità probabilistica di poter ``tornare indietro'' e tentare una strada
+evolutiva differente. La probabilità con cui un determinato stato possa
+sfuggire dal minimo locale in cui risiede dipende dalla temperatura $T$ \-- più
+essa è alta, maggiore sarà la probabilità per lo stato di aumentare la propria
+energia e percorrere un'evoluzione differente.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/boltzmannMachine.png}
+    \caption{La funzione di attivazione probabilistica, con la sua tipica forma
+    ``ad esse'' e comportamento dipendente dalla temperatura $T$. La sua forma
+sarà tanto più simile al gradino ideale quanto la sua temperatura sarà tendente
+allo $0$.}
+    \label{fig:boltzmannMachine}
+\end{figure}
+
+
+
+Supponendo di disporre di un valore di attivazione $A = \sum_{j\neq i} T_{ij}
+V_j - U_i$ pari a $ A = +0.5$, e una temperatura di $T=0,25$, avremo che la
+probabilità di eccitazione del neurone sarà pari a $0,78$ invece che pari ad
+$1$, come espresso in Figura~\ref{fig:boltzmannMachine}. Dunque, si dà la
+possibilità al neurone di \emph{risalire la china dell'energia}, violando il
+comportamento originale che invece aveva nella rete di Hopfield \-- con questo
+stratagemma, la rete può probabilisticamente ``scappare'' dagli stati di minimo
+locali non desiderati. Si aggiungono dunque nuovi percorsi che con una certa
+probabilità dipendente dalla temperatura $T$ \emph{aumentano l'energia
+della rete}: valori più alti di temperatura garantiscono una maggiore
+probabilità di aumento dell'energia. 
+
+Questo procedimento è chiamato \textbf{simulated annealing}, termine tratto
+dalla metallurgia (ricottura), dove variazioni di temperatura di un materiale
+sono adoperate per ottenere determinate caratteristiche dal materiale in
+questione. La Figura~\ref{fig:retiBoltzmannMachine} illustra un esempio di rete
+dove esiste una possibilità di ``risalire la china'', o più precisamente c'è
+una probabilità non nulla di ritornare ad un livello di energia superiore.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.3\linewidth, height=\textheight, keepaspectratio]{./pics/retiBoltzmannMachine.png}
+    \caption{Probabilità di transizione a differenti temperature $T$ (in
+    basso); rete di Hopfield con estensione a macchina di Bolztmann (sopra).}
+    \label{fig:retiBoltzmannMachine}
+\end{figure}
+
+
+E dunque grazie allo stratagemma della macchina di Boltzmann è possibile
+progettare una rete di Hopfield che sia quantomeno robusta al problema dei
+minimi locali, introducendo di fatto una sorta di \emph{perturbazione} alla
+funzione di attivazione, che rende concretamente e probabilisticamente
+possibile percorrere strade nuove e che consentono alla rete di ``fuoriuscire''
+dalla situazione di stallo causata dallo stato di minimo locale in cui si
+troverebbe imprigionata.
+
+
+\section{La rete continua di Hopfield}
+
+TODO aggiungi 15
+
+La \emph{rete continua di Hopfield} rappresenta un cambio di paradigma: mentre
+prima la verifica sullo stato veniva fatto in tempi discreti, assumendo una
+certa probabilità di interrogazione di un neurone, nella rete continua ogni
+neurone è, con continuità, connesso ad ogni altro neurone e la verifica della
+loro coerenza avviene istante per istante, mediante un \emph{circuito
+analogico}. Il valore d'uscita dipende da una funzione sigmoidale, ad esempio
+$$V_i = g_i(u_i(t)) = \tanh (\frac{u_i(t)}{u_0}).$$ Alle conduttanze
+d'ingresso, viene aggiunto un gruppo circuitale
+resistenza-condensatore-generatore di corrente che produce correnti
+parallelamente a quelle di ingresso, cioè che si somma a quelle di ingresso.
+La totale conduttanza di neurone sarà pari a
+
+$$ \frac{1}{R_i} = \frac{1}{\rho_i} + \sum_j \frac{1}{R_j}, $$
+
+e tramite le leggi di Norton, si ottiene l'equazione del neurone,
+
+\begin{equation}
+    \sum_j (V_j - u_j(t)) T_{ij} + I_i = C_i \frac{du_i(t)}{dt} + \frac{u_i(t)}{\rho_i}
+\end{equation}
+
+mentre l'energia della reta sarà
+
+
+\begin{equation}
+    E = -\frac 1 2 \sum{ij, j\neq i} T_{ij} V_i V_j + \sum_i \frac{1}{R_i}
+    \int_0^{V_i} g_i^{-1} (V) dV - \sum_i I_i V_i.
+\end{equation}
+
+TODO equazioni dell'energia 16
+
+Dato che il rapporto ingresso-uscita è fissato da una sigmoide, non è garantito
+che il valore d'uscita sia ad un valore nettamente basso o nettamente alto.
+Esistono infatti valori in concomitanza con lo $0$ d'ingresso che possono
+suscitare dubbi interpretativi, cioè il neurone potrebbe collocarsi ad un
+valore intermedio fra valore alto e basso. 
+
+In ultima analisi, \emph{il tempo di risposta} di una rete di Hopfield dipende
+esclusivamente dalla costante di tempo $\tau$ del neurone, poiché per ottenere
+una soluzione è necessario che il transitorio dell'evoluzione della rete abbia
+termine. Di fatto, il tempo di risposta non dipende dalla complessità della
+rete, bensì unicamente dalla costante di tempo \-- diversamente per quanto
+accadeva con le reti discrete di Hopfield.
+
+\section{Soluzione dei problemi con la rete di Hopfield}
+
+Con una rete di Hopfield si può risolvere un problema solo se esso può essere
+codificato nei termini della \emph{minimazione di una forma quadratica}. La
+soluzione sarà \emph{ottima} se l'energia ottenuta è quella corrispondente al
+minimo assoluto \---- viceversa, sarà \emph{sub-ottimale} se l'energia ottenuta
+corrisponderà invece a quella di un minimo locale, o comunque di uno stato
+stabile vero o falso che sia.
+
+Individuata la forma quadratica associata al problema, per confronto si
+ricavano i valori $T_{ij}$ ed $I_i$ che consentono la costruzione della rete.
+
+\subsection{Il problema della memoria indirizzabile}
+
+Si desidera che $V^s(s=1,2,\dots, n)$ siano stati stabili in una rete dotata di
+$n$ neuroni. La quantità da minimizzare sarà $E^* = -\frac 1 2 \sum_s (V\cdot
+V^s)^2$, con $V=V^s$ valore negativo di energia minimo: ciò accade poiché siamo
+di fronte ad un prodotto scalare che massimizza la quantità all'interno della
+sommatoria, con il risultato di minimizzare il valore dell'energia. Se $V$ è
+casuale e $(-1 \leq V_i \leq +1)$, la $E^*$ deve essere circa nulla, con valore
+minimo pari a $V=V^s$ tale che $E^* = -\frac 1 2 n^2$. Bisogna in pratica fissare i $V^s$ di stato stabile, dunque si ottiene
+
+$$ E = -\frac 1 2 \sum_s (V^s V)^2 = \dots = -\frac 1 2 \sum_i \sum_j (\sum_s V_i^s V_j^s)V_i V_j,$$
+
+TODO 19
 
 
 
