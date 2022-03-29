@@ -892,7 +892,7 @@ natura continua.
 
 \section{La rete discreta di Hopfield}
 
-La rete discreta di Hopfield è composta da singoli neuroni, modellati tramite
+La \textbf{rete discreta di Hopfield} è composta da singoli neuroni, modellati tramite
 le tensioni elettriche. Ciascun $i$-esimo neurone ha la forma illustrata in
 Figura~\ref{fig:retiHopfieldNeuroneParagone}: esso è dotato di $n$ ingressi
 $V_j$ collegati ad altri neuroni, delle ``conduttanze'' dal valore $T_{i,j}$
@@ -1092,7 +1092,9 @@ Figura~\ref{fig:retiMinimiLocali}; la soluzione corrispondente al minimo
 globale potrebbe quindi non corrispondere a quella trovata mediante
 l'evoluzione, se la rete è incappata in un minimo locale. Ciascun minimo locale
 è, di fatto, uno stato stabile, dal quale nel caso vi si incappasse, non si
-potrebbe uscire, poiché il livello di energia non può mai aumentare. Di solito,
+potrebbe uscire, poiché il livello di energia non può mai aumentare. 
+
+Di solito,
 si desidera che l'evoluzione converga verso gli stati stabili scelti, oppure
 verso un minimo globale \---- i minimi locali, tuttavia, risulterebbero essere
 alla stregua di ``falsi'' stati stabili, che andrebbero a minare il
@@ -1203,14 +1205,27 @@ troverebbe imprigionata.
 
 \section{La rete continua di Hopfield}
 
-TODO aggiungi 15
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/reteHopfieldContinua.png}
+    \caption{La \emph{rete continua di Hopfield}.}
+    \label{fig:reteHopfieldContinua}
+\end{figure}
 
-La \emph{rete continua di Hopfield} rappresenta un cambio di paradigma: mentre
+
+
+La \textbf{rete continua di Hopfield} rappresenta un cambio di paradigma: mentre
 prima la verifica sullo stato veniva fatto in tempi discreti, assumendo una
 certa probabilità di interrogazione di un neurone, nella rete continua ogni
 neurone è, con continuità, connesso ad ogni altro neurone e la verifica della
 loro coerenza avviene istante per istante, mediante un \emph{circuito
-analogico}. Il valore d'uscita dipende da una funzione sigmoidale, ad esempio
+analogico}. 
+
+L'idea quindi è quella di lasciar evolvere il sistema composto dalla rete
+neurale, facendo sì che le grandezze elettriche in questione sviluppino il loro
+transitorio completamente: il risultato finale sarà la rete a minor energia.
+
+Il valore d'uscita dipende da una funzione sigmoidale, ad esempio
 $$V_i = g_i(u_i(t)) = \tanh (\frac{u_i(t)}{u_0}).$$ Alle conduttanze
 d'ingresso, viene aggiunto un gruppo circuitale
 resistenza-condensatore-generatore di corrente che produce correnti
@@ -1221,11 +1236,11 @@ $$ \frac{1}{R_i} = \frac{1}{\rho_i} + \sum_j \frac{1}{R_j}, $$
 
 e tramite le leggi di Norton, si ottiene l'equazione del neurone,
 
-\begin{equation}
+\begin{equation}\nonumber
     \sum_j (V_j - u_j(t)) T_{ij} + I_i = C_i \frac{du_i(t)}{dt} + \frac{u_i(t)}{\rho_i}
 \end{equation}
 
-mentre l'energia della reta sarà
+mentre l'energia della rete sarà
 
 
 \begin{equation}
@@ -1233,13 +1248,27 @@ mentre l'energia della reta sarà
     \int_0^{V_i} g_i^{-1} (V) dV - \sum_i I_i V_i.
 \end{equation}
 
-TODO equazioni dell'energia 16
+Calcolando la variazione dell'energia, 
 
-Dato che il rapporto ingresso-uscita è fissato da una sigmoide, non è garantito
-che il valore d'uscita sia ad un valore nettamente basso o nettamente alto.
-Esistono infatti valori in concomitanza con lo $0$ d'ingresso che possono
-suscitare dubbi interpretativi, cioè il neurone potrebbe collocarsi ad un
-valore intermedio fra valore alto e basso. 
+$$ \frac{dE}{dt} = \sum_i \frac{dE}{dV_i} \frac{dV_i}{dt},$$ pertanto si avrà che
+
+\begin{eqnarray}\nonumber
+    \frac{dE}{dV_i} & = & -\sum_j T_{ij}V_j + \frac{u_i}{R_i} - I_i = -C_i\frac{du_i}{dt} \\\nonumber
+    \frac{dE}{dt}   & = & -\sum_i \left(\sum_j T_{ij}V_j + \frac{u_i}{R_i} - I_i\right)\frac{dV_i}{dt} = -\sum_i C_i\frac{du_i}{dt}\frac{dV_i}{dt} \\\nonumber
+                    & = & -\sum_i C_i(\frac{du_i}{dV_i})\left(\frac{dV_i}{dt}\right)^2 \\\nonumber
+                    & = & -\sum_i g_i^{-1}(V_i)C_i\left(\frac{dV_i}{dt}\right)^2 \leq 0,
+\end{eqnarray}
+
+dove si è osservato che $g_i^{-1}(V_i) > 0, \forall V_i$ poiché monotona
+crescente. In definitiva la variazione netta di energia della rete sarà
+
+\begin{equation}
+    \frac{dE}{dt} \leq 0,
+\end{equation}
+
+con l'uguaglianza a zero rispettata solo ed esclusivamente nel caso in cui
+$\displaystyle \frac{dV_i}{dt} = 0, \forall i$. Dunque, anche nel caso della
+rete continua di Hopfield la variazione di energia sarà sempre negativa.
 
 In ultima analisi, \emph{il tempo di risposta} di una rete di Hopfield dipende
 esclusivamente dalla costante di tempo $\tau$ del neurone, poiché per ottenere
@@ -1248,6 +1277,14 @@ termine. Di fatto, il tempo di risposta non dipende dalla complessità della
 rete, bensì unicamente dalla costante di tempo \-- diversamente per quanto
 accadeva con le reti discrete di Hopfield.
 
+Degno di nota è il fatto che il rapporto ingresso-uscita è fissato da una
+sigmoide, non è garantito che il valore d'uscita sia ad un valore nettamente
+basso o nettamente alto, cioè non è garantito un perfetto comportamento a
+soglia. Esistono infatti valori in concomitanza con lo $0$ d'ingresso che
+possono suscitare dubbi interpretativi, cioè il neurone potrebbe collocarsi ad
+un valore intermedio fra valore alto e basso. 
+
+
 \section{Soluzione dei problemi con la rete di Hopfield}
 
 Con una rete di Hopfield si può risolvere un problema solo se esso può essere
@@ -1255,24 +1292,49 @@ codificato nei termini della \emph{minimazione di una forma quadratica}. La
 soluzione sarà \emph{ottima} se l'energia ottenuta è quella corrispondente al
 minimo assoluto \---- viceversa, sarà \emph{sub-ottimale} se l'energia ottenuta
 corrisponderà invece a quella di un minimo locale, o comunque di uno stato
-stabile vero o falso che sia.
+stabile vero o falso che sia ad energia maggiore di quella fornita dal minimo
+globale.
 
-Individuata la forma quadratica associata al problema, per confronto si
-ricavano i valori $T_{ij}$ ed $I_i$ che consentono la costruzione della rete.
+La strategia è la seguente: individuata la forma quadratica associata al
+problema, per confronto si ricavano i valori $T_{ij}$ ed $I_i$ che consentono
+la costruzione della rete. Successivamente, la rete è lasciata evolvere; la
+soluzione corrispondente viene prelevata e il problema viene risolto con la
+soluzione ricavata mediante la codifica.
 
 \subsection{Il problema della memoria indirizzabile}
 
 Si desidera che $V^s(s=1,2,\dots, n)$ siano stati stabili in una rete dotata di
-$n$ neuroni. La quantità da minimizzare sarà $E^* = -\frac 1 2 \sum_s (V\cdot
-V^s)^2$, con $V=V^s$ valore negativo di energia minimo: ciò accade poiché siamo
+$n$ neuroni. 
+
+La quantità da minimizzare sarà $E^* = -\frac 1 2 \sum_s (V^s\cdot
+V)^2$, con $V=V^s$ valore negativo di energia minimo: ciò accade poiché siamo
 di fronte ad un prodotto scalare che massimizza la quantità all'interno della
-sommatoria, con il risultato di minimizzare il valore dell'energia. Se $V$ è
-casuale e $(-1 \leq V_i \leq +1)$, la $E^*$ deve essere circa nulla, con valore
-minimo pari a $V=V^s$ tale che $E^* = -\frac 1 2 n^2$. Bisogna in pratica fissare i $V^s$ di stato stabile, dunque si ottiene
+sommatoria, con il risultato di minimizzare il valore dell'energia. 
 
-$$ E = -\frac 1 2 \sum_s (V^s V)^2 = \dots = -\frac 1 2 \sum_i \sum_j (\sum_s V_i^s V_j^s)V_i V_j,$$
+Se $V$ è
+casuale e $(-1 \leq V_i \leq +1)$, la $E^*$ risulterà essere circa nulla \--
+eseguendo un prodotto scalare fra due vettori sostanzialmente molto differenti;
+il valore minimo si raggiunge con $V=V^s$, ed è tale che $E^* = -\frac 1 2
+n^2$. 
 
-TODO 19
+Bisogna in pratica fissare anticipatamente i $V^s$ di stato stabile, e
+con essi si ottiene $$ E = -\frac 1 2 \sum_s (V^s V)^2 = \dots = -\frac 1 2
+\sum_i \sum_j (\sum_s V_i^s V_j^s)V_i V_j,$$ ma sappiamo anche che
+
+$$E= -\frac 1 2 \sum_{ij} T_{ij}V_i V_j - \sum_i I_i V_i.$$ Dal confronto fra
+le due equazioni è presto ricavato che 
+
+$$
+\left\{
+    \begin{array}{lll}
+        T_{ij} & = & \sum_s V_i^s V_j^s \\
+        I_i & = & 0
+    \end{array}
+\right.
+$$
+
+cioè abbiamo trovato (?)
+
 
 
 
