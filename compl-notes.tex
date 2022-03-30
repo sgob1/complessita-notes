@@ -773,14 +773,13 @@ risenta in maniera rilevante.
 
 Dal punto di vista strettamente logico, il paradigma di computazione a reti
 neuronali è l'unico paradigma radicalmente differente da quello procedurale,
-mentre il paradigma \emph{a DNA}\footnote{TEST FIXME TODO Trattasi di un paradigma di calcolo
-dove si va a cercare lo spazio delle soluzioni, e si eleggono quelle più
-``performanti'' \---- talune soluzioni saranno la base dalla quale saranno
-definite le successive soluzioni, convergendo dunque alla soluzione. La potenza
-di questo metodo è quello di potersi permettere una ricerca esauriente della
-soluzione, poiché ciascun DNA è infinitesimamente piccolo, e dunque può essere
-esaminato in parallelo.} è una tipologia di calcolo che, nella realtà, non
-differisce sostanzialmente dal metodo procedurale.
+mentre il paradigma \emph{a DNA}\footnote{Trattasi di un
+paradigma di calcolo dove si va a cercare lo spazio delle soluzioni tramite una
+vera e propria ricerca esauriente, e si catturano quelle più adatte.  La
+potenza di questo metodo è quello di potersi permettere una ricerca esauriente
+della soluzione, poiché ciascun DNA è infinitesimamente piccolo, e dunque può
+essere esaminato in parallelo.} è una tipologia di calcolo che, nella realtà,
+non differisce sostanzialmente dal metodo procedurale.
 
 Esistono due filoni di reti neuronali; il primo associato ai
 \textbf{perceptron}, macchine a strati che fungono da riconoscitori di pattern
@@ -1415,16 +1414,34 @@ soluzione esatta viene ricoperta in tempo almeno esponenziale.
 Supponendo di trovarci di fronte $n$ città A, B, C, \dots, e di possedere le
 distanze reciproche $d_{AB}, d_{AC}, d_{BC}, \dots$, e così via. La tecnica
 adoperata per la codifica della soluzione è quella di una \emph{matrice
-città\----percorso ottimale}. 
+città\----percorso ottimale}, ad esempio
 
-TODO matrice 22
+\begin{table}[ht]
+\centering
+\begin{tabular}{c|ccccc}
+    & 1 & 2 & 3 & 4 & 5 \\
+    \hline
+A   & 0 & 1 & 0 & 0 & 0 \\
+B   & 0 & 0 & 0 & 1 & 0 \\
+C   & 1 & 0 & 0 & 0 & 0 \\
+D   & 0 & 0 & 0 & 0 & 1 \\
+E   & 0 & 0 & 1 & 0 & 0
+\end{tabular}
+\end{table}
+\bigskip
+
+è la matrice che corrisponde alla codifica del percorso C-A-E-B-D.
+
 
 Dunque, esprimendo il funzionale dell'energia da minimizzare, si ottiene
 
 
-\begin{equation}
-    E = \frac \alpha 2 \sum _x \sum_i \sum_{j \neq i} V_{X_i}V_{X_j} + \frac \beta 2 \sum_i \sum_X \sum_{X \neq Y} V_{X_i}V_{Y_i} + \frac \delta 2 (\sum_x \sum_i V_X - n)^2 + \frac \gamma 2 \sum_X \sum_{X \neq Y} \sum_i d_{XY} V_{X_i}(V_{Y_{i + 1}} + V_{Y_{i - 1}}).
-\end{equation}
+\begin{eqnarray}\nonumber
+    E & = & \frac \alpha 2 \sum _x \sum_i \sum_{j \neq i} V_{X_i}V_{X_j} +
+    \frac \beta 2 \sum_i \sum_X \sum_{X \neq Y} V_{X_i}V_{Y_i} \\\nonumber
+      & + & \frac \delta 2 (\sum_x \sum_i V_X - n)^2 + \frac \gamma 2 \sum_X
+      \sum_{X \neq Y} \sum_i d_{XY} V_{X_i}(V_{Y_{i + 1}} + V_{Y_{i - 1}}).
+\end{eqnarray}
 
 Si tratta di un funzionale particolarmente complesso, composto da $4$ distinti termini:
 \begin{enumerate}
@@ -1438,9 +1455,30 @@ Si tratta di un funzionale particolarmente complesso, composto da $4$ distinti t
         minimizzare il funzionale relativo al percorso.
 \end{enumerate}
 
-TODO 24
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/retiTSPEsempi.png}
+    \caption{Esempi della risoluzione del travelling salesman problem con reti
+    neurali di Hopfield.}
+    \label{fig:retiTSPEsempi}
+\end{figure}
+
+
+
+
+
 
 \section{Sommario delle caratteristiche delle reti neurali}
+
+\begin{quote}
+    \footnotesize{A.K. Dewdney 1997, 
+
+        \emph{``Although neural nets do
+solve a few toy problems, their powers of computation
+are so limited that I am surprised anyone takes them
+seriously as a general problem-solving tool.''}}
+\end{quote}
+\bigskip
 
 I pregi delle reti neurali di Hopfield sono di seguito elencati,
 
@@ -1471,8 +1509,6 @@ I difetti invece rendono molto difficile il loro utilizzo. In particolare,
 
 \chapter{La computazione DNA}
 
-FIX THE FIXME
-
 La \textbf{computazione DNA} è un metodo di computazione che corrisponde ad una
 procedura di \emph{ricerca esauriente}: tutte le possibili soluzioni vengono
 costruite in modo sistematico, e vengono poi analizzate ``in vitro'', cioè una
@@ -1483,7 +1519,26 @@ informazioni: le sue dimensioni sono talmente ridotte da permettere una ricerca
 esauriente in spazi ridottissimi. La ricerca esauriente non viene adottata
 mediante un classico algoritmo, bensì in modo ``nativo'' tramite l'uso dei DNA.
 
-TODO ? 2 only verbally
+Storicamente, le scienze matematiche e quelle naturali si sono evolute seguendo
+due rami ben distinti. Attorno agli anni 50, la biologia molecolare scoprì il
+DNA \-- immediatamente furono aperte nuove strade, compresa quella
+dell'\emph{informatica nella biologia}. In particolare, furono usati risultati
+dell'\emph{algoritmica} per trattare le lunghissime sequenze del DNA e il
+ripiegamento delle proteine e t-RNA, ambedue problemi più facilmente trattabili
+con le nozioni avanzate dell'informatica teorica e più precisamente
+dell'algoritmica. Non molto tardi, le \emph{misure dell'informazione} figlie
+della teoria dell'informazione furono adottate anche per la costruzione degli
+\emph{alberi filogenetici}, diagrammi che mostrano le relazioni fondamentali di
+discendenza comune di gruppi tassonomici di organismi. 
+
+Più tardivamente, ovvero attorno alla metà degli anni 90, furono aperte strade
+nella direzione opposta: il sequenziamento del DNA fu di ispirazione per il
+nuovo modello di computazione appunto ``a DNA'' (Adleman, 1994). L'idea è
+quella di risolvere con una computazione DNA certi problemi che sono
+\emph{strutturalmente difficili}, per i quali algoritmi efficienti non sono
+noti. Esempi di tali problemi sono il \emph{problema delle somme parziali}, il
+\emph{problema della fattorizzazione di un intero}, e la determinazione del
+\emph{cammino Hamiltoniano su un grafo}.
 
 I DNA sono basati su lunghissime sequenze di lettere di un \emph{alfabeto
 finito}, avente 4 simboli (A, C, G, T), detti \emph{nucleotidi}. Anche le
