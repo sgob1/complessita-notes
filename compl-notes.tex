@@ -89,9 +89,9 @@
 Una \emph{macchina di Turing} è una macchina che è descritta da un insieme di
 \emph{simboli} $\Gamma = \{\alpha, \beta, \gamma, \delta, \dots\}$ \emph{finito} e da
 un insieme di \emph{stati} $\mathcal{Q} = \{q_1, q_2, \dots, q_n\}$ anch'esso
-\emph{finito}. La macchina di Turing dispone di un nastro di memoria \emph{potenzialmente
-illimitato} a destra e a sinistra, avente delle celle contenenti i simboli;
-essa identifica il simbolo nella posizione dove la
+\emph{finito}. La macchina di Turing dispone di un nastro di memoria
+\emph{potenzialmente illimitato} a destra e a sinistra, avente delle celle
+contenenti i simboli; essa identifica il simbolo nella posizione dove la
 \emph{testina} della macchina è collocata sul nastro. Ad ogni iterazione della
 macchina di Turing viene letto il simbolo, e a seconda dello stato $q_i$, viene
 intrapresa un'azione fra le $3$ seguenti:
@@ -1341,7 +1341,7 @@ problema impostato come minimazione di un funzionale quadratico. Innescata la
 rete, essa andrà presumibilmente (a meno di falsi stati stabili) a stabilirsi
 in uno degli stati $V^s$ determinati dal progettista.
 
-\subsection{Il problema delle somme parziali}
+\subsection{Il problema delle somme parziali}\label{sec:sommeParziali}
 
 Il problema delle somme parziali è sostanzialmente intrattabile. Vi sono alcuni
 interi $a = a_1, a_2, \dots, a_n$ e alcuni numeri binari $ V = V_1, V_2, \dots,
@@ -1349,11 +1349,11 @@ V_s, V_i \in \{0,1\}$, con $S$ risultato del prodotto scalare fra $a$ e $V$ e
 si chiede di trovare il vettore $V$ sapendo che
 
 $$a \cdot V = S$$ e conoscendo $a$ ed $S$. In altre parole, si chiede di
-invertire il prodotto scalare trovando il vettore di binari tale da fornire il
-risultato $S$ a fronte del vettore $a$ di numeri interi.
+invertire il prodotto scalare trovando il vettore di binari $V$ tale da fornire
+il risultato $S$ a fronte del prodotto con il vettore $a$ di numeri interi,
+anch'esso noto a priori.
 
 Il funzionale quadratico da minimizzare sarà il seguente,
-
 
 \begin{equation}
     E = \frac 1 2 (S - \sum_i a_i V_i)^2 - \frac 1 2 \sum_i a_i^2 V_i(V_i - 1),
@@ -1393,7 +1393,9 @@ del problema e la quantità di minimi locali \-- se la complessità del problema
 difficile a fronte di un più grande numero di minimi locali. La difficoltà del
 problema viene pertanto in qualche modo incastonata nella \emph{complessità
 strutturale} della rete e dunque in ultima analisi la \textbf{dimensione della
-rete dipende dalla complessità del problema}. Se si intende risolvere il
+rete dipende dalla complessità del problema}. 
+
+Se si intende risolvere il
 problema delle somme parziali con $n=1000$, la rete prodotta sarà di enormi
 dimensioni e complessità, con ciascun coefficiente $T_{ij}$ e generatore ideale
 di corrente $I_i$ da determinare di conseguenza. Diversamente dal caso del
@@ -1405,6 +1407,7 @@ ricorda a tal proposito che $\tau = C_i R_i$ con $R_i$ totale resistenza di
 ingresso del neurone.}) ed ottenere una risposta della rete pressoché
 istantanea. La complessità delle reti neurali, però, si sviluppa lungo la
 dimensione della loro \emph{struttura}.
+
 \subsection{Il traveling salesman problem}
 
 Il traveling salesman problem è un problema presumibilmente intrattabile \--
@@ -1512,7 +1515,10 @@ I difetti invece rendono molto difficile il loro utilizzo. In particolare,
 La \textbf{computazione DNA} è un metodo di computazione che corrisponde ad una
 procedura di \emph{ricerca esauriente}: tutte le possibili soluzioni vengono
 costruite in modo sistematico, e vengono poi analizzate ``in vitro'', cioè una
-per volta, per poi conservare esclusivamente le soluzioni desiderate.
+per volta, per poi conservare esclusivamente le soluzioni desiderate. Non si
+tratta, perciò, di una nuova tecnica con differenze dal punto di vista
+strutturale, bensì di un metodo molto efficace per realizzare una ricerca
+esauriente della soluzione.
 
 Il modello a computazione DNA adotta il DNA biologico come contenitore delle
 informazioni: le sue dimensioni sono talmente ridotte da permettere una ricerca
@@ -1533,8 +1539,15 @@ discendenza comune di gruppi tassonomici di organismi.
 
 Più tardivamente, ovvero attorno alla metà degli anni 90, furono aperte strade
 nella direzione opposta: il sequenziamento del DNA fu di ispirazione per il
-nuovo modello di computazione appunto ``a DNA'' (Adleman, 1994). L'idea è
-quella di risolvere con una computazione DNA certi problemi che sono
+nuovo modello di computazione appunto ``a DNA'' (Adleman, 1994). Allora fu
+sottolineata la capacità di manipolare le stringhe astratte dell'informatica
+tramite una \emph{codifica nel DNA} \-- senza occuparsi del significato della
+struttura chimica, fisica, biofisica e genetica propriamente attribuiti alle
+molecole del DNA. Implicitamente si intende adoperare il DNA per contenere
+informazioni tramite i simboli (codificati) nel DNA, piuttosto che per scopi
+``biologici'' e legati a quanto si faceva in passato.
+
+L'idea è quella di risolvere con una computazione DNA certi problemi che sono
 \emph{strutturalmente difficili}, per i quali algoritmi efficienti non sono
 noti. Esempi di tali problemi sono il \emph{problema delle somme parziali}, il
 \emph{problema della fattorizzazione di un intero}, e la determinazione del
@@ -1543,7 +1556,718 @@ noti. Esempi di tali problemi sono il \emph{problema delle somme parziali}, il
 I DNA sono basati su lunghissime sequenze di lettere di un \emph{alfabeto
 finito}, avente 4 simboli (A, C, G, T), detti \emph{nucleotidi}. Anche le
 proteine sono basate su catene molecolari, in particolare su un alfabeto
-anch'esso finito di 20 simboli, detti \emph{amminoacidi}.
+anch'esso finito di 20 simboli, detti \emph{amminoacidi}. La codifica di queste
+catene di simboli può essere effettuata, come è ragionevole aspettarsi,
+mediante tecniche informatiche.
+
+Ad esempio, di seguito sono riportate i 20 amminoacidi
+
+\begin{quote}
+    \footnotesize{
+Alanina (Ala, A)
+
+Acido glutammico (Glu, E)
+
+Arginina (Arg, R)
+
+Glutammina (Gln, Q)
+
+Asparagina (Asn, N)
+
+Istidina (His, H)
+
+Acido aspartico (Asp, D) 
+
+Isoleucina (Ile, I)
+
+Cisteina (Cys, C)
+
+Leucina (Leu, L)
+
+Metionina (Met, M)
+
+Fenilalanina (Phe, F)
+
+Prolina (Pro, P)
+
+Serina (Ser, S)
+
+Treonina (Thr, T)
+
+Tirosina (Tyr, Y)
+
+Valina (Val, V)
+
+Triptofano (Trp, W)
+
+Lisina (Lys, K)
+
+Glicina (Gly, G)
+}
+\end{quote}
+
+il cui alfabeto può essere opportunamente codificato. Con l'adeguata codifica,
+esse sono perciò in grado di \emph{immagazzinare informazioni}.
+
+La computazione DNA è tipicamente adoperata per la soluzione di problemi
+\emph{presumibilmente} o \emph{sostanzialmente intrattabili} \-- problemi di
+difficile soluzione, di cui non sono noti ad oggi algoritmi efficienti.
+
+Dato il \textbf{problema delle somme parziali} descritto in
+Sezione~\ref{sec:sommeParziali}, è noto che non è facile trovare gli elementi
+costituenti la somma parziale.
+
+Un altro problema di difficile soluzione è quello della \textbf{fattorizzazione
+di un intero}: dati $p$ e $q$ interi primi, molto grandi, è facile calcolare
+$$n = p \cdot q,$$ mentre è estremamente difficile calcolare $p$ e $q$ a
+partire dal solo $n$.
+
+Un ultimo problema, che verrà analizzato di seguito, è il \textbf{problema del
+cammino Hamiltoniano su un grafo}, risolto con la computazione DNA proprio da
+Adleman nel 1994.
+
+\section{Uso dell'informatica per la risoluzione di problemi di Biologia molecolare}
+
+Leggere il DNA tutto di seguito è tecnologicamente impossibile \-- ciò che si
+può fare è leggere sequenze di qualche centinaio di basi. Diventa dunque di
+estrema rilevanza il problema dell'\textbf{il problema dell'assemblaggio dei
+frammenti di DNA}.
+
+Supponendo di voler sequenziare il frammento di DNA
+
+\texttt{AGTATTGGCAATCGATGCAAACCTTTTGGCAATCACT}, si possono adoperare i
+cosiddetti \emph{enzimi di restrizione} per estrarre alcune sequenze.
+Tipicamente, si estraggono varie sequenze che vanno riordinate, e ritagliate
+nel caso vi siano delle sovrapposizioni. Ricostruire la sequenza esatta del DNA
+a partire dai lembi di poche centinaia di basi è molto difficile: in un vero
+esperimento biologico si hanno lunghezze di DNA da $30000$ a $100000$ basi, con
+lunghezze di frammenti che crescono fino a $700$ basi; il numero di frammento
+totale sarà all'incirca dell'ordine di qualche migliaio. 
+
+La strategia che si adopera è quella dell'\emph{allineamento risolutivo}, cioè
+quella di andare ad allineare i frammenti a seconda delle loro somiglianze
+(string matching).
+
+\begin{verbatim}
+AGTATTGGCAATC--------CCTTTTGG--------
+---------AATCGATG--------TTGGCAATCACT
+--------------ATGCAAACCT-------------
+AGTATTGGCAATCGATGCAAACCTTTTGGCAATCACT
+\end{verbatim}
+
+
+Il secondo problema è quello della \textbf{ricerca di moduli funzionali del DNA},
+dove è richiesto di trovare i moduli funzionali del gene avendo sequenze di DNA
+relative allo stesso gene di organismi differenti. Un modulo funzionale è una
+porzione del DNA che svolge un qualche ruolo nella dinamica biochimica della
+cellula. Non tutto il DNA viene effettivamente adoperato per i principi
+metabolici \-- tipicamente, molte parti del DNA sono \emph{ridondanti}.
+Attraverso i moduli funzionanti si svolgono le dinamiche interessanti del
+funzionamento della cellula. Un esempio di ciò sono \textbf{i geni} \-- di
+lunghezza molto più corta del DNA, grazie ad essi sono realizzate le proteine
+per cui si ha il funzionamento dell'organismo biologico.
+
+I moduli funzionali nel corso delle generazioni possono subire piccole
+variazioni nella loro struttura, sia per via dell'evoluzione che per raggi
+cosmici o altre radiazioni ionizzanti, presentando lacune o lettere differenti.
+
+\begin{verbatim}
+----------------------AG--TTGTCAATCTTGGCAATCACT
+ATCGATTCCGGCCCTTTTGG--AGTATTGGCAATCATGCAAACCT--
+---GTCGATCGAATGCAAACCTAGTAATGGCAATCCTATGCTCGATC
+-----------------GTACCAGTATTGGCA-TCTGC---------
+----------ATCTTCAATTATAGTATTGACAATCTCGCTAGTCG--
+---CCGGCTCTAAAATTTGGGGAGTGTTGGCAATCATTCCGGCTCTA
+------------ATTGCATGCAAG-ATTGGCAATCATCGA-------
+----CGTCGATCCAATTTCAGCAGTAT--GCAATCATTCGTCGATCG
+\end{verbatim}
+
+Pur essendo i moduli di cui sopra formalmente diversi, essi manifestano un
+patrimonio comune, presentando una grossa quota di nucleotidi simili dal punto
+di vista della \emph{Levenshtein distance} (distanza fra stringhe simile alla
+distanza di Hamming fra numeri binari). Dunque, dall'esempio sopra si individua
+il modulo funzionale \texttt{AGTATTGGCAATC}.
+
+Per i problemi di cui sopra, la struttura dati importante è quella dello
+\textbf{suffix tree} (albero a suffisso). Viene assegnata una stringa, e viene
+chiesto di trovare la più lunga sottostringa ripetuta. Un suffix tree può
+essere costruito in tempo lineare, rendendo possibile l'individuazione delle
+sottostringhe da ricercare appunto in tempo lineare.
+
+Si parte da sinistra, ricopiando l'intera stringa. Ogni stringa dell'albero
+viene etichettata con la posizione sulla stringa dalla quale la lettera è stata
+determinata (con il \emph{suffisso}), e ad ogni nuova lettera si apre un nuovo
+ramo. Ogni qualvolta si ripresenta una medesima lettera, il percorso viene
+riutilizzato: si aprirà un ramo solo nel punto dove i due cammini in comune
+presentano la prima differenza, ed il nuovo ramo è etichettato a sua volta con
+il suffisso indicante la posizione del nodo sulla stringa.
+
+L'interrogazione dell'albero avviene individuando il \emph{nodo a profondità
+massima} dell'albero, poiché fino a quel nodo la stringa si è conservata la
+stringa la stringa a lunghezza massima su almeno due percorsi.
+
+TODO aggiungi alberi a suffisso 17 18
+
+\subsection{Il problema dei legami A-T e C-G e del ripiegamento delle proteine o del t-RNA}
+
+Il DNA ha una struttura ``a scala'' o ``a doppia elica'' \-- nella struttura vi
+è una \emph{complementarietà} fra guanina e citosina, e adenina e tiamima. Le
+due catene saranno (e devono essere) complementari, perciò la doppia catena
+avrà un \emph{verso} che va da $5^\prime$ a $3^\prime$.
+
+Il terzo problema è dunque quello del \textbf{ripiegamento delle proteine o del
+t-RNA}. Data la sequenza primaria, bisogna determinare la struttura secondaria,
+cioè trovare mediante la complementarietà A-T, G-C la stringa secondaria ad essa
+associata. Bisognerà dunque determinare con tecniche informatiche la maniera in
+cui la sequenza si ``ripiega'' su se stessa. 
+
+TODO struttura t-RNA 20
+
+Il medesimo problema si ha, ad esempio, per il ripiegamento della proteina
+(ancor più difficile, poiché presentano ripiegamenti senza complementarietà e
+tridimensionali).
+
+\subsection{La costruzione di alberi filogenetici}
+
+La costruzione degli \emph{alberi filogenetici} è un problema di distanza fra
+stringhe proteiche. Si può adoperare la distanza di Levenshtein per determinare
+se due sequenze hanno un \emph{avo comune}, cioè se ambedue le sequenze
+derivano da una sequenza ancestrale. In altre parole, si individua una misura
+di distanza fra stringhe che sia anche \emph{biologicamente significativa}.
+
+I trasposoni (le sequenze) vengono allineate, e si effettua una ricerca
+approssimata per rilevare le somiglianze fra le due stringhe. Le somiglianze
+possono essere sia \emph{esatte}, cioè porzioni di stringhe sono allineate e
+identiche fra le due stringhe, oppure presentare \emph{amminoacidi affini}
+(indicati con un $+$). Gli amminoacidi imparentati presentano un grado di
+parentela, espresso nella \textbf{Matrice BLOSUM}. La Matrice BLOSUM contiene
+un valore intero associato ad ogni coppia di amminoacidi \-- tanto più alto il
+valore associato alla coppia, tanto più la coppia sarà biologicamente affine.
+La somma completa di parentela fra tutti gli amminoacidi dei trasposoni
+conferisce un punteggio globale BLOSUM, da interpretare tramite conoscenze
+di Biologia.
+
+TODO aggiungi figure 22+
+
+
+\section{La computazione mediante DNA}
+
+Le dimensioni di DNA e proteine sono estremamente ridotte: in poche frazioni di
+millimetro cubo è infatti possibile immagazzinare una quantità enorme di
+informazione sotto forma di sequenze di simboli. Tanto minori saranno le
+dimensioni richieste dal DNA, tanto maggiori saranno le capacità computazionali
+di tale sistema. Il trucco sarà prima di sfruttare la cellula \-- molto
+efficiente nella gestione di A, C, G, T \-- per immagazzinare l'informazione, e
+successivamente di adoperare il calcolatore e tecniche informatiche per
+manipolare successivamente le sequenze di simboli.
+
+Adleman propose nel 1994 un metodo per la costruzione di un \textbf{calcolatore
+bio-molecolare}, basato su un modello di computazione \emph{non} algoritmico
+procedurale, benché il paradigma sia lo stesso (ricerca esauriente).
+
+\subsection{Il problema del cammino Hamiltoniano su un grafo}
+
+Il problema del cammino Hamiltoniano su un grafo è esprimibile nella seguente
+maniera: dato un grafo con $n$ vertici, $v_1, v_2, \dots, v_n$ ed $m$ archi,
+fissati due vertici di inizio e fine $v_i$ e $v_f$, verificare se esiste un
+cammino che va da $v_i$ a $v_f$ con $n-1$ archi che tocchi ciascun vertice una
+ed una sola volta.
+
+Per il problema del cammino Hamiltoniano \textbf{non sono noti} algoritmi
+efficienti: resta soltanto la soluzione bruta, cioè generare tutte le $(n-2!)$
+permutazioni dei vertici, escludendo $v_i$ e $v_f$, e verificare l'esistenza
+della soluzione. Inoltre,
+
+$$n! \sim \sqrt{2} \pi \sqrt{n} e^{-n} n^n,$$
+
+il che evidenzia che è un problema praticamente intrattabile con $n$ grande,
+poiché anche i migliori algoritmi hanno complessità minima dell'ordine di
+$2^n$. Già infatti con $n = 85$, si ottiene una complessità di $2^{85} = 3,86
+\cdot 10^{25} op$, le quali richiedono oltre un miliardo di anni operando
+$10^9$ operazioni al secondo!
+
+La soluzione adottata per il problema del cammino Hamiltoniano è la seguente
+\begin{enumerate}
+    \item si codificano nodi ed archi in sequenze di DNA;
+    \item si generano catene di DNA casuali, ciascuna di esse sarà associata ad
+        un percorso \-- ciò si fa lasciando le sequenze in un contenitore
+        archi-vertici, con l'aggiunga dell'\emph{enzima Ligasi};
+    \item si prendono soltanto quelli con il giusto nodo d'inizio $v_i$ e
+        finale $v_f$, si scartano gli altri poiché fondamentalmente errati \--
+        ciò è realizzato mediante \emph{polymerase chain reaction};
+    \item si trattengono tutti quelli che visitano $n$ vertici \-- mediante
+        \emph{elettroforesi con gel di agarosio}\footnote{La gelatina di
+        agarosio (uno zucchero), se sottoposta a differenza di potenziale, fa
+    sì che le molecole si polarizzino e si muovano all'interno del gel. Per via
+della viscosità del gel, le molecole più corte viaggiano più velocemente,
+mentre le molecole maggiormente lunghe saranno complessivamente più lente. Dopo
+un lasso di tempo si può controllare il posizionamento delle molecole, che
+formeranno agglomerati e saranno disposte in cluster a seconda della lunghezza.
+Ecco che così facendo si potrà discernere fra i percorsi ``troppo lunghi'' e
+``troppo corti'' e quelli della lunghezza corretta, che saranno collocati nello
+stesso cluster.};
+    item si trattengono solo quelli che visitano ciascun vertice almeno una
+        volta \-- si formano singoli strand di DNA accoppiati con tutti i
+        vertici;
+    \item i cammini rimanenti sono \emph{la soluzione} \-- estratti in
+        laboratorio.
+\end{enumerate}
+
+TODO figure 30
+
+Per costruire i \emph{vertici} si determinano stringhe casuali assieme alle loro
+inverse complementari. Supponiamo di costruire $n$ stringhe casuali di
+lunghezza pari a $20$ nucleotidi, da $5^\prime$ a $3^\prime$. Il primo passo è
+quello di determinare le stringhe \emph{inverse complementari}, cioè quelle da
+sovrapporre e tali che $3^\prime \rightarrow 5^\prime$: le due stringhe
+potranno incollarsi, poiché complementari.
+
+Per costruire gli \emph{archi} $u\rightarrow v$ $S_{uv}$, si procede costruendo
+una stringa di lunghezza $20$ con la coda del nodo $u$ ($S_u$) e con la testa del nodo
+$v$ ($S_{v}$).
+
+Si generano dunque moltissime (milioni di) copie delle $\overline{S}_j$
+complementari e si mettono nel \emph{contenitore dei vertici}, mentre si
+generano moltissime (anch'esse milioni di) copie delle $S_{uv}$, ponendole nel
+\emph{contenitore degli archi}. Per la computazione, semplicemente, \emph{si
+mescolano i contenitori}, e se per caso le sequenze si attaccano le une le altre,
+queste formano una sequenza di vertici e nodi: abbiamo dunque realizzato la
+seconda fase di generazione casuale dei percorsi.
+
+TODO figure 33 34
+
+Supponiamo di veder realizzato il cammino u-v-w. Gli archi sono costituiti con
+metà di entrambi i nodi, mentre i vertici sono casualmente generati. Nel
+contenitore dei DNA le sequenze possono muoversi liberamente, ed incrociarsi a
+seconda delle affinità: può crearsi, in definitiva, una catena come in
+Figura~\ref{fig:dnaCostituzioneCamminoUVW}.
+
+\subsection{I vantaggi e le limitazioni delle tecniche a computazione DNA}
+
+I vantaggi \emph{teorici} principali sono legati alla \emph{velocità di
+computazione}, milioni di volte più rapida dei computer tradizionali,
+all'\emph{efficienza energetica} di miliardi di volte maggiore, e specialmente
+alla capacità di \emph{memorizzazione ad altissima densità} (miliardi di
+volte maggiore). Infatti, $1cm$ cubo può contenere fino a $10000$ mld di
+molecole di DNA; $1$ bit è contenuto in $1nm$ cubo col DNA, mentre in $10^{12}nm$
+cubi con CD. Un calcolatore DNA potrebbe gestire $10TB$ di memoria con una
+velocità di calcolo di $10^{13}$ operazioni al secondo.
+
+Le limitazioni sono purtroppo pesantissime: il numero di molecole implicate è
+lo stesso delle soluzioni possibili nella ricerca esauriente, cioè all'incirca
+$\sim 2^n$. Purtroppo, scegliendo $n=100$ il peso del DNA sarebbe superiore a
+$10t$, mentre con $n=200$ il totale peso delle stringhe richieste sarebbe
+superiore al peso della Terra!
+
+L'altra limitazione sono le \emph{imperfezioni nelle tecniche di sintesi del
+DNA}, comportando una presenza non trascurabile di errori. Inoltre, il
+bio-calcolatore deve essere \emph{dedicato al problema}, ed il \emph{tempo} di
+ogni operazione biologica richiede ore o giorni. In altre parole, la
+complessità temporale viene sostituita con la \textbf{complessità sul peso}.
+
+
+\chapter{Teoria degli automi e dei linguaggi formali}
+
+Gli \textbf{automi a stati finiti} sono la classe delle macchine con minore
+potenza computazionale.
+
+Un automa a stati finiti può essere rappresentato mediante una testina che si
+muove su un nastro contenente dei simboli e potenzialmente illimitato, sempre
+nella stessa direzione. La testina può trovarsi in un certo \emph{stato} \-- a
+seconda dello stato $q$ e del simbolo $s_i$ letto sul nastro, la testina si
+porta in un altro stato o rimane nello stesso in cui si trovava, per poi
+spostarsi a destra per apprestarsi a leggere il simbolo successivo.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=0.5\linewidth, height=\textheight, keepaspectratio]{./pics/automaStatiFiniti.png}
+    \caption{Rappresentazione schematica di un automa a stati finiti.}
+    \label{fig:automaStatiFiniti}
+\end{figure}
+
+Quando la lettura dei simboli termina, a seconda dello stato raggiunto dalla
+testina, l'automa fornisce un risultato di \emph{accettazione} o di
+\emph{refutazione} della stringa.
+
+Fra le macchine concepibili, le macchine a stati finiti sono le meno potenti.
+Volendole classificare in base alle caratteristiche e alle loro possibilità,
+\begin{description}
+    \item[Macchina di Turing] può leggere e scrivere a destra e sinistra della
+        stringa;
+    \item[Macchina di Post] legge a sinistra, mentre scrive ed allunga la
+        stringa a destra;
+    \item[Macchine con memorie push-down] leggono a sinistra di $x$,
+        leggono e scrivono a sinistra di ciascuna memoria push-down. Le
+        macchine con memorie push-down hanno differenti potenze computazionali
+        a seconda del numero di tali memorie;
+    \item[Automi, macchine a stati finiti] leggono a sinistra, non possono
+        scrivere. Eseguono essenzialmente delle \emph{letture}, ma non delle
+        scritture.
+\end{description}
+
+Gli automi non sono perciò in grado di scrivere qualcosa sul nastro. La memoria
+a disposizione sull'automa è una qualche sorta di \emph{memoria di sola
+lettura} \-- il nastro supporta esclusivamente la stringa $x$, di lunghezza
+comunque finita. Un automa, dunque, può essere considerato come una macchina
+che svolge compiti in base alle istruzioni fornite sul nastro, oppure come una
+macchina che riconosce stringhe. Ci ritroviamo dunque in una situazione del
+tutto simile a quanto accadeva per la macchina di Turing, con la sola
+differenza che un automa è in grado di riconoscere un numero molto più limitato
+di stringhe.
+
+\section{I linguaggi regolari}
+
+La \textbf{chisura (o stellatura)} $S^*$ dell'insieme $S$ è l'insieme
+costituito dalla parola vuota e da tutte le parole formate concatenando un
+numero finito di parole in $S$, cioè quindi
+
+$$S^* = S^0 \cup S^1 \cup S^2 \cup \dots$$
+dove $S^0 = \{\Lambda\},$ e $S^i=S^{i-1}S, i > 0$.
+
+Sia $\Sigma = \{a, b\}$ un alfabeto di simboli (contenente in questo caso due
+simboli), $\Lambda$ sia la \emph{parola vuota} e la \textbf{stellatura
+dell'insieme} $\Sigma^* = \{\Lambda, a, b, aa, ab, ba, bb, aaa, aab, \dots\}$
+definiamo il \textbf{prodotto (concatenazione)} $UV$ di due sottoinsiemi $U, V$
+di $\Sigma^*$ come 
+
+$$UV = \{x | x= uv, u \in U, v \in V\}.$$
+
+In altre parole, ogni parola dell'insieme $UV$ è formata concatenando una
+parola di $U$ con una parola di $V$. Prendendo due sottoinsiemi $U=\{a, ab,
+aab\}$ e $V=\{b, bb\}$ allora l'insieme $UV = \{ab, abb, abbb, aabb, aabbb\}$.
+In generale, il prodotto non è commutativo, nel senso che l'insieme ottenuto
+potrebbe non essere uguale. L'operazione prodotto è tuttavia associativa, cioè
+per qualunque $U, V, W \in \Sigma^*$ si ha che $(UV)W = U(VW)$.
+
+Esaminiamo ora la classe degli \textbf{insiemi regolari}. La classe degli insiemi regolari su $\Sigma$ è ricorsivamente definita come segue:
+\begin{enumerate}
+    \item ogni insieme \emph{finito} di parole su $\Sigma$, compreso l'insieme
+        vuoto $\emptyset$, è un insieme regolare;
+    \item se $U$ e $V$ sono insiemi regolari su $\Sigma$, lo sono anche la loro
+        unione $U\cup V$ ed il loro prodotto $UV$;
+    \item se $S$ è un insieme regolare su $\Sigma$, lo è anche la sua chiusura
+        $S^*$.
+\end{enumerate}
+
+Dunque nessun insieme è regolare, a meno che non possa essere ottenuto con un
+numero finito di applicazione dei punti 1, 2 o 3. Perciò, la classe degli
+insiemi regolari su $\Sigma$ è la più piccola classe che contiene tutti gli
+insiemi finiti di parole su $\Sigma$, e che è al contempo chiusa rispetto ad
+unione, prodotto e stellatura.
+
+Gli insiemi regolari sono generalmente molto semplici: un sottoinsieme di
+$\Sigma^*$ è regolare \emph{se e solo se}
+
+\begin{enumerate}
+    \item è accettato da qualche \emph{automa finito};
+    \item è accettato da qualche \emph{grafo di transizione} \-- una
+        definizione differente di un automa a stati finiti;
+    \item può essere espresso da qualche \emph{espressione regolare}.
+\end{enumerate}
+
+Esempi di espressioni regolari sono l'insieme di tutte le parole di $\Sigma =
+\{a, b\}$ che contengono o due $a$ consecutive, o due $b$ consecutive, e
+l'insieme delle parole di $\Sigma$ che contengono un numero pari di $a$ e pari
+di $b$. Al contrario, l'insieme $\{a^n b^n| n\geq 0\}$ \emph{non} è un imsieme
+regolare su $\Sigma$.
+
+\section{Gli automi}
+
+Un esempio reale di automa risiede nel controllore di un portone elettrico \--
+la funzionalità dell'automa è insita nei suoi stati: il cancello può essere
+nello stato di \textsc{Aperto} oppure \textsc{Chiuso}, rappresentando le
+corrispondenti condizioni del portone. Vi sono quattro possibili condizioni di
+input, dipendenti dalla posizione delle persone relativamente al cancello:
+\textsc{Fronte}, \textsc{Retro}, \textsc{Entrambi}, \textsc{Nessuno}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/automaStatiFinitiCancello.png}
+    \caption{Doppia modalità di rappresentazione per un automa a stati finiti.
+    Esso può essere rappresentato o come \emph{diagramma di stato}, o come
+\emph{matrice di transizione}.}
+    \label{fig:automaStatiFinitiCancello}
+\end{figure}
+
+Vi sono due possibili rappresentazioni per un automa: mediante il
+\textbf{diagramma di stato} o attraverso la sua \textbf{matrice di
+transizione}. La differenza fra quest'ultima e la matrice della macchina di
+Turing è che negli automi non è prevista un'operazione da svolgere \-- il
+sistema è capace solo di transitare verso uno stato successivo, non di
+effettuare operazioni particolari o di immagazzinare informazioni.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/automiVendingMachine.png}
+    \caption{Macchina per la distribuzione di caramelle negli Stati Uniti, dal
+    costo di 25 cents. Se vengono inseriti più di 25 cents, la macchina non dà
+resto.}
+    \label{fig:automiVendingMachine}
+\end{figure}
+
+Siamo ora pronti a fornire la prima definizione di automa a stati finiti.
+
+Un \textbf{automa finito} A su $\Sigma$, dove $\Sigma = \{\sigma_1, \sigma_2,
+\dots, \sigma_n\}$ è un grafo finito orientato in cui da ogni vertice escono
+$n$ archi, con ogni arco etichettato con un diverso $\sigma_i$, con $1 \leq i
+\leq n$. Esiste un vertice, etichettato con il segno $-$, detto \emph{vertice
+iniziale}, ed un insieme di vertici eventualmente vuoto etichettati con un
+segno $+$, detti \emph{vertici finali}, con la possibilità che il vertice
+iniziale sia anche un vertice finale. Talvolta i vertici sono chiamati
+\textbf{stati}. Si guardino le slides per tutti gli esempi sugli automi.
+
+La seconda definizione di automa finito è più formale, ed equivalente alla
+precedente.
+
+Un \textbf{automa finito} è una $5$-tupla $\mathcal Q, \Sigma, \delta, q_0,
+\mathcal F)$ dove 
+\begin{enumerate}
+    \item $\mathcal Q$ è un insieme finito di \emph{stati};
+    \item $\Sigma$ è un insieme finito, detto \emph{alfabeto};
+    \item $\delta : \mathcal Q \times \Sigma \rightarrow \mathcal Q$ è la
+        \emph{funzione di transizione};
+    \item $q_0$ è lo \emph{stato di partenza};
+    \item $\mathcal F \subset \mathcal Q$ è l'\emph{insieme degli stati
+        di accettazione}.
+\end{enumerate}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/wwAutoma.png}
+    \caption{Automa a stati finiti che riconosce le stringhe A = \{w | w \mbox{ contiene almeno un } 1\mbox{ ed un numero pari di } 0 \mbox{ seguono l'ultimo } 1\}}
+    \label{fig:wwAutoma}
+\end{figure}
+
+
+Se $A$ è l'insieme di tutte le stringhe accettate dalla macchina $M$, si dice
+che $A$ è il \textbf{linguaggio della macchina} $M$, e scriviamo $\mathcal L(M)
+= A$. Nell'esempio di cui sopra, $$\mathcal L(M) = A = \{w | w \mbox{ contiene
+almeno un } 1 \mbox{ ed un numero pari di } 0 \mbox{ seguono l'ultimo } 1\}.$$
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/automaAnBm.png}
+    \caption{Automa a stati finiti che riconosce qualsiasi stringa della forma
+    $\mathcal L(M) = \{a^n b^m | m,n > 0\},$ ma \textbf{non} stringhe della
+forma $a^n b^n$ con $n>0$.}
+    \label{fig:automaAnBm}
+\end{figure}
+
+
+
+\section{La computazione degli automi deterministici (DFA) dal punto di vista formale}
+
+Sia $A_D = \{ \mathcal Q, \Sigma, \delta_D, q_0, \mathcal F\}$. Se $x\in
+\Sigma^*$ viene introdotto $\hat\delta_D (q, x)$ lo \textbf{stato raggiunto} da
+$M$ partendo da $q$ quando si è alla sinistra di $x$, ed esecuendo
+successivamente il cammino $x$.
+
+Si può definire per ricorsione:
+
+$$
+\left\{
+    \begin{array}{l}
+        \hat\delta_D (q, \Lambda) = q \\
+        \hat\delta_D (q, xa) = \delta _D (\hat\delta_D (q, x), a)
+    \end{array}
+\right.
+$$
+
+con $\delta_D(q, a) = \hat\delta_D(q, a)$. In altre parole, $A_D$ accetta una
+parola $x$ se $\hat\delta(q_0, x) \in \mathcal F$ insieme degli stati di
+accettazione, ovvero $$\mathcal L(A_D) = \{x\in \Sigma^* | \hat\delta(q_0, x)
+\in \mathcal F\}.$$ Si dimostrerà che un linguaggio accettato da un automa a
+stati finiti è un linguaggio \emph{regolare}: questo legame fra automi a stati
+finiti e linguaggi regolari consente di trattare gli automi mediante il
+formalismo dei linguaggio regolari.
+
+\subsection{Gli automi non deterministici}
+
+Un \textbf{automa non deterministico} (Non-deterministic Finite Automa) vede
+rimosso il vincolo che da ciascun nodo escano tutti e solid $\Sigma$ caratteri
+diversi dell'alfabeto. Gli automi deterministici sono introdotti per
+semplificare enormemente il grafo corrispondente \-- solitamente, automi
+deterministici producono grafi enormemente più complessi e meno sintetici
+rispetto agli automi non deterministici.
+
+
+TODO esempio NFA 29 32 
+
+Il fatto di introdurre il non determinismo non introduce una maggiore potenza
+computazionale, bensì funge esclusivamente da semplificazione notevole per la
+rappresentazione a grafi.
+
+\subsection{Equivalenza fra automi NFA ed automi DFA}
+
+TODO 35
+
+\subsection{Automa non deterministico}
+
+Un \textbf{automa a stati finiti non deterministico} è una $5$-tupla $\mathcal Q, \Sigma, \delta, q_0,
+\mathcal F)$ dove 
+\begin{enumerate}
+    \item $\mathcal Q$ è un insieme finito di \emph{stati};
+    \item $\Sigma$ è un insieme finito, detto \emph{alfabeto};
+    \item $\delta : \mathcal Q \times \Sigma \rightarrow \mathcal P(\mathcal Q)$ è la
+        \emph{funzione di transizione};
+    \item $q_0$ è lo \emph{stato di partenza};
+    \item $\mathcal F \subset \mathcal Q$ è l'\emph{insieme degli stati
+        di accettazione}.
+\end{enumerate}
+
+La differenza principale rispetto agli automi deterministici è la definizione
+della funzione di transizione $\delta$, dove il codominio è l'\emph{insieme
+delle parti} di $\mathcal Q$ anziché l'insieme $\mathcal Q$.
+
+Similmente, la computazione per automi non deterministici dal punto di vista
+formale avviene con le seguenti differenze:
+
+Sia $A_N = \{ \mathcal Q, \Sigma, \delta_D, q_0, \mathcal F\}$. Se $x\in
+\Sigma^*$ viene introdotto $\hat\delta_D (q, x)$ l'\textbf{insieme degli stati
+raggiunti} da $A_N$ partendo da $q$ quando si è alla sinistra di $x$, ed
+esecuendo successivamente \emph{tutti i percorsi} $x$.
+
+Di conseguenza, si può definire per ricorsione:
+
+$$
+\left\{
+    \begin{array}{l}
+        \hat\delta_N (q, \Lambda) = \{q\} \\
+        \hat\delta_N (q, xa) = \bigcup_{p \in \hat\delta_N(q, x)} \hat\delta_N (p, a)
+    \end{array}
+\right.
+$$
+
+Si avrà infine che $A_N$ accetta una parola $x$ se $\hat\delta_N(q_0, x) \cap F
+\neq \emptyset$, cioè
+
+$$L(A_N) = \{x \in \Sigma^* | \hat \delta_N(q_0, x) \cap F \neq \emptyset \}.$$
+
+Poiché ogni NFA può essere descritto da un DFA in cui la $\delta_N(q, x)$
+restituisce un solo stato, ogni linguaggio regolare è accettato da un NFA.
+Dunque, un linguaggio accettato da un automa non deterministico risulterà
+sempre essere \emph{regolare}. La dimostrazione di ciò è nelle dispense.
+
+\section{Pumping lemma}
+
+Un notevole risultato della teoria della computazione è noto col nome di
+\textbf{Pumping lemma}.
+
+\begin{thm}{Pumping lemma}
+    Sia $\mathcal L = \mathcal L(\mathcal A)$, dove $\mathcal A$ è un automa a
+    $m$ stati. Sia $x \in \mathcal L$, con $|x| \geq m$. Allora si può scrivere
+    $x = uvw$, dove $v \neq \Lambda$ e $uv^{[i]}w \in \mathcal L$\footnote{La
+    parte centrale della stringa è infinitamente replicabile, tale che il
+risultato continui ad appartenere al linguaggio $\mathcal L$.} per tutti i
+    valori $i = 0,1,2,3,\dots$.
+\end{thm}
+
+\textsc{Dimostrazione} \---- Poiché $x$ consiste di almeno $m$ simboli,
+$\mathcal A$ deve passare attraverso almeno $m$ transizioni di stato mentre
+scansiona $x$; contando lo stato iniziale ciò richiede almeno $m + 1$ stati non
+necessariamente distinti. Ma poiché in tutto ci sono soltanto $m$ stati,
+concludiamo (\emph{principio della cassettiera} o principio della piccioniaia)
+che $\mathcal A$ deve essere in almeno uno stato più di una volta. Sia $q$ uno
+stato in cui $\mathcal A$ si trova almeno due volte. Possiamo dunque scrivere
+$x = uvw$, dove 
+
+\clearpage
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=0.6\linewidth, height=\textheight, keepaspectratio]{./pics/pumpingLemma.png}
+    \label{fig:pumpingLemma}
+\end{figure}
+
+
+\subsection{Utilizzo del Pumping lemma}
+
+Il pumping lemma è estremamente utile per dimostrare per assurdo la \emph{non
+regolarità} di alcuni linguaggi. Ad esempio,
+
+TODO 45
+
+\section{I grafi di transizione}
+
+Un \textbf{grafo di transizione} $T$ \textbf{su} $\Sigma$ è un \emph{grafo
+orientato finito} in cui ogni arco è etichettato da qualche parola $w \in
+\Sigma^*$, eventualmente $w =\Lambda$ parola vuota. Esistono i vertici iniziali
+e vertici finali, i primi etichettati con il segno $-$, i secondi (se esistono)
+etichettati con il segno $+$. Un vertice può essere sia iniziale che finale.
+
+In parole povere, gli archi non corrispondono ad un cambio di stato, bensì a
+delle stringhe, le quali comportano gli opportuni cambiamenti di stato
+all'interno del grafo. Le parole si possono concatenare, e la parola $w$ viene
+accettata soltanto qualora la concatenazione delle etichette corrisponda
+proprio alla parola $w$.
+
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/automiGrafiElementari.png}
+    \caption{Alcuni esempi base di grafi di transizione. Altri esempi sono
+    forniti sulle slide.}
+    \label{fig:automiGrafiElementari}
+\end{figure}
+
+\section{Le espressioni regolari}
+
+La \textbf{classe delle espressioni regolari}\footnote{Tale definizione ricorda
+la definizione degli \emph{insiemi regolari}. Infatti, l'operazione $+$ è
+riconducibile all'unione fra insiemi, l'operazione $\cdot$ è riconducibile al
+prodotto fra insiemi, ed $*$ alla stellatura fra insiemi.} su $\Sigma$ è
+ricorsivamente definita come segue: sia $\Sigma = \{\sigma_1, \sigma_2, \dots,
+\sigma_n\}$, definiamo \emph{alfabeto accessorio} $$\Sigma_A = \{\sigma_1,
+\sigma_2, \dots, \sigma_n, \Lambda, \emptyset, +, \cdot, *, (, )\}$$. La classe
+delle \textbf{espressioni regolari} su $\Sigma$ è definita come il sottoinsieme
+di $\Sigma_A^*$ tale che
+
+\begin{enumerate}
+    \item $\Lambda$ e $\emptyset$ sono espressioni regolari su $\Sigma$;
+    \item ogni lettera $\sigma \in \Sigma$ è un'espressione regolare su
+        $\Sigma$;
+    \item se $R_1$ e $R_2$ sono espressioni regolari su $\Sigma$, lo sono anche
+        $R_1 + R_2$, $R_1 \cdot R_2$, ed $R_1^*$.
+\end{enumerate}
+
+Dunque, ogni espressione regolare $R$ su $\Sigma$ descrive un insieme
+$\tilde{R}$ di parole su $\Sigma$, cioè si ha che $\tilde{R}\subseteq
+\Sigma^*$, definito ricorsivamente come segue:
+\begin{enumerate}
+    \item se $R = \Lambda$, allora $\tilde R = \{\Lambda\}$, cioè è l'insieme
+        costituito dalla parola vuota $\Lambda$. Se $R = \emptyset$ allora
+        $\tilde R = \emptyset$, cioè è uguale all'insieme vuoto;
+    \item se $R = \sigma$, allora $\tilde R = \{ \sigma \}$, cioè è l'insieme costituito dalla lettera $\sigma$;
+    \item se $R_1$ ed $R_2$ sono espressioni regolari su $\Sigma$ che descrivono gli insiemi di parole $\tilde R_1$ e $\tilde R_2$, rispettivamente,
+\begin{itemize}
+    \item se $R = (R_1 + R_2)$, allora $$\tilde R = \tilde R_1 \cup \tilde R_2
+        = \{x | x \in \tilde R_1 \mbox{ oppure } x \in \tilde R_2\}$$ ovvero
+        l'insieme unione;
+    \item se $R = (R_1 \cdot R_2)$, allora $$\tilde R = \tilde R_1 \tilde R_2 =
+        \{xy | x \in \tilde R_1 \mbox{ e } y \in \tilde R_2\}$$ ovvero
+        l'insieme prodotto;
+    \item se $R = (R_1)^*$, allora $$\tilde R = \tilde R_1^* =
+        \{\Lambda\} \cup \{x | x \mbox{ ottenuti concatenando un numero finito
+        di parole di } \tilde R_1\}$$ ovvero l'insieme chiusura;
+\end{itemize}
+\end{enumerate}
+
+Esempi di espressioni regolari sono fornite nelle slide.
+
+Un importante risultato è che dalla definizione delle espressioni regolari,
+consegue direttamente che \emph{un insieme è regolare su $\Sigma$ se e solo se
+può essere espresso da una espressione regolare su $\Sigma$}. Un insieme
+regolare può essere descritto da diverse espressioni regolari. Ad esempio,
+tutte le parole $\Sigma = \{a, b\}$ con $a$ e $b$ che si alternano e che
+cominciano e terminano con $b$.
+
+
+
+
+
+
+
+
 
 \end{document}
-
