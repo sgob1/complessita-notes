@@ -1,11 +1,41 @@
-\documentclass[10pt]{extreport}
+% --------------------------------------------------------------------------------
+%                     __   __        _      _    _
+%                     \ \ / /_ _ _ _(_)__ _| |__| |___ ___
+%                      \ V / _` | '_| / _` | '_ \ / -_|_-<
+%                       \_/\__,_|_| |_\__,_|_.__/_\___/__/
+%
+% --------------------------------------------------------------------------------
+\newcommand{\classname}{extbook}
+\newcommand{\innermargin}{3.9cm}
+\newcommand{\outermargin}{5.3cm}
+\newcommand{\bodyfont}{Equity A}
+\newcommand{\headingfont}{Heliotrope 6 Caps}
+\newcommand{\sansfont}{Heliotrope 3}
+\newcommand{\scfont}{Equity A Caps}
+\newcommand{\monospacefont}{Triplicate A}
+\newcommand{\Footheadfont}{Heliotrope 4 Caps}
+\newcommand{\footheadfont}{Heliotrope 4}
+\newcommand{\titlepagename}{compl-titlepage}
+\newcommand{\spacingvalue}{1.30}
+\newcommand{\headsepvalue}{30pt}
+\newcommand{\footskipvalue}{40pt}
+\newcommand{\marginparsepvalue}{20pt}
+\newcommand{\marginparwidthvalue}{90pt}
+
+
+% --------------------------------------------------------------------------------
+%                          _  _             _
+%                         | || |___ __ _ __| |___ _ _
+%                         | __ / -_) _` / _` / -_) '_|
+%                         |_||_\___\__,_\__,_\___|_|
+%
+% --------------------------------------------------------------------------------
+\documentclass[10pt]{\classname}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
 %\usepackage[document]{ragged2e}
-%\usepackage{notomath}
 \usepackage{fontspec}
-%\usepackage{CharisSIL}
 \usepackage{mlmodern}
 \usepackage[stickstoo]{newtxmath}
 \usepackage[all]{nowidow}
@@ -13,9 +43,10 @@
 \usepackage{svg}
 \usepackage[pdfa]{hyperref}
 \usepackage{color}
+\usepackage{makecell}
 \usepackage{setspace}
 \usepackage{parskip}
-\usepackage[a4paper, inner=4.6cm, outer=4.6cm]{geometry}
+\usepackage[a4paper, inner=3.8cm, outer=5.4cm]{geometry}
 \usepackage{listings}
 \definecolor{dkgreen}{rgb}{0.1,0.5,0.1}
 \definecolor{greengray}{rgb}{0.517,0.761,0.404}
@@ -41,64 +72,77 @@
 	tabsize=3
 }
 
-\newtheorem{thm}{Teorema}
-\setlength{\tabcolsep}{0.5em} % for the horizontal padding
-{\renewcommand{\arraystretch}{1.35}% for the vertical padding
+\font \bodyfontfs = "\bodyfont"
+\font \sansfontfs = "\sansfont"
+\font \scfontfs = "\scfont"
+\font \monofontfs = "\monospacefont"
+\font \Footheadfontfs = "\Footheadfont"
+\font \footheadfontfs = "\footheadfont"
 
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
-\fancyhead[LE,RO]{\leftmark}
-\fancyfoot[LE,RO]{\thepage}
+\fancyhead[LE,RO]{\Footheadfontfs \nouppercase \leftmark}
+\fancyfoot[CE,CO]{\footheadfontfs \thepage}
+\renewcommand{\headrulewidth}{1.0pt}
+\renewcommand{\footrulewidth}{1.0pt}
+\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 
+\newtheorem{thm}{Teorema}
+\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+{\renewcommand{\arraystretch}{1.35}% for the vertical padding
 
-\renewcommand{\headrulewidth}{1pt}
-%\renewcommand{\footrulewidth}{1pt}
-
-\usepackage{titlesec}
-%\titleformat{\part}[display]
-%{\Huge\bfseries\sffamily}{}{10pt}{\center{ Parte \thepart\ \ \\ \ \ }}
-%%\titleformat{\chapter}[display]
-%%{\huge\bfseries}{}{0pt}{\thechapter\ \ --\ \ }
-%\titleformat{\section}[display]
-%{\Large\bfseries}{}{0pt}{\medskip\thesection\ \ --\ \ }
-%\titleformat{\subsection}[display]
-%{\large\bfseries}{}{0pt}{\medskip\thesubsection\ \ --\ \ }
-\titleformat{\part}[display]
-{\Huge\bfseries\sffamily}{}{0pt}{\center{ Part \thepart\ \ \\ \ \ }}
-\titleformat{\chapter}[display]
-{\Huge\bfseries\sffamily}{}{0pt}{Chapter \thechapter\\}
-\titleformat{\section}[display]
-{\LARGE\bfseries\sffamily}{}{0pt}{\thesection\ \ \ \ \ }
-\titleformat{\subsection}[display]
-{\Large\bfseries\sffamily}{}{0pt}{\thesubsection\ \ \ \ \ }
-\titleformat{\subsubsection}[display]
-{\large\bfseries\sffamily}{}{0pt}{}
 
 \begin{document}
-%\setmonofont[Scale=.85]{Fira Code Retina}
-\setmainfont{Equity A}
-\setsansfont{Heliotrope 6}
-\setmonofont{Triplicate A}
+\setmainfont{\bodyfont}
+\setsansfont{\sansfont}
+\setmonofont{\monospacefont}
 
-
-\include{compl-titlepage}
-\setstretch{1.30}
-\setlength{\headsep}{30pt}
-\setlength{\footskip}{40pt}
-\setlength{\marginparsep}{20pt}
-\setlength{\marginparwidth}{60pt}
-
-%\title{Complessità}
-%\author{Marco Sgobino}
+\include{\titlepagename}
+%\title{Title}
+%\author{Author}
 %\maketitle
+
+\setstretch{\spacingvalue}
+\setlength{\emergencystretch}{0pt}
+\pretolerance=150
+\tolerance=250
+\hbadness=150
+\hfuzz=0pt
+\setlength{\headsep}{\headsepvalue}
+\setlength{\footskip}{\footskipvalue}
+\setlength{\marginparsep}{\marginparsepvalue}
+\setlength{\marginparwidth}{\marginparwidthvalue}
+
 \tableofcontents
 
-%\part{Complessità}
+\let\oldtextsc\textsc
+\renewcommand{\textsc}[1]{\oldtextsc{\scfontfs #1}}
+\let\oldpart\part
+\renewcommand{\part}[1]{\setmainfont{\headingfont}\oldpart{#1}\setmainfont{\bodyfont}}
+\let\oldchapter\chapter
+\renewcommand{\chapter}[1]{\setmainfont{\headingfont}\oldchapter{#1}\setmainfont{\bodyfont}}
+\let\oldsection\section
+\renewcommand{\section}[1]{\setmainfont{\headingfont}\oldsection{#1}\setmainfont{\bodyfont}}
+\let\oldsubsection\subsection
+\renewcommand{\subsection}[1]{\setmainfont{\headingfont}\oldsubsection{#1}\setmainfont{\bodyfont}}
+\let\oldsubsubsection\subsubsection
+\renewcommand{\subsubsection}[1]{\setmainfont{\headingfont}\oldsubsubsection{#1}\setmainfont{\bodyfont}}
+
+
+% --------------------------------------------------------------------------------
+%                     ___                             _
+%                    |   \ ___  __ _  _ _ __  ___ _ _| |_
+%                    | |) / _ \/ _| || | '  \/ -_) ' \  _|
+%                    |___/\___/\__|\_,_|_|_|_\___|_||_\__|
+%
+% --------------------------------------------------------------------------------
+
+
 \chapter{La macchina di Turing}
 \section{Descrizione della macchina}
 
-Una \textbf{macchina di Turing} è una macchina che è descritta da un insieme di
+Una \textbf{macchina di Turing} è una \textsc{macchina} che è descritta da un insieme di
 \emph{simboli} $\Gamma = \{\alpha, \beta, \gamma, \delta, \dots\}$ \emph{finito} e da
 un insieme di \emph{stati} $\mathcal{Q} = \{q_1, q_2, \dots, q_n\}$ anch'esso
 \emph{finito}. La macchina di Turing dispone di un nastro di memoria
@@ -339,7 +383,7 @@ funzioni computabili dal modello RAM $\mathcal C$.
     RAM $\mathcal C$ sono \emph{equivalenti}.
 \end{thm}
 
-\setmainfont{Equity A Caps}Dimostrazione\setmainfont{Equity A} --- Un possibile spunto di dimostrazione di $\mathcal {TC} \subseteq \mathcal R$ si
+\textsc{Dimostrazione} --- Un possibile spunto di dimostrazione di $\mathcal {TC} \subseteq \mathcal R$ si
 ha grazie al fatto che la configurazione e lo stato della MdT durante la
 computazione possono essere codificati da un numero naturale; le operazioni
 sulla macchina sono rappresentate da funzioni ricorsive su questi numeri. Il
@@ -515,9 +559,8 @@ Uno dei possibili utilizzi per una macchina di Turing (o più in generale, per
 una macchina Turing-equivalente) è quello di \emph{accettore} di stringhe: la
 macchina riceve in ingresso un simbolo, una \emph{stringa}; essa si dirà
 \emph{accettata} qualora la computazione risultante terminasse nello stato di
-\setmainfont{Equity A Caps}Accettazione\setmainfont{Equity A}, altrimenti si dirà \emph{rifiutata} qualora la
-computazione terminasse invece in uno stato di \setmainfont{Equity A
-Caps}Rifiuto\setmainfont{Equity A}. Per farla breve, essa ha come ``input''
+\textsc{Accettazione}, altrimenti si dirà \emph{rifiutata} qualora la
+computazione terminasse invece in uno stato di \textsc{Rifiuto}. Per farla breve, essa ha come ``input''
 (stato iniziale) una stringa, e l'evoluzione di questo input potrà portare o ad
 uno stato in cui la stringa è considerata accettata, o in uno stato opposto in
 cui essa è rifiutata. Si osservi che, in ogni caso, non c'è garanzia che una
@@ -528,9 +571,9 @@ Nel modello RAM, per accettare una stringa è necessario operare una codifica.
 In particolare, la stringa viene codificata in un numero naturale e la macchina
 risponde con ``1'' o ``0'' a seconda che la stringa venga o meno accettata. In questo caso la codifica avviene sia per i valori di input, da stringa a numeri naturali, che per i valori finali della computazione, da numeri naturali ad accettato--rifiutato. Con
 la macchina di Turing, invece, si può far intervenire direttamente uno
-\emph{stato di accettazione} \setmainfont{Equity A Caps}Accettazione
-\setmainfont{Equity A} $q_Y$ o uno \emph{stato di
-rifiuto} \setmainfont{Equity A Caps}Rifiuto \setmainfont{Equity A} $q_N$. La
+\emph{stato di accettazione} \textsc{Accettazione
+} $q_Y$ o uno \emph{stato di
+rifiuto} \textsc{Rifiuto } $q_N$. La
 computazione terminerà qualora uno fra
 questi due stati venisse raggiunto dalla macchina --- con conseguente
 accettazione o rifiuto della stringa a seconda dello stato finale. Un'altra
@@ -568,8 +611,8 @@ di definizione, la macchina di Turing,
     \item un puntatore, del tutto equivalente alla testina;
     \item un \emph{programma}, definito come \textbf{grafo finito orientato},
         con i vertici definiti come \emph{stato}. Vi è uno stato di inizio,
-        indicato con \setmainfont{Equity A Caps}Inizio\setmainfont{Equity A}, e un sottoinsieme eventualmente vuoto di
-        stati di arresto, indicati con \setmainfont{Equity A Caps}Accettazione\setmainfont{Equity A}. I nodi del grafo
+        indicato con \textsc{Inizio}, e un sottoinsieme eventualmente vuoto di
+        stati di arresto, indicati con \textsc{Accettazione}. I nodi del grafo
         sono collegati da \emph{archi}.
 \end{itemize}
 
@@ -756,7 +799,7 @@ di una certa pazienza, la macchina di Turing deterministica può percorrere uno
 alla volta ciascuno dei sentieri che la sua controparte non deterministica
 avrebbe percorso tutti contemporaneamente. Una macchina non deterministica ha
 dunque il potenziale vantaggio di poter risolvere problemi in \emph{tempo
-lineare} che dalla macchinia deterministica sarebbero invece risolti in in tempo
+lineare} che dalla macchina deterministica sarebbero invece risolti in in tempo
 esponenziale. Una grandissima spinta della velocità di calcolo, ma che non
 garantisce di calcolare nulla di più di quanto si potrebbe fare con una
 macchina di Turing deterministica. Resta da domandarsi se ciò renda in qualche
@@ -783,11 +826,11 @@ trattabili.
 Il parallelismo è insito nella macchina non deterministica;
 supponendo di voler risolvere un problema di accettazione, la stringa si
 considera \emph{accettata} qualora uno qualunque fra i percorsi possibili
-incappasse nello stato di \setmainfont{Equity A Caps}Accettazione\setmainfont{Equity A}. Più nello specifico, una parola $w \in \Sigma^*$ si
+incappasse nello stato di \textsc{Accettazione}. Più nello specifico, una parola $w \in \Sigma^*$ si
 dice \emph{accettata} da una macchina di Turing non deterministica se esiste
 una computazione della macchina $M$ che cominci con entrata $x=w$, e che
-termini ad un arresto con lo stato di \setmainfont{Equity A Caps}Accettazione\setmainfont{Equity A}. Se $w$ non viene
-accettata e lo stato di arresto è quello del \setmainfont{Equity A Caps}Rifiuto\setmainfont{Equity A}, allora si dice
+termini ad un arresto con lo stato di \textsc{Accettazione}. Se $w$ non viene
+accettata e lo stato di arresto è quello del \textsc{Rifiuto}, allora si dice
 che $w$ è \emph{rifiutata}. In alternativa, siamo di fronte ad un ciclo
 infinito $w \in ciclo(M)$, cioè dinanzi ad una divergenza.
 
@@ -812,7 +855,7 @@ compiere arbitrariamente o casualmente; dunque da lì è ottenuto il non
 determinismo della macchina. Ogni possibile scelta genererà un diverso ramo
 nell'albero della computazione; per l'accettazione di un simbolo è
 sufficiente che uno \emph{qualsiasi} fra i rami di computazione termini nello
-stato di \setmainfont{Equity A Caps}Accettazione\setmainfont{Equity A}. Dunque, benché una macchina di Turing non
+stato di \textsc{Accettazione}. Dunque, benché una macchina di Turing non
 deterministica non \textbf{aumenti} la potenza di calcolo intrinseca della
 macchina, essa consente la \textbf{parallelizzazione} dei possibili percorsi
 della computazione, rendendo di fatto possibile risolvere in tempo lineare
@@ -826,13 +869,13 @@ macchina deterministica.
     Turing deterministica multinastro.
 \end{thm}
 
-\setmainfont{Equity A Caps}Dimostrazione\setmainfont{Equity A} --- Una traccia della dimostrazione è una ricerca
+\textsc{Dimostrazione} --- Una traccia della dimostrazione è una ricerca
 nell'albero di computazione. Con almeno due nastri, si simula con uno la
 macchina non deterministica mentre con l'altro si collezionano tutti i
 possibili $k$ ``prossimi passi'' della tabella di transizione. La macchina di
 Turing deterministica allora controllerà tutte le configurazioni
 stato--simbolo, livello per livello, dell'albero di computazione. Lo stato
-finale di \setmainfont{Equity A Caps}Accettazione \setmainfont{Equity A} terminerà la computazione complessiva.
+finale di \textsc{Accettazione } terminerà la computazione complessiva.
 
 \begin{flushright}
 $\blacksquare$
@@ -847,7 +890,7 @@ non deterministico di computazione.
     macchina di Turing deterministica con ordine $2^{O(T_M(n))}$.
 \end{thm}
 
-\setmainfont{Equity A Caps}Dimostrazione\setmainfont{Equity A} --- Una traccia può essere che il numero massimo di
+\textsc{Dimostrazione} --- Una traccia può essere che il numero massimo di
 foglie è $O(b^{T_M(n)})$, dove $b$ è il numero di figli. Il tempo per viaggiare
 dalla radice lungo ogni ramo è, per una macchina multinastro,
 $$O(T_M(n)b^{T_M(n)}) = 2^{O(T_M(n))},$$ mentre per una macchina a nastro
@@ -1599,12 +1642,12 @@ Si tratta di un funzionale particolarmente complesso, composto da $4$ distinti t
 \section{Sommario delle caratteristiche delle reti neurali}
 
 \begin{quote}
-    \footnotesize{A.K. Dewdney 1997, 
+    A.K. Dewdney 1997, 
 
         \emph{``Although neural nets do
 solve a few toy problems, their powers of computation
 are so limited that I am surprised anyone takes them
-seriously as a general problem-solving tool.''}}
+seriously as a general problem-solving tool.''}
 \end{quote}
 \bigskip
 
@@ -1647,8 +1690,10 @@ esauriente della soluzione.
 
 Il modello a computazione DNA adotta il DNA biologico come contenitore delle
 informazioni: le sue dimensioni sono talmente ridotte da permettere una ricerca
-esauriente in spazi ridottissimi. La ricerca esauriente non viene adottata
-mediante un classico algoritmo, bensì in modo ``nativo'' tramite l'uso dei DNA.
+esauriente in spazi ridottissimi. Nella pratica, si fanno uso di tantissimi DNA
+per l'individuazione di soluzioni desiderate. La risultante ricerca esauriente
+non viene adottata mediante un classico algoritmo, bensì in modo ``nativo''
+tramite l'uso dei DNA.
 
 Storicamente, le scienze matematiche e quelle naturali si sono evolute seguendo
 due rami ben distinti. Attorno agli anni 50, la biologia molecolare scoprì il
@@ -1755,35 +1800,43 @@ Adleman nel 1994.
 
 Leggere il DNA tutto di seguito è tecnologicamente impossibile --- ciò che si
 può fare è leggere sequenze di qualche centinaio di basi. Diventa dunque di
-estrema rilevanza il problema dell'\textbf{il problema dell'assemblaggio dei
+estrema rilevanza il problema dell'\textbf{assemblaggio dei
 frammenti di DNA}.
 
-Supponendo di voler sequenziare il frammento di DNA
+Supponendo di voler sequenziare il frammento di DNA 
 
-\texttt{AGTATTGGCAATCGATGCAAACCTTTTGGCAATCACT}, si possono adoperare i
+\begin{center}
+\texttt{AGTATTGGCAATCGATGCAAACCTTTTGGCAATCACT}
+\end{center}
+
+Si possono adoperare i
 cosiddetti \emph{enzimi di restrizione} per estrarre alcune sequenze.
 Tipicamente, si estraggono varie sequenze che vanno riordinate, e ritagliate
 nel caso vi siano delle sovrapposizioni. Ricostruire la sequenza esatta del DNA
 a partire dai lembi di poche centinaia di basi è molto difficile: in un vero
 esperimento biologico si hanno lunghezze di DNA da $30000$ a $100000$ basi, con
-lunghezze di frammenti che crescono fino a $700$ basi; il numero di frammento
+lunghezze di frammenti che crescono fino a $700$ basi; il numero di frammenti
 totale sarà all'incirca dell'ordine di qualche migliaio. 
 
 La strategia che si adopera è quella dell'\emph{allineamento risolutivo}, cioè
 quella di andare ad allineare i frammenti a seconda delle loro somiglianze
-(string matching).
+(string matching). Ad esempio, la seguente sequenza di frammenti è stata
+riordinata per allineamento risolutivo, con le corrispondenze che si
+manifestano in verticale.
 
-\begin{verbatim}
+\begin{center}
+\texttt{
 AGTATTGGCAATC--------CCTTTTGG--------
 ---------AATCGATG--------TTGGCAATCACT
 --------------ATGCAAACCT-------------
 AGTATTGGCAATCGATGCAAACCTTTTGGCAATCACT
-\end{verbatim}
+}
+\end{center}
 
 
 Il secondo problema è quello della \textbf{ricerca di moduli funzionali del DNA},
 dove è richiesto di trovare i moduli funzionali del gene avendo sequenze di DNA
-relative allo stesso gene di organismi differenti. Un modulo funzionale è una
+relative allo stesso gene, però di organismi differenti. Un modulo funzionale è una
 porzione del DNA che svolge un qualche ruolo nella dinamica biochimica della
 cellula. Non tutto il DNA viene effettivamente adoperato per i principi
 metabolici --- tipicamente, molte parti del DNA sono \emph{ridondanti}.
@@ -1795,8 +1848,10 @@ per cui si ha il funzionamento dell'organismo biologico.
 I moduli funzionali nel corso delle generazioni possono subire piccole
 variazioni nella loro struttura, sia per via dell'evoluzione che per raggi
 cosmici o altre radiazioni ionizzanti, presentando lacune o lettere differenti.
+Ad esempio, alcune differenze sono presenti nelle catene e frammenti di seguito:
 
-\begin{verbatim}
+\begin{center}
+\texttt{
 ----------------------AG--TTGTCAATCTTGGCAATCACT
 ATCGATTCCGGCCCTTTTGG--AGTATTGGCAATCATGCAAACCT--
 ---GTCGATCGAATGCAAACCTAGTAATGGCAATCCTATGCTCGATC
@@ -1804,8 +1859,8 @@ ATCGATTCCGGCCCTTTTGG--AGTATTGGCAATCATGCAAACCT--
 ----------ATCTTCAATTATAGTATTGACAATCTCGCTAGTCG--
 ---CCGGCTCTAAAATTTGGGGAGTGTTGGCAATCATTCCGGCTCTA
 ------------ATTGCATGCAAG-ATTGGCAATCATCGA-------
-----CGTCGATCCAATTTCAGCAGTAT--GCAATCATTCGTCGATCG
-\end{verbatim}
+----CGTCGATCCAATTTCAGCAGTAT--GCAATCATTCGTCGATCG}
+\end{center}
 
 Pur essendo i moduli di cui sopra formalmente diversi, essi manifestano un
 patrimonio comune, presentando una grossa quota di nucleotidi simili dal punto
@@ -1831,7 +1886,14 @@ L'interrogazione dell'albero avviene individuando il \emph{nodo a profondità
 massima} dell'albero, poiché fino a quel nodo la stringa si è conservata la
 stringa la stringa a lunghezza massima su almeno due percorsi.
 
-TODO aggiungi alberi a suffisso 17 18
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/alberi-suffisso.png}
+    \caption{Schema di un albero a suffisso.}
+    \label{fig:alberi-suffisso}
+\end{figure}
+
+
 
 \subsection{Il problema dei legami A-T e C-G e del ripiegamento delle proteine o del t-RNA}
 
@@ -1846,7 +1908,14 @@ cioè trovare mediante la complementarietà A-T, G-C la stringa secondaria ad es
 associata. Bisognerà dunque determinare con tecniche informatiche la maniera in
 cui la sequenza si ``ripiega'' su se stessa. 
 
-TODO struttura t-RNA 20
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/struttura-trna.png}
+    \caption{Struttura di uno t-RNA.}
+    \label{fig:struttura-trna}
+\end{figure}
+
+
 
 Il medesimo problema si ha, ad esempio, per il ripiegamento della proteina
 (ancor più difficile, poiché presentano ripiegamenti senza complementarietà e
@@ -1860,6 +1929,13 @@ se due sequenze hanno un \emph{avo comune}, cioè se ambedue le sequenze
 derivano da una sequenza ancestrale. In altre parole, si individua una misura
 di distanza fra stringhe che sia anche \emph{biologicamente significativa}.
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/alberi-filogenetici.png}
+    \caption{Tabella degli amminoacidi per ricostruzione di alberi filogenetici. In particolare, vengono analizzate sequenze di \emph{drosophila mauritiana} e di \emph{caernorhabditis elegans}.}
+    \label{fig:alberi-filogenetici}
+\end{figure}
+
 I trasposoni (le sequenze) vengono allineate, e si effettua una ricerca
 approssimata per rilevare le somiglianze fra le due stringhe. Le somiglianze
 possono essere sia \emph{esatte}, cioè porzioni di stringhe sono allineate e
@@ -1872,7 +1948,16 @@ La somma completa di parentela fra tutti gli amminoacidi dei trasposoni
 conferisce un punteggio globale BLOSUM, da interpretare tramite conoscenze
 di Biologia.
 
-TODO aggiungi figure 22+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/matrice-blosum.png}
+    \caption{Matrice BLOSUM per la ricostruzione in Figura~\ref{fig:alberi-filogenetici}. Ogni coppia di amminoacidi ha un valore intero positivo o negativo. Una somma sufficientemente positiva garantisce una buona corrispondenza per catene di proteine, e dunque la presenza di un avo comune.}
+    \label{fig:matrice-blosum}
+\end{figure}
+
+
+
 
 
 \section{La computazione mediante DNA}
@@ -1887,7 +1972,7 @@ successivamente di adoperare il calcolatore e tecniche informatiche per
 manipolare successivamente le sequenze di simboli.
 
 Adleman propose nel 1994 un metodo per la costruzione di un \textbf{calcolatore
-bio-molecolare}, basato su un modello di computazione \emph{non} algoritmico
+biomolecolare}, basato su un modello di computazione \emph{non} algoritmico
 procedurale, benché il paradigma sia lo stesso (ricerca esauriente).
 
 \subsection{Il problema del cammino Hamiltoniano su un grafo}
@@ -1899,7 +1984,7 @@ cammino che va da $v_i$ a $v_f$ con $n-1$ archi che tocchi ciascun vertice una
 ed una sola volta.
 
 Per il problema del cammino Hamiltoniano \textbf{non sono noti} algoritmi
-efficienti: resta soltanto la soluzione bruta, cioè generare tutte le $(n-2!)$
+efficienti: resta soltanto la soluzione bruta, cioè generare tutte le $(n-2)!$
 permutazioni dei vertici, escludendo $v_i$ e $v_f$, e verificare l'esistenza
 della soluzione. Inoltre,
 
@@ -1938,7 +2023,14 @@ stesso cluster.};
         laboratorio.
 \end{enumerate}
 
-TODO figure 30
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.2\linewidth, height=\textheight, keepaspectratio]{./pics/computazioneDNA.png}
+    \caption{La computazione DNA. Da sinistra a destra, dall'alto in basso: rappresentazione dei vertici mediante sequenze inverse complementari; rappresentazione degli archi con sequenze a metà fra due sequenze; catena di archi-nodi; dopo il mescolamento dei contenitori di archi e vertici, creazione del cammino u-v-w.}
+    \label{fig:computazioneDNA}
+\end{figure}
+
+
 
 Per costruire i \emph{vertici} si determinano stringhe casuali assieme alle loro
 inverse complementari. Supponiamo di costruire $n$ stringhe casuali di
@@ -1959,13 +2051,11 @@ mescolano i contenitori}, e se per caso le sequenze si attaccano le une le altre
 queste formano una sequenza di vertici e nodi: abbiamo dunque realizzato la
 seconda fase di generazione casuale dei percorsi.
 
-TODO figure 33 34
-
 Supponiamo di veder realizzato il cammino u-v-w. Gli archi sono costituiti con
 metà di entrambi i nodi, mentre i vertici sono casualmente generati. Nel
 contenitore dei DNA le sequenze possono muoversi liberamente, ed incrociarsi a
 seconda delle affinità: può crearsi, in definitiva, una catena come in
-Figura~\ref{fig:dnaCostituzioneCamminoUVW}.
+Figura~\ref{fig:computazioneDNA}.
 
 \subsection{I vantaggi e le limitazioni delle tecniche a computazione DNA}
 
@@ -2100,10 +2190,10 @@ regolare su $\Sigma$.
 
 Un esempio reale di automa risiede nel controllore di un portone elettrico --
 la funzionalità dell'automa è insita nei suoi stati: il cancello può essere
-nello stato di \setmainfont{Equity A Caps}Aperto \setmainfont{Equity A} oppure \setmainfont{Equity A Caps}Chiuso\setmainfont{Equity A}, rappresentando le
+nello stato di \textsc{Aperto } oppure \textsc{Chiuso}, rappresentando le
 corrispondenti condizioni del portone. Vi sono quattro possibili condizioni di
 input, dipendenti dalla posizione delle persone relativamente al cancello:
-\setmainfont{Equity A Caps}Fronte\setmainfont{Equity A}, \setmainfont{Equity A Caps}Retro\setmainfont{Equity A}, \setmainfont{Equity A Caps}Entrambi\setmainfont{Equity A}, \setmainfont{Equity A Caps}Nessuno\setmainfont{Equity A}.
+\textsc{Fronte}, \textsc{Retro}, \textsc{Entrambi}, \textsc{Nessuno}.
 
 \begin{figure}[h]
     \centering
@@ -2288,7 +2378,7 @@ risultato continua ad appartenere al linguaggio $\mathcal L$.} per tutti i
     valori $i = 0,1,2,3,\dots$.
 \end{thm}
 
-\setmainfont{Equity A Caps}Dimostrazione\setmainfont{Equity A} --- Poiché $x$ consiste di almeno $m$ simboli,
+\textsc{Dimostrazione} --- Poiché $x$ consiste di almeno $m$ simboli,
 $\mathcal A$ deve passare attraverso almeno $m$ transizioni di stato mentre
 scansiona $x$; contando lo stato iniziale ciò richiede almeno $m + 1$ stati non
 necessariamente distinti. Ma poiché in tutto ci sono soltanto $m$ stati,
@@ -2396,3 +2486,10 @@ cominciano e terminano con $b$.
 
 
 \end{document}
+% --------------------------------------------------------------------------------
+%                        _____ _          ___         _
+%                       |_   _| |_  ___  | __|_ _  __| |
+%                         | | | ' \/ -_) | _|| ' \/ _` |
+%                         |_| |_||_\___| |___|_||_\__,_|
+%
+% --------------------------------------------------------------------------------
