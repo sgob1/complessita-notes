@@ -36,6 +36,8 @@
 \usepackage[italian]{babel}
 %\usepackage[document]{ragged2e}
 \usepackage{fontspec}
+\usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage{mlmodern}
 \usepackage[stickstoo]{newtxmath}
 \usepackage[all]{nowidow}
@@ -88,10 +90,15 @@
 \renewcommand{\footrulewidth}{1.0pt}
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 
+\theoremstyle{definition}
 \newtheorem{thm}{Teorema}
 \setlength{\tabcolsep}{0.5em} % for the horizontal padding
 {\renewcommand{\arraystretch}{1.35}% for the vertical padding
 
+\theoremstyle{definition}
+\newtheorem{definizione}{Definizione}[section]
+\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+{\renewcommand{\arraystretch}{1.35}% for the vertical padding
 
 \begin{document}
 \setmainfont{\bodyfont}
@@ -2132,18 +2139,18 @@ di stringhe.
 
 \section{I linguaggi regolari}
 
-La \textbf{chisura (o stellatura)} $S^*$ dell'insieme $S$ è l'insieme
+La \textbf{chiusura (o stellatura)} $S^*$ dell'insieme $S$ è l'insieme
 costituito dalla parola vuota e da tutte le parole formate concatenando un
 numero finito di parole in $S$, cioè quindi
 
 $$S^* = S^0 \cup S^1 \cup S^2 \cup \dots$$
-dove $S^0 = \{\Lambda\},$ e $S^i=S^{i-1}S, i > 0$.
+dove $S^0 = \{\Lambda\},$ e $S^i=S^{i-1}S, i > 0$, con $\Lambda$ \emph{parola vuota}.
 
 Sia $\Sigma = \{a, b\}$ un alfabeto di simboli (contenente in questo caso due
-simboli), $\Lambda$ sia la \emph{parola vuota} e la \textbf{stellatura
+simboli), $\Lambda$, e sia la \textbf{stellatura
 dell'insieme} $\Sigma^* = \{\Lambda, a, b, aa, ab, ba, bb, aaa, aab, \dots\}$
 definiamo il \textbf{prodotto (concatenazione)} $UV$ di due sottoinsiemi $U, V$
-di $\Sigma^*$ come 
+di $\Sigma^*$ come l'insieme
 
 $$UV = \{x | x= uv, u \in U, v \in V\}.$$
 
@@ -2165,34 +2172,36 @@ Esaminiamo ora la classe degli \textbf{insiemi regolari}. La classe degli insiem
 \end{enumerate}
 
 Dunque nessun insieme è regolare, a meno che non possa essere ottenuto con un
-numero finito di applicazione dei punti 1, 2 o 3. Perciò, la classe degli
+numero finito di applicazione dei punti 1, 2 o 3, applicando cioè la ricorsione dei tre elementi di cui sopra. Perciò, la classe degli
 insiemi regolari su $\Sigma$ è la più piccola classe che contiene tutti gli
 insiemi finiti di parole su $\Sigma$, e che è al contempo chiusa rispetto ad
-unione, prodotto e stellatura.
+unione, prodotto e stellatura dell'insieme.
 
-Gli insiemi regolari sono generalmente molto semplici: un sottoinsieme di
+Gli insiemi regolari sono generalmente molto semplici sia nella loro formazione che nella loro trattazione. Si può dimostrare che un sottoinsieme di
 $\Sigma^*$ è regolare \emph{se e solo se}
 
 \begin{enumerate}
     \item è accettato da qualche \emph{automa finito};
     \item è accettato da qualche \emph{grafo di transizione} --- una
-        definizione differente di un automa a stati finiti;
+        definizione differente di un automa a stati finiti, del tutto analoga;
     \item può essere espresso da qualche \emph{espressione regolare}.
 \end{enumerate}
 
-Esempi di espressioni regolari sono l'insieme di tutte le parole di $\Sigma =
-\{a, b\}$ che contengono o due $a$ consecutive, o due $b$ consecutive, e
-l'insieme delle parole di $\Sigma$ che contengono un numero pari di $a$ e pari
-di $b$. Al contrario, l'insieme $\{a^n b^n| n\geq 0\}$ \emph{non} è un imsieme
-regolare su $\Sigma$.
+Le espressioni regolari sono, in ultima analisi, quelle che riescono ad
+esprimere stringhe appartenenti ad insiemi regolari. Esempi di espressioni
+regolari sono l'insieme di tutte le parole di $\Sigma = \{a, b\}$ che
+contengono o due $a$ consecutive, o due $b$ consecutive, e l'insieme delle
+parole di $\Sigma$ che contengono un numero pari di $a$ e pari di $b$. Al
+contrario, l'insieme $\{a^n b^n| n\geq 0\}$ \emph{non} è un imsieme regolare su
+$\Sigma$, poiché non può essere accettato da un automa a stati finiti, e dunque nemmeno da un grafo di transizione o essere espresso tramite espressioni regolari, come è stato mostrato nelle sezioni precedenti.
 
 \section{Gli automi}
 
-Un esempio reale di automa risiede nel controllore di un portone elettrico --
-la funzionalità dell'automa è insita nei suoi stati: il cancello può essere
-nello stato di \textsc{Aperto } oppure \textsc{Chiuso}, rappresentando le
-corrispondenti condizioni del portone. Vi sono quattro possibili condizioni di
-input, dipendenti dalla posizione delle persone relativamente al cancello:
+Un esempio concreto di automa a stati finiti può essere un controllore di un comune portone elettrico.
+La funzionalità dell'automa è \emph{insita nei suoi stati}: il cancello può essere
+nello stato di \textsc{Aperto } oppure nello stato di \textsc{Chiuso}, rappresentando le
+corrispondenti condizioni in cui può trovarsi del portone. Vi sono quattro possibili condizioni di
+input per la posizione di persone, dipendenti dalla posizione di esse relativamente al cancello:
 \textsc{Fronte}, \textsc{Retro}, \textsc{Entrambi}, \textsc{Nessuno}.
 
 \begin{figure}[h]
@@ -2204,13 +2213,13 @@ input, dipendenti dalla posizione delle persone relativamente al cancello:
     \label{fig:automaStatiFinitiCancello}
 \end{figure}
 
-Vi sono due possibili rappresentazioni per un automa: mediante il
-\textbf{diagramma di stato} o attraverso la sua \textbf{matrice di
-transizione}. La differenza fra quest'ultima e la matrice della macchina di
-Turing è che negli automi non è prevista un'operazione da svolgere --- il
-sistema è capace solo di transitare verso uno stato successivo, non di
-effettuare operazioni particolari o di immagazzinare informazioni.
-
+Vi sono due possibili rappresentazioni per un automa: la prima è mediante il
+\textbf{diagramma di stato}, la seconda attraverso la sua \textbf{matrice di
+transizione}. È importante precisare la differenza fra quest'ultima e la matrice della macchina di
+Turing: negli automi non è prevista un'operazione di scrittura da svolgere alla
+lettura di un simbolo. Il sistema è infatti capace solo di transitare verso uno
+stato successivo, non di effettuare operazioni di scrittura su memorie o di immagazzinare
+informazioni.
 
 \begin{figure}[h]
     \centering
@@ -2222,7 +2231,7 @@ resto.}
 \end{figure}
 
 Siamo ora pronti a fornire la prima definizione di automa a stati finiti.
-
+\begin{definizione}[Automa finito 1]
 Un \textbf{automa finito} A su $\Sigma$, dove $\Sigma = \{\sigma_1, \sigma_2,
 \dots, \sigma_n\}$ è un grafo finito orientato in cui da ogni vertice escono
 $n$ archi, con ogni arco etichettato con un diverso $\sigma_i$, con $1 \leq i
@@ -2230,11 +2239,14 @@ $n$ archi, con ogni arco etichettato con un diverso $\sigma_i$, con $1 \leq i
 iniziale}, ed un insieme di vertici eventualmente vuoto etichettati con un
 segno $+$, detti \emph{vertici finali}, con la possibilità che il vertice
 iniziale sia anche un vertice finale. Talvolta i vertici sono chiamati
-\textbf{stati}. Si guardino le slides per tutti gli esempi sugli automi.
+\textbf{stati}.
+\end{definizione}
+
 
 La seconda definizione di automa finito è più formale, ed equivalente alla
 precedente.
 
+\begin{definizione}[Automa finito 2]
 Un \textbf{automa finito} è una $5$-tupla $\mathcal Q, \Sigma, \delta, q_0,
 \mathcal F)$ dove 
 \begin{enumerate}
@@ -2246,6 +2258,7 @@ Un \textbf{automa finito} è una $5$-tupla $\mathcal Q, \Sigma, \delta, q_0,
     \item $\mathcal F \subset \mathcal Q$ è l'\emph{insieme degli stati
         di accettazione}.
 \end{enumerate}
+\end{definizione}
 
 \begin{figure}[h]
     \centering
@@ -2254,11 +2267,12 @@ Un \textbf{automa finito} è una $5$-tupla $\mathcal Q, \Sigma, \delta, q_0,
     \label{fig:wwAutoma}
 \end{figure}
 
-
-Se $A$ è l'insieme di tutte le stringhe accettate dalla macchina $M$, si dice
-che $A$ è il \textbf{linguaggio della macchina} $M$, e scriviamo $\mathcal L(M)
-= A$. Nell'esempio di cui sopra, $$\mathcal L(M) = A = \{w | w \mbox{ contiene
-almeno un } 1 \mbox{ ed un numero pari di } 0 \mbox{ seguono l'ultimo } 1\}.$$
+Un'importante nozione è quella di \emph{linguaggio della macchina}. Se $A$ è
+l'insieme di tutte le stringhe accettate dalla macchina $M$, si dice che $A$ è
+il \textbf{linguaggio della macchina} $M$, e scriviamo $\mathcal L(M) = A$. Ciò
+che un automa a stati finiti accetta rientra perciò nel suo linguaggio.
+Nell'esempio di cui sopra, $$\mathcal L(M) = A = \{w | w \mbox{ contiene almeno
+un } 1 \mbox{ ed un numero pari di } 0 \mbox{ seguono l'ultimo } 1\}.$$
 
 \begin{figure}[h]
     \centering
@@ -2273,12 +2287,12 @@ forma $a^n b^n$ con $n>0$.}
 
 \section{La computazione degli automi deterministici (DFA) dal punto di vista formale}
 
-Sia $A_D = \{ \mathcal Q, \Sigma, \delta_D, q_0, \mathcal F\}$. Se $x\in
+Sia $A_D = \{ \mathcal Q, \Sigma, \delta_D, q_0, \mathcal F\}$, con $\delta_d:\mathcal Q \times \Sigma \rightarrow \mathcal Q$ funzione di transizione. Se $x\in
 \Sigma^*$ viene introdotto $\hat\delta_D (q, x)$ lo \textbf{stato raggiunto} da
-$M$ partendo da $q$ quando si è alla sinistra di $x$, ed esecuendo
+$M$ partendo da $q$ quando si è alla sinistra di $x$, ed eseguendo
 successivamente il cammino $x$.
 
-Si può definire per ricorsione:
+Lo stato raggiunto può essere definito per ricorsione. Infatti,
 
 $$
 \left\{
@@ -2289,25 +2303,52 @@ $$
 \right.
 $$
 
-con $\delta_D(q, a) = \hat\delta_D(q, a)$. In altre parole, $A_D$ accetta una
-parola $x$ se $\hat\delta(q_0, x) \in \mathcal F$ insieme degli stati di
+con $\delta_D(q, a) = \hat\delta_D(q, a)$. In altre parole, l'automa deterministico $A_D$ accetta una
+parola $x$ se $\hat\delta(q_0, x) \in \mathcal F$ appartiene all'insieme degli stati di
 accettazione, ovvero $$\mathcal L(A_D) = \{x\in \Sigma^* | \hat\delta(q_0, x)
-\in \mathcal F\}.$$ Si dimostrerà che un linguaggio accettato da un automa a
-stati finiti è un linguaggio \emph{regolare}: questo legame fra automi a stati
-finiti e linguaggi regolari consente di trattare gli automi mediante il
-formalismo dei linguaggio regolari.
+\in \mathcal F\}.$$ In definitiva, uno stato di \textsc{Accettazione } viene
+raggiunto dallo stato iniziale $q_0$ solo se lo stato raggiunto da $q_0$
+mediante un cammino $x$ conduce proprio allo stato di \textsc{Accettazione },
+cioè quando $\hat\delta(q_0, x)$ appartiene all'insieme degli stati finali (di
+accettazione). Si dimostrerà che un linguaggio accettato da un automa a stati
+finiti è un linguaggio \emph{regolare}: questo legame fra automi a stati finiti
+e linguaggi regolari consente di trattare gli automi mediante il formalismo dei
+linguaggio regolari.
 
 \subsection{Gli automi non deterministici}
 
 Un \textbf{automa non deterministico} (Non-deterministic Finite Automa) vede
 rimosso il vincolo che da ciascun nodo escano tutti e solid $\Sigma$ caratteri
-diversi dell'alfabeto. Gli automi deterministici sono introdotti per
-semplificare enormemente il grafo corrispondente --- solitamente, automi
+\emph{diversi} dell'alfabeto. Gli automi deterministici sono introdotti per
+semplificare enormemente il grafo risultante. Solitamente, automi
 deterministici producono grafi enormemente più complessi e meno sintetici
 rispetto agli automi non deterministici.
 
 
-TODO esempio NFA 29 32 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/nfa-intro.png}
+    \caption{Esempio di automa a stati finiti non deterministico. Si osservi la semplicità del grafo.}
+    \label{fig:nfa-intro}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/nfa-esempio2.png}
+    \caption{Paragone fra grafo risultante di un automa a stati finiti deterministico e quello di un automa non deterministico.}
+    \label{fig:nfa-esempio2}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/nfa-esempio3.png}
+    \caption{Esempio di un grafo con relativa tabella (funzione) di transizione.}
+    \label{fig:nfa-esempio3}
+\end{figure}
+
+
+
+
 
 Il fatto di introdurre il non determinismo non introduce una maggiore potenza
 computazionale, bensì funge esclusivamente da semplificazione notevole per la
@@ -2315,10 +2356,67 @@ rappresentazione a grafi.
 
 \subsection{Equivalenza fra automi NFA ed automi DFA}
 
-TODO 35
+È possibile stabilire un'equivalenza fra automi a stati finiti di tipo
+deterministico e di tipo non deterministico, a tal punto da fornire una regola
+per trasformare un grafo di una tipologia al grafo dell'altra. Si supponga di
+partire dal grafo di Figura~\ref{fig:equivalenza-nfa-dfa}, relativo ad un
+automa che accetta tutte le stringhe che finiscono con \texttt{'01'}.
+
+Si consideri il grafo relativo all'automa non deterministico. Per convertire in
+un grafo relativo ad un automa deterministico, si procede nella seguente
+maniera:
+\begin{enumerate}
+    \item come prima cosa, si esamina il grafo dell'automa non deterministico;
+    \item in secondo luogo, si crea l'insieme degli stati. Gli stati di cui
+        sarà dotato l'automa deterministico saranno gli stati dell'automa non
+        deterministico con, in aggiunta, dei \textbf{macrostati} che descrivono
+        tutte le possibili unioni degli stati precedenti. In altre parole,
+        supponendo gli stati $q_0$, $q_1$ e $q_2$ dell'automa non
+        deterministico, l'automa deterministico sarà dotato degli stati $q_0$,
+        $q_1$ e $q_2$, assieme agli stati $\{q_0, q_1\}$, $\{q_0, q_2\}$,
+        $\{q_1, q_2\}$ e $\{q_0, q_1, q_2\}$. Fra essi vi è compreso
+        anche lo \emph{stato nullo} $\emptyset$, come mostrato in
+        Figura~\ref{fig:equivalenza-nfa-dfa};
+    \item per ciascuno degli stati e macrostati, si compila la tabella
+        riportando il percorso a seconda dell'input. Ad esempio in
+        Figura~\ref{fig:equivalenza-nfa-dfa} trovandosi nello stato $q_0$
+        dell'automa non deterministico, a fronte di un ingresso 0 potremo
+        muoverci o nello stato $q_0$ oppure nello stato $q_1$. Pertanto,
+        rappresenteremo questa condizione nell'automa deterministico facendolo
+        raggiungere lo stato $\{q_0, q_1\}$, ``rappresentativo'' di entrambi
+        gli stati;
+    \item se un input non è contemplato, il suo risultato sarà $\emptyset$. Gli
+        stati iniziali si possono indicare con una freccia, quelli terminanti
+        (di \textsc{Accettazione}) con un asterisco.
+\end{enumerate}
+
+Una volta completato questo processo osservando accuratamente il grafo
+dell'automa non deterministico, otterremo un \emph{grafo equivalente}
+dell'automa deterministico. Con tutta probabilità, esso sarà molto più
+complesso ed elaborato, come mostra la Figura~\ref{fig:equivalenza-nfa-dfa2}.
+Porzioni di grafo potrebbero non essere collegate ad alcuno stato iniziale (in
+questo caso allo stato $q_0$) e sebbene facciano parte del grafo completo, esse
+vengono tolte per attuare una semplificazione.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/equivalenza-nfa-dfa.png}
+    \caption{Equivalenza fra automa a stati finiti non deterministico e fra uno deterministico.}
+    \label{fig:equivalenza-nfa-dfa}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/equivalenza-nfa-dfa2.png}
+    \caption{Grafo completo ed equivalente della Figura~\ref{fig:equivalenza-nfa-dfa}. La croce in rosso evidenzia la parte rimovibile, poiché non connessa con alcuno stato iniziale.}
+    \label{fig:equivalenza-nfa-dfa2}
+\end{figure}
+
+\clearpage
 
 \subsection{Automa non deterministico}
 
+\begin{definizione}[Automa a stati finiti non deterministico]
 Un \textbf{automa a stati finiti non deterministico} è una $5$-tupla $\mathcal Q, \Sigma, \delta, q_0,
 \mathcal F)$ dove 
 \begin{enumerate}
@@ -2330,26 +2428,33 @@ Un \textbf{automa a stati finiti non deterministico} è una $5$-tupla $\mathcal 
     \item $\mathcal F \subset \mathcal Q$ è l'\emph{insieme degli stati
         di accettazione}.
 \end{enumerate}
+\end{definizione}
 
 La differenza principale rispetto agli automi deterministici è la definizione
 della funzione di transizione $\delta$, dove il codominio è l'\emph{insieme
-delle parti} di $\mathcal Q$ anziché l'insieme $\mathcal Q$.
+delle parti} di $\mathcal Q$ anziché l'insieme $\mathcal Q$, come ci si può
+aspettare. D'altronde, in un automa non deterministico un nodo di un grafo può disporre di
+un numero arbitrario di collegamenti verso qualsiasi altro nodo, potenzialmente
+verso tutti gli altri contemporaneamente.
 
 Similmente, la computazione per automi non deterministici dal punto di vista
 formale avviene con le seguenti differenze:
 
-Sia $A_N = \{ \mathcal Q, \Sigma, \delta_D, q_0, \mathcal F\}$. Se $x\in
-\Sigma^*$ viene introdotto $\hat\delta_D (q, x)$ l'\textbf{insieme degli stati
-raggiunti} da $A_N$ partendo da $q$ quando si è alla sinistra di $x$, ed
-esecuendo successivamente \emph{tutti i percorsi} $x$.
+Sia $A_N = \{ \mathcal Q, \Sigma, \delta_D, q_0, \mathcal F\}$ un automa non
+deterministico. Se $x\in \Sigma^*$ viene introdotto $\hat\delta_D (q, x)$
+l'\textbf{insieme degli stati raggiunti}\footnote{Coerentemente a come abbiamo
+definito l'automa a stati finiti non deterministico, questa volta lo stato
+raggiunto a partire da un determinato nodo può produrre più possibili stati
+come esito di un singolo input.} da $A_N$ partendo da $q$ quando si è alla
+sinistra di $x$, ed esecuendo successivamente \emph{tutti i percorsi} $x$.
 
-Di conseguenza, si può definire per ricorsione:
+Di conseguenza, si può definire per ricorsione in modo analogo a quanto svolto prima:
 
 $$
 \left\{
     \begin{array}{l}
         \hat\delta_N (q, \Lambda) = \{q\} \\
-        \hat\delta_N (q, xa) = \bigcup_{p \in \hat\delta_N(q, x)} \hat\delta_N (p, a)
+        \hat\delta_N (q, xa) = \displaystyle \bigcup_{p \in \hat\delta_N(q, x)} \hat\delta_N (p, a)
     \end{array}
 \right.
 $$
@@ -2357,19 +2462,24 @@ $$
 Si avrà infine che $A_N$ accetta una parola $x$ se $\hat\delta_N(q_0, x) \cap F
 \neq \emptyset$, cioè
 
-$$L(A_N) = \{x \in \Sigma^* | \hat \delta_N(q_0, x) \cap F \neq \emptyset \}.$$
+$$L(A_N) = \{x \in \Sigma^* | \hat \delta_N(q_0, x) \cap F \neq \emptyset \}$$
 
-Poiché ogni NFA può essere descritto da un DFA in cui la $\delta_N(q, x)$
-restituisce un solo stato, ogni linguaggio regolare è accettato da un NFA.
-Dunque, un linguaggio accettato da un automa non deterministico risulterà
-sempre essere \emph{regolare}. La dimostrazione di ciò è nelle dispense.
+in modo congruo a quanto visto per un automa $A_D$ deterministico.
+
+Poiché ogni automa non deterministico può essere descritto da un automa
+deterministico in cui la $\delta_N(q, x)$ restituisce un solo stato, ogni
+linguaggio regolare è accettato da un automa non deterministico per via
+dell'equivalenza che sussiste fra i due tipi di automi. Dunque, un linguaggio
+accettato da un automa non deterministico risulterà sempre essere
+un \emph{linguaggio regolare}. La dimostrazione di ciò è nelle dispense a
+pagina 109 (Teorema dell'equivalenza NFA-DFA).
 
 \section{Pumping lemma}
 
-Un notevole risultato della teoria della computazione è noto col nome di
-\textbf{Pumping lemma}.
+Un notevole risultato della teoria della computazione è famoso col nome di
+\textbf{Pumping lemma}, detto anche \emph{lemma di espansione}.
 
-\begin{thm}{Pumping lemma}
+\begin{thm}[Pumping lemma]
     Sia $\mathcal L = \mathcal L(\mathcal A)$, dove $\mathcal A$ è un automa a
     $m$ stati. Sia $x \in \mathcal L$, con $|x| \geq m$. Allora si può scrivere
     $x = uvw$, dove $v \neq \Lambda$ e $uv^{[i]}w \in \mathcal L$\footnote{La
@@ -2382,54 +2492,119 @@ risultato continua ad appartenere al linguaggio $\mathcal L$.} per tutti i
 $\mathcal A$ deve passare attraverso almeno $m$ transizioni di stato mentre
 scansiona $x$; contando lo stato iniziale ciò richiede almeno $m + 1$ stati non
 necessariamente distinti. Ma poiché in tutto ci sono soltanto $m$ stati,
-concludiamo (\emph{principio della cassettiera} o principio della piccioniaia)
-che $\mathcal A$ deve essere in almeno uno stato più di una volta. Sia $q$ uno
+concludiamo (per il \emph{principio della cassettiera} o \emph{principio della piccionaia})
+che $\mathcal A$ deve essere in almeno uno stato per più di una volta. Sia $q$ uno
 stato in cui $\mathcal A$ si trova almeno due volte. Possiamo dunque scrivere
 $x = uvw$, dove 
 
-\clearpage
+$$\begin{aligned}
+    \hat\delta(q_0, u) &=   q, \\
+    \hat\delta(q, v) &=   q, \\
+    \hat\delta(q, w)  &\in   \mathcal F,
+\end{aligned}$$
 
-\begin{figure}[h]
+coerentemente con il fatto che sullo stato $q$ si rimane un numero di volte
+maggiore di uno, poiché il cammino prodotto dalla stringa $v$ porterà
+nuovamente al medesimo stato $q$ (dunque, almeno una volta da $q_0$ seguendo
+$u$, e almeno un'altra volta seguendo $v$). Poiché questo ciclo di transizioni
+di stato che portano sempre a $q$ possono essere ripetute un numero arbitrario
+di volte (anche 0) vale la seguente equivalenza
+$$\hat \delta(q_0, uv^{[i]}w) = \hat\delta(q_0, uvw) \in \mathcal F,$$ e dunque
+la tesi.
+
+\begin{figure}[ht]
     \centering
-    \includegraphics[ width=0.6\linewidth, height=\textheight, keepaspectratio]{./pics/pumpingLemma.png}
-    \label{fig:pumpingLemma}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/pumping-lemma.png}
+    \caption{Rappresentazione del grafo di un automa soggetto al Pumping lemma.}
+    \label{fig:pumping-lemma}
 \end{figure}
 
+\begin{flushright}
+$\blacksquare$
+\end{flushright}
 
-\subsection{Utilizzo del Pumping lemma}
+In parole povere, è come se il cammino per $v$ ``non contasse'', e si potesse
+scrivere un numero arbitrario di caratteri in $v$ pur rimanendo nei confini di
+un linguaggio regolare. Il \emph{Pumping lemma} può essere invece adoperato per
+dimostrare la \emph{non regolarità} di un determinato linguaggio. In
+particolare, si cerca ora di dimostrare la non regolarità del linguaggio $$\mathcal
+L = \{a^n b^n | n \geq 0\}.$$
 
-Il pumping lemma è estremamente utile per dimostrare per assurdo la \emph{non
-regolarità} di alcuni linguaggi. Ad esempio,
+Per assurdo, sia $\mathcal L$ regolare, con un automa in grado di generarlo
+dotato di $m$ stati. Si scelga ora $x = a^m b^m$. Poiché si suppone essere regolare, il Pumping
+lemma permette di scriverlo come $x = uvw$, con $uv^{[i]}w \in \mathcal L$
+avendo $i \geq 0$. Con la scelta di $i=2$ si verificano tre possibili casi. In
+ciascuno di essi la stringa $x$ non può appartenere ad $\mathcal L$ e non sarà
+dunque un linguaggio della forma $a^n b^n$ con $n \geq 0$.
 
-TODO 45
+\begin{enumerate}
+    \item la stringa $v$ consiste esclusivamente di zeri. Tuttavia, così
+        facendo la stringa totale dovrà per forza essere composta da un maggior
+        numero di zeri che uni, infatti $uvvw$ conterrà un numero
+        sovrabbondante di 0, in quanto presenti in $v$;
+    \item la stringa $v$ consiste esclusivamente di uni. Il ragionamento di cui
+        sopra si applica;
+    \item la stringa $v$ consiste di un numero di 0 e di 1. Benché $uvvw$ possa
+        disporre del medesimo numero di 0 e 1, essa non potrà mai essere della
+        forma desiderata, poiché per simmetria di $vv$ avremo alcuni 1 o 0 che
+        verranno prima degli altri.
+\end{enumerate}
+
+
+\clearpage
+
 
 \section{I grafi di transizione}
 
+\begin{definizione}[Grafo di transizione]
 Un \textbf{grafo di transizione} $T$ \textbf{su} $\Sigma$ è un \emph{grafo
 orientato finito} in cui ogni arco è etichettato da qualche parola $w \in
 \Sigma^*$, eventualmente $w =\Lambda$ parola vuota. Esistono i vertici iniziali
 e vertici finali, i primi etichettati con il segno $-$, i secondi (se esistono)
 etichettati con il segno $+$. Un vertice può essere sia iniziale che finale.
+\end{definizione}
 
-In parole povere, gli archi non corrispondono ad un cambio di stato, bensì a
-delle stringhe, le quali comportano gli opportuni cambiamenti di stato
-all'interno del grafo. Le parole si possono concatenare, e la parola $w$ viene
-accettata soltanto qualora la concatenazione delle etichette corrisponda
+In parole povere, gli archi non corrispondono ad un cambio di stato, bensì
+direttamente a delle stringhe, le quali comportano gli opportuni cambiamenti di
+nodo all'interno del grafo. Le parole si possono concatenare, e la parola $w$
+viene accettata soltanto qualora la concatenazione delle etichette corrisponda
 proprio alla parola $w$.
 
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/automiGrafiElementari.png}
+    \includegraphics[ width=0.6\linewidth, height=\textheight, keepaspectratio]{./pics/automiGrafiElementari.png}
     \caption{Alcuni esempi base di grafi di transizione. Altri esempi sono
     forniti sulle slide.}
     \label{fig:automiGrafiElementari}
 \end{figure}
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/grafi-transizione-esempi.png}
+    \caption{Esempi di grafi di transizione.}
+    \label{fig:grafi-transizione-esempi}
+\end{figure}
+
+
+Definiamo ora il \emph{$w$-cammino} per una parola $w \in \Sigma^*$ come il
+cammino finito da un vertice $i$ ad un vertice $j$ nel grafo $T$ tale che la
+concatenazione delle etichette sugli archi di questo cammino formi la parola
+$w$, trascurando eventuali parole vuote $\Lambda$. Dunque, una parola è
+\emph{accettata} da un grafo $T$ quando esiste un $w$-cammino per tale parola
+dal vertice iniziale a quello finale. L'unico caso in cui la parola vuota
+$\Lambda$ è accettata è quello in cui un vertice in $T$ è sia iniziale che
+finale (inizia e finisce subito) o se esiste un $\Lambda$-cammino da un vertice
+iniziale ad uno finale. L'insieme delle $w_a$ accettate da un grafo $T$ si
+indica con la lettera $\tilde{T}$.
+
+\clearpage
+
 \section{Le espressioni regolari}
 
+\begin{definizione}[Classe delle espressioni regolari]
 La \textbf{classe delle espressioni regolari}\footnote{Tale definizione ricorda
-la definizione degli \emph{insiemi regolari}. Infatti, l'operazione $+$ è
+la definizione degli \emph{insiemi regolari}. Infatti, come fra poco sarà illustrato, l'operazione $+$ è
 riconducibile all'unione fra insiemi, l'operazione $\cdot$ è riconducibile al
 prodotto fra insiemi, ed $*$ alla stellatura fra insiemi.} su $\Sigma$ è
 ricorsivamente definita come segue: sia $\Sigma = \{\sigma_1, \sigma_2, \dots,
@@ -2443,18 +2618,22 @@ di $\Sigma_A^*$ tale che
     \item ogni lettera $\sigma \in \Sigma$ è un'espressione regolare su
         $\Sigma$;
     \item se $R_1$ e $R_2$ sono espressioni regolari su $\Sigma$, lo sono anche
-        $R_1 + R_2$, $R_1 \cdot R_2$, ed $R_1^*$.
+        $R_1 + R_2$, $R_1 \cdot R_2$, ed $R_1^*$ e $R_2^*$.
 \end{enumerate}
+\end{definizione}
 
-Dunque, ogni espressione regolare $R$ su $\Sigma$ descrive un insieme
-$\tilde{R}$ di parole su $\Sigma$, cioè si ha che $\tilde{R}\subseteq
-\Sigma^*$, definito ricorsivamente come segue:
+Facendo un esempio, data $\Sigma = \{a,b\}$, allora $(((a + (b\cdot a)))^*\cdot
+a)$ è un'espressione regolare su $\Sigma$.
+
+Dunque, ogni espressione regolare $R$ su $\Sigma$ descrive un \emph{insieme
+$\tilde{R}$ di parole su $\Sigma$}, cioè si ha che l'insieme $\tilde{R}\subseteq
+\Sigma^*$ è definito ricorsivamente come segue:
 \begin{enumerate}
     \item se $R = \Lambda$, allora $\tilde R = \{\Lambda\}$, cioè è l'insieme
         costituito dalla parola vuota $\Lambda$. Se $R = \emptyset$ allora
         $\tilde R = \emptyset$, cioè è uguale all'insieme vuoto;
     \item se $R = \sigma$, allora $\tilde R = \{ \sigma \}$, cioè è l'insieme costituito dalla lettera $\sigma$;
-    \item se $R_1$ ed $R_2$ sono espressioni regolari su $\Sigma$ che descrivono gli insiemi di parole $\tilde R_1$ e $\tilde R_2$, rispettivamente,
+    \item siano $R_1$ ed $R_2$ espressioni regolari su $\Sigma$ che descrivono gli insiemi di parole $\tilde R_1$ e $\tilde R_2$, rispettivamente,
 \begin{itemize}
     \item se $R = (R_1 + R_2)$, allora $$\tilde R = \tilde R_1 \cup \tilde R_2
         = \{x | x \in \tilde R_1 \mbox{ oppure } x \in \tilde R_2\}$$ ovvero
@@ -2468,14 +2647,33 @@ $\tilde{R}$ di parole su $\Sigma$, cioè si ha che $\tilde{R}\subseteq
 \end{itemize}
 \end{enumerate}
 
-Esempi di espressioni regolari sono fornite nelle slide.
+Facciamo ora alcuni esempi di espressioni regolari. Sia l'insieme $\Sigma = \{a,b\}$:
+\begin{description}
+    \item[$\bf ba^*$] Tutte le parole su $\Sigma$ che cominciano per $b$ seguite
+        soltanto da delle $a$.
+    \item[$\bf a^*ba^*ba^*$] Le parole su $\Sigma$ che incominciano con una sequenza di $a$,
+        hanno una $b$, poi una sequenza di $a$, un'altra $b$ e terminano con
+        sole $a$.
+    \item[$\bf (a+b)^*$] Tutte le parole su $\Sigma$.
+\end{description}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/espressioni-regolari-esempi.png}
+    \caption{Esempi di espressioni regolari, con relativo automa a stati finiti
+    non deterministico e grafo di transizione.}
+    \label{fig:espressioni-regolari-esempi}
+\end{figure}
+
+
 
 Un importante risultato è che dalla definizione delle espressioni regolari,
 consegue direttamente che \emph{un insieme è regolare su $\Sigma$ se e solo se
 può essere espresso da una espressione regolare su $\Sigma$}. Un insieme
 regolare può essere descritto da diverse espressioni regolari. Ad esempio,
 tutte le parole $\Sigma = \{a, b\}$ con $a$ e $b$ che si alternano e che
-cominciano e terminano con $b$.
+cominciano e terminano con $b$ può essere descritto sia da $b(ab)^*$ che da
+$(ba)^* b$.
 
 
 
