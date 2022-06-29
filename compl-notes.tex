@@ -36,10 +36,9 @@
 \usepackage[italian]{babel}
 %\usepackage[document]{ragged2e}
 \usepackage{fontspec}
-\usepackage{amsmath}
+\usepackage{amsmath,amssymb,amsfonts}
 \usepackage{amsthm}
 \usepackage{mlmodern}
-\usepackage[stickstoo]{newtxmath}
 \usepackage[all]{nowidow}
 \usepackage{graphicx}
 \usepackage{svg}
@@ -90,13 +89,19 @@
 \renewcommand{\footrulewidth}{1.0pt}
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 
-\theoremstyle{definition}
+%\theoremstyle{theorem}
 \newtheorem{thm}{Teorema}
 \setlength{\tabcolsep}{0.5em} % for the horizontal padding
 {\renewcommand{\arraystretch}{1.35}% for the vertical padding
 
 \theoremstyle{definition}
 \newtheorem{definizione}{Definizione}[section]
+\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+{\renewcommand{\arraystretch}{1.35}% for the vertical padding
+
+
+\theoremstyle{definition}
+\newtheorem{identita}{Identità}[section]
 \setlength{\tabcolsep}{0.5em} % for the horizontal padding
 {\renewcommand{\arraystretch}{1.35}% for the vertical padding
 
@@ -337,7 +342,7 @@ Per farla breve, preleveremo il risultato $x$ secondo la formula $$x = \# \mbox{
 
 \begin{figure}[b]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/mdtRisultato.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/mdtRisultato.jpg}
     \caption{Risultato singolo (sopra) e \emph{vettoriale} (sotto) di una macchina di Turing.}
     \label{fig:mdtRisultato}
 \end{figure}
@@ -381,7 +386,7 @@ funzioni computabili dal modello RAM $\mathcal C$.
 
 %\begin{center}\vspace*{0.6cm}\rule{1.0\textwidth}{1.2pt}\vspace*{0.4cm}\end{center}
 
-\begin{thm}{dell'equivalenza della macchina di Turing all'insieme $\mathcal R$ delle funzioni parziali ricorsive}
+\begin{thm}[dell'equivalenza della macchina di Turing all'insieme $\mathcal R$ delle funzioni parziali ricorsive]
 
     Per esso vale che
     $$\mathcal R \equiv \mathcal {TC} \equiv \mathcal C,$$ ovverosia gli
@@ -460,7 +465,7 @@ Figura~\ref{fig:mdtSomma}.
 
 \begin{figure}[b]
     \centering
-    \includegraphics[ width=0.6\linewidth, height=\textheight, keepaspectratio]{./pics/mdtSomma.png}
+    \includegraphics[ width=0.6\linewidth, height=\textheight, keepaspectratio]{./pics/mdtSomma.jpg}
     \caption{Grafo della macchina di Turing per le somme.}
     \label{fig:mdtSomma}
 \end{figure}
@@ -484,7 +489,7 @@ Figura~\ref{fig:macchina-turing-multinastro}.
 
 \begin{figure}[b]
     \centering
-    \includegraphics[ width=.8\linewidth, height=\textheight, keepaspectratio]{./pics/macchina-turing-multinastro.png}
+    \includegraphics[ width=.8\linewidth, height=\textheight, keepaspectratio]{./pics/macchina-turing-multinastro.jpg}
     \caption{Macchina di Turing avente memoria con nastro multitraccia. La
     testina può collocarsi, una alla volta, su ciascuna delle nastre. La
 memoria suppletiva rende possibile tenere traccia di quale nastro si sta
@@ -549,7 +554,7 @@ una limitazione pesante).
 
 \begin{figure}[b]
     \centering
-    \includegraphics[ width=1.2\linewidth, height=\textheight, keepaspectratio]{./pics/mdt-equivalenza-multitraccia.png}
+    \includegraphics[ width=1.2\linewidth, height=\textheight, keepaspectratio]{./pics/mdt-equivalenza-multitraccia.jpg}
     \caption{Equivalenza fra una macchina di Turing a multitraccia e una
     macchina di Turing a singola testina. Non importa il numero di testine: la
 macchina a singola testina potrà sempre percorrere (pazientemente) un nastro dopo l'altro,
@@ -598,7 +603,7 @@ particolare essa riconosce tutte le stringhe che terminano con ``00''.
 
 \begin{figure}[b]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/mdtAccettazione1.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/mdtAccettazione1.jpg}
     \caption{Macchina che riconosce il linguaggio dato dalle stringhe con due $0$
 nelle ultime due posizioni a destra, e suo funzionamento.}
     \label{fig:mdtAccettazione1}
@@ -626,7 +631,7 @@ di definizione, la macchina di Turing,
 Ciascun arco è della forma
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=.4\linewidth, height=\textheight, keepaspectratio]{./pics/mdtGrafo.png}
+    \includegraphics[ width=.4\linewidth, height=\textheight, keepaspectratio]{./pics/mdtGrafo.jpg}
     \label{fig:mdtGrago}
 \end{figure}
 
@@ -642,7 +647,7 @@ compiere univocamente una sola azione, descritta dal grafo.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=.4\linewidth, height=\textheight, keepaspectratio]{./pics/mdtArchiDiversi.png}
+    \includegraphics[ width=.4\linewidth, height=\textheight, keepaspectratio]{./pics/mdtArchiDiversi.jpg}
     \label{fig:mdtArchiDiversi}
 \end{figure}
 
@@ -652,7 +657,7 @@ una macchina di Turing possa non essere di tipo \emph{deterministico}.
 
 \begin{figure}[b]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/mdtLetturaStringaSpeciale.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/mdtLetturaStringaSpeciale.jpg}
     \caption{Macchina di Turing in grado di riconoscere una stringa della forma
     $a^nb^n | n\geq 0$.}
     \label{fig:mdtLetturaStringaSpeciale}
@@ -676,7 +681,7 @@ questione è in grado di concatenare due stringhe a due lettere $a$ e $b$.
 
 \begin{figure}[b]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/mdtConcatenazioneStringhe.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/mdtConcatenazioneStringhe.jpg}
     \caption{Macchina di Turing in grado di concatenare due stringhe $w_1$ e $w_2$.}
     \label{fig:mdtConcatenazioneStringhe}
 \end{figure}
@@ -843,7 +848,7 @@ infinito $w \in ciclo(M)$, cioè dinanzi ad una divergenza.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/accettoreWWR.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/accettoreWWR.jpg}
     \caption{Macchina finita non deterministica che accetta le stringhe del
     tipo $\{w w^R | w\in\{a,b\}^*\}$. Questa macchina accetta tutte le stringhe
 di quel tipo, e rifiuta tutte le altre $\Sigma^* - \mbox{accettazione}(M_6)$.
@@ -910,7 +915,7 @@ $\blacksquare$
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/ndtmEsempio.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/ndtmEsempio.jpg}
     \caption{Esempio di computazione ``in parallelo'' effettuata dalla macchina
     non deterministica (a destra), e simulazione da parte della macchina
 deterministica (a sinistra).}
@@ -1034,7 +1039,7 @@ Le reti neuronali hanno avuto grande successo in $3$ periodi storici:
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/retiHopfieldNeuroneParagone.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/retiHopfieldNeuroneParagone.jpg}
     \caption{Paragone fra neurone naturale e neurone di Hopfield. Si osservino
     innanzitutto le somiglianze fra le due strutture. La somiglianza principale
 è il fatto che anche i neuroni naturali presentano vari input e vari output,
@@ -1137,7 +1142,7 @@ Hopfield.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.1\linewidth, height=\textheight, keepaspectratio]{./pics/reteHopfieldBase.png}
+    \includegraphics[ width=1.1\linewidth, height=\textheight, keepaspectratio]{./pics/reteHopfieldBase.jpg}
     \caption{Rete di Hopfield costituita da $3$ neuroni, collegati ad anello.
     Ciascun neurone è collegato ad ogni altro mediante una particolare
 conduttanza $T_{ij}$, che soddisfa la relazione di simmetria $T_{ij} = T_{ji}$.
@@ -1193,7 +1198,7 @@ mostrato in Figura~\ref{fig:reteHopfieldWellState}.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.2\linewidth, height=\textheight, keepaspectratio]{./pics/reteHopfieldWellState.png}
+    \includegraphics[ width=1.2\linewidth, height=\textheight, keepaspectratio]{./pics/reteHopfieldWellState.jpg}
     \caption{Reti di Hopfield, dove i neuroni al livello di energia più basso
     sono eletti \emph{stati stabili}.}
     \label{fig:reteHopfieldWellState}
@@ -1279,7 +1284,7 @@ stabili dal valore sufficientemente basso di energia).
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.2\linewidth, height=\textheight, keepaspectratio]{./pics/retiMinimiLocali.png}
+    \includegraphics[ width=1.2\linewidth, height=\textheight, keepaspectratio]{./pics/retiMinimiLocali.jpg}
     \caption{Il problema dei \emph{falsi minimi}, anche detti minimi locali.}
     \label{fig:retiMinimiLocali}
 \end{figure}
@@ -1331,7 +1336,7 @@ energia e percorrere un'evoluzione differente.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/boltzmannMachine.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/boltzmannMachine.jpg}
     \caption{La funzione di attivazione probabilistica, con la sua tipica forma
     ``ad esse'' e comportamento dipendente dalla temperatura $T$. La sua forma
 sarà tanto più simile al gradino ideale quanto la sua temperatura sarà tendente
@@ -1364,7 +1369,7 @@ livello di energia superiore.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.3\linewidth, height=\textheight, keepaspectratio]{./pics/retiBoltzmannMachine.png}
+    \includegraphics[ width=1.3\linewidth, height=\textheight, keepaspectratio]{./pics/retiBoltzmannMachine.jpg}
     \caption{Probabilità di transizione a differenti temperature $T$ (in
     basso); rete di Hopfield con estensione a macchina di Bolztmann (sopra).}
     \label{fig:retiBoltzmannMachine}
@@ -1384,7 +1389,7 @@ troverebbe imprigionata.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/reteHopfieldContinua.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/reteHopfieldContinua.jpg}
     \caption{La \emph{rete continua di Hopfield}.}
     \label{fig:reteHopfieldContinua}
 \end{figure}
@@ -1553,7 +1558,7 @@ $$I_i = \sum_i (-\frac{a_i^2}{2} + Sa_i).$$
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/convertitoreAD.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/convertitoreAD.jpg}
     \caption{Un dispositivo convertitore Analogico-Digitale. Esso può essere
     modellato mediante una rete continua di Hopfield.}
     \label{fig:convertitoreAD}
@@ -1635,7 +1640,7 @@ Si tratta di un funzionale particolarmente complesso, composto da $4$ distinti t
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/retiTSPEsempi.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/retiTSPEsempi.jpg}
     \caption{Esempi della risoluzione del travelling salesman problem con reti
     neurali di Hopfield.}
     \label{fig:retiTSPEsempi}
@@ -1895,7 +1900,7 @@ stringa la stringa a lunghezza massima su almeno due percorsi.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/alberi-suffisso.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/alberi-suffisso.jpg}
     \caption{Schema di un albero a suffisso.}
     \label{fig:alberi-suffisso}
 \end{figure}
@@ -1917,7 +1922,7 @@ cui la sequenza si ``ripiega'' su se stessa.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/struttura-trna.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/struttura-trna.jpg}
     \caption{Struttura di uno t-RNA.}
     \label{fig:struttura-trna}
 \end{figure}
@@ -1938,7 +1943,7 @@ di distanza fra stringhe che sia anche \emph{biologicamente significativa}.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/alberi-filogenetici.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/alberi-filogenetici.jpg}
     \caption{Tabella degli amminoacidi per ricostruzione di alberi filogenetici. In particolare, vengono analizzate sequenze di \emph{drosophila mauritiana} e di \emph{caernorhabditis elegans}.}
     \label{fig:alberi-filogenetici}
 \end{figure}
@@ -1958,7 +1963,7 @@ di Biologia.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/matrice-blosum.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/matrice-blosum.jpg}
     \caption{Matrice BLOSUM per la ricostruzione in Figura~\ref{fig:alberi-filogenetici}. Ogni coppia di amminoacidi ha un valore intero positivo o negativo. Una somma sufficientemente positiva garantisce una buona corrispondenza per catene di proteine, e dunque la presenza di un avo comune.}
     \label{fig:matrice-blosum}
 \end{figure}
@@ -2032,7 +2037,7 @@ stesso cluster.};
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.2\linewidth, height=\textheight, keepaspectratio]{./pics/computazioneDNA.png}
+    \includegraphics[ width=1.2\linewidth, height=\textheight, keepaspectratio]{./pics/computazioneDNA.jpg}
     \caption{La computazione DNA. Da sinistra a destra, dall'alto in basso: rappresentazione dei vertici mediante sequenze inverse complementari; rappresentazione degli archi con sequenze a metà fra due sequenze; catena di archi-nodi; dopo il mescolamento dei contenitori di archi e vertici, creazione del cammino u-v-w.}
     \label{fig:computazioneDNA}
 \end{figure}
@@ -2102,7 +2107,7 @@ spostarsi a destra per apprestarsi a leggere il simbolo successivo.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=0.5\linewidth, height=\textheight, keepaspectratio]{./pics/automaStatiFiniti.png}
+    \includegraphics[ width=0.5\linewidth, height=\textheight, keepaspectratio]{./pics/automaStatiFiniti.jpg}
     \caption{Rappresentazione schematica di un automa a stati finiti.}
     \label{fig:automaStatiFiniti}
 \end{figure}
@@ -2206,7 +2211,7 @@ input per la posizione di persone, dipendenti dalla posizione di esse relativame
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/automaStatiFinitiCancello.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/automaStatiFinitiCancello.jpg}
     \caption{Doppia modalità di rappresentazione per un automa a stati finiti.
     Esso può essere rappresentato o come \emph{diagramma di stato}, o come
 \emph{matrice di transizione}.}
@@ -2223,7 +2228,7 @@ informazioni.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/automiVendingMachine.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/automiVendingMachine.jpg}
     \caption{Macchina per la distribuzione di caramelle negli Stati Uniti, dal
     costo di 25 cents. Se vengono inseriti più di 25 cents, la macchina non dà
 resto.}
@@ -2262,7 +2267,7 @@ Un \textbf{automa finito} è una $5$-tupla $\mathcal Q, \Sigma, \delta, q_0,
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/wwAutoma.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/wwAutoma.jpg}
     \caption{Automa a stati finiti che riconosce le stringhe A = \{w | w \mbox{ contiene almeno un } 1\mbox{ ed un numero pari di } 0 \mbox{ seguono l'ultimo } 1\}}
     \label{fig:wwAutoma}
 \end{figure}
@@ -2276,7 +2281,7 @@ un } 1 \mbox{ ed un numero pari di } 0 \mbox{ seguono l'ultimo } 1\}.$$
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/automaAnBm.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/automaAnBm.jpg}
     \caption{Automa a stati finiti che riconosce qualsiasi stringa della forma
     $\mathcal L(M) = \{a^n b^m | m,n > 0\},$ ma \textbf{non} stringhe della
 forma $a^n b^n$ con $n>0$.}
@@ -2288,7 +2293,7 @@ forma $a^n b^n$ con $n>0$.}
 \section{La computazione degli automi deterministici (DFA) dal punto di vista formale}
 
 Sia $A_D = \{ \mathcal Q, \Sigma, \delta_D, q_0, \mathcal F\}$, con $\delta_d:\mathcal Q \times \Sigma \rightarrow \mathcal Q$ funzione di transizione. Se $x\in
-\Sigma^*$ viene introdotto $\hat\delta_D (q, x)$ lo \textbf{stato raggiunto} da
+\Sigma^*$ viene introdotto $\hat{\delta}_D (q, x)$ lo \textbf{stato raggiunto} da
 $M$ partendo da $q$ quando si è alla sinistra di $x$, ed eseguendo
 successivamente il cammino $x$.
 
@@ -2297,19 +2302,19 @@ Lo stato raggiunto può essere definito per ricorsione. Infatti,
 $$
 \left\{
     \begin{array}{l}
-        \hat\delta_D (q, \Lambda) = q \\
-        \hat\delta_D (q, xa) = \delta _D (\hat\delta_D (q, x), a)
+        \hat{\delta}_D (q, \Lambda) = q \\
+        \hat{\delta}_D (q, xa) = \delta _D (\hat{\delta}_D (q, x), a)
     \end{array}
 \right.
 $$
 
-con $\delta_D(q, a) = \hat\delta_D(q, a)$. In altre parole, l'automa deterministico $A_D$ accetta una
-parola $x$ se $\hat\delta(q_0, x) \in \mathcal F$ appartiene all'insieme degli stati di
-accettazione, ovvero $$\mathcal L(A_D) = \{x\in \Sigma^* | \hat\delta(q_0, x)
+con $\delta_D(q, a) = \hat{\delta}_D(q, a)$. In altre parole, l'automa deterministico $A_D$ accetta una
+parola $x$ se $\hat{\delta}(q_0, x) \in \mathcal F$ appartiene all'insieme degli stati di
+accettazione, ovvero $$\mathcal L(A_D) = \{x\in \Sigma^* | \hat{\delta}(q_0, x)
 \in \mathcal F\}.$$ In definitiva, uno stato di \textsc{Accettazione } viene
 raggiunto dallo stato iniziale $q_0$ solo se lo stato raggiunto da $q_0$
 mediante un cammino $x$ conduce proprio allo stato di \textsc{Accettazione },
-cioè quando $\hat\delta(q_0, x)$ appartiene all'insieme degli stati finali (di
+cioè quando $\hat{\delta}(q_0, x)$ appartiene all'insieme degli stati finali (di
 accettazione). Si dimostrerà che un linguaggio accettato da un automa a stati
 finiti è un linguaggio \emph{regolare}: questo legame fra automi a stati finiti
 e linguaggi regolari consente di trattare gli automi mediante il formalismo dei
@@ -2327,21 +2332,21 @@ rispetto agli automi non deterministici.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/nfa-intro.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/nfa-intro.jpg}
     \caption{Esempio di automa a stati finiti non deterministico. Si osservi la semplicità del grafo.}
     \label{fig:nfa-intro}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/nfa-esempio2.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/nfa-esempio2.jpg}
     \caption{Paragone fra grafo risultante di un automa a stati finiti deterministico e quello di un automa non deterministico.}
     \label{fig:nfa-esempio2}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/nfa-esempio3.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/nfa-esempio3.jpg}
     \caption{Esempio di un grafo con relativa tabella (funzione) di transizione.}
     \label{fig:nfa-esempio3}
 \end{figure}
@@ -2400,14 +2405,14 @@ vengono tolte per attuare una semplificazione.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/equivalenza-nfa-dfa.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/equivalenza-nfa-dfa.jpg}
     \caption{Equivalenza fra automa a stati finiti non deterministico e fra uno deterministico.}
     \label{fig:equivalenza-nfa-dfa}
 \end{figure}
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/equivalenza-nfa-dfa2.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/equivalenza-nfa-dfa2.jpg}
     \caption{Grafo completo ed equivalente della Figura~\ref{fig:equivalenza-nfa-dfa}. La croce in rosso evidenzia la parte rimovibile, poiché non connessa con alcuno stato iniziale.}
     \label{fig:equivalenza-nfa-dfa2}
 \end{figure}
@@ -2441,7 +2446,7 @@ Similmente, la computazione per automi non deterministici dal punto di vista
 formale avviene con le seguenti differenze:
 
 Sia $A_N = \{ \mathcal Q, \Sigma, \delta_D, q_0, \mathcal F\}$ un automa non
-deterministico. Se $x\in \Sigma^*$ viene introdotto $\hat\delta_D (q, x)$
+deterministico. Se $x\in \Sigma^*$ viene introdotto $\hat{\delta}_D (q, x)$
 l'\textbf{insieme degli stati raggiunti}\footnote{Coerentemente a come abbiamo
 definito l'automa a stati finiti non deterministico, questa volta lo stato
 raggiunto a partire da un determinato nodo può produrre più possibili stati
@@ -2453,16 +2458,16 @@ Di conseguenza, si può definire per ricorsione in modo analogo a quanto svolto 
 $$
 \left\{
     \begin{array}{l}
-        \hat\delta_N (q, \Lambda) = \{q\} \\
-        \hat\delta_N (q, xa) = \displaystyle \bigcup_{p \in \hat\delta_N(q, x)} \hat\delta_N (p, a)
+        \hat{\delta}_N (q, \Lambda) = \{q\} \\
+        \hat{\delta}_N (q, xa) = \displaystyle \bigcup_{p \in \hat{\delta}_N(q, x)} \hat{\delta}_N (p, a)
     \end{array}
 \right.
 $$
 
-Si avrà infine che $A_N$ accetta una parola $x$ se $\hat\delta_N(q_0, x) \cap F
+Si avrà infine che $A_N$ accetta una parola $x$ se $\hat{\delta}_N(q_0, x) \cap F
 \neq \emptyset$, cioè
 
-$$L(A_N) = \{x \in \Sigma^* | \hat \delta_N(q_0, x) \cap F \neq \emptyset \}$$
+$$L(A_N) = \{x \in \Sigma^* | \hat{\delta}_N(q_0, x) \cap F \neq \emptyset \}$$
 
 in modo congruo a quanto visto per un automa $A_D$ deterministico.
 
@@ -2497,11 +2502,11 @@ che $\mathcal A$ deve essere in almeno uno stato per più di una volta. Sia $q$ 
 stato in cui $\mathcal A$ si trova almeno due volte. Possiamo dunque scrivere
 $x = uvw$, dove 
 
-$$\begin{aligned}
-    \hat\delta(q_0, u) &=   q, \\
-    \hat\delta(q, v) &=   q, \\
-    \hat\delta(q, w)  &\in   \mathcal F,
-\end{aligned}$$
+\begin{align}
+    \hat{\delta} (q_0, u) &=   q, \\
+        \hat{\delta} (q, v) &=   q, \\
+        \hat{\delta} (q, w)  &\in   \mathcal F,
+\end{align}
 
 coerentemente con il fatto che sullo stato $q$ si rimane un numero di volte
 maggiore di uno, poiché il cammino prodotto dalla stringa $v$ porterà
@@ -2509,12 +2514,12 @@ nuovamente al medesimo stato $q$ (dunque, almeno una volta da $q_0$ seguendo
 $u$, e almeno un'altra volta seguendo $v$). Poiché questo ciclo di transizioni
 di stato che portano sempre a $q$ possono essere ripetute un numero arbitrario
 di volte (anche 0) vale la seguente equivalenza
-$$\hat \delta(q_0, uv^{[i]}w) = \hat\delta(q_0, uvw) \in \mathcal F,$$ e dunque
+$$\hat{\delta }(q_0, uv^{[i]}w) = \hat{\delta}(q_0, uvw) \in \mathcal F,$$ e dunque
 la tesi.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/pumping-lemma.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/pumping-lemma.jpg}
     \caption{Rappresentazione del grafo di un automa soggetto al Pumping lemma.}
     \label{fig:pumping-lemma}
 \end{figure}
@@ -2573,7 +2578,7 @@ proprio alla parola $w$.
 
 \begin{figure}[h]
     \centering
-    \includegraphics[ width=0.6\linewidth, height=\textheight, keepaspectratio]{./pics/automiGrafiElementari.png}
+    \includegraphics[ width=0.6\linewidth, height=\textheight, keepaspectratio]{./pics/automiGrafiElementari.jpg}
     \caption{Alcuni esempi base di grafi di transizione. Altri esempi sono
     forniti sulle slide.}
     \label{fig:automiGrafiElementari}
@@ -2581,7 +2586,7 @@ proprio alla parola $w$.
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/grafi-transizione-esempi.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/grafi-transizione-esempi.jpg}
     \caption{Esempi di grafi di transizione.}
     \label{fig:grafi-transizione-esempi}
 \end{figure}
@@ -2659,12 +2664,13 @@ Facciamo ora alcuni esempi di espressioni regolari. Sia l'insieme $\Sigma = \{a,
 
 \begin{figure}[ht]
     \centering
-    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/espressioni-regolari-esempi.png}
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/espressioni-regolari-esempi.jpg}
     \caption{Esempi di espressioni regolari, con relativo automa a stati finiti
     non deterministico e grafo di transizione.}
     \label{fig:espressioni-regolari-esempi}
 \end{figure}
 
+\clearpage
 
 
 Un importante risultato è che dalla definizione delle espressioni regolari,
@@ -2675,7 +2681,241 @@ tutte le parole $\Sigma = \{a, b\}$ con $a$ e $b$ che si alternano e che
 cominciano e terminano con $b$ può essere descritto sia da $b(ab)^*$ che da
 $(ba)^* b$.
 
+\begin{definizione}[Equivalenza fra espressioni regolari]
+Si dice che due espressioni regolari $R_1$ ed $R_2$ su $\Sigma$ sono
+\emph{equivalenti} con notazione $R_1 = R_2$ se e solo se $\tilde R_1 = \tilde
+R_2$.
+\end{definizione}
 
+Secondo questa definizione, le stringhe $b(ab)^*$ e $(ba)^* b$ sono
+equivalenti. Infatti, l'insieme delle parole di $R_1$ combacia con l'insieme di
+parole di $R_2$, poiché descrivono le medesime stringhe.
+
+Da questa definizione sorgono varie identità interessanti. Ad esempio, 
+
+$$  R_1 +  S_1 =  S_1 +  R_1,$$
+$$  R_1 + \emptyset = \emptyset +  R_1,$$
+$$  R +  R =  R,$$
+$$ ( R +  S) =  T =  R + ( S +  T),$$
+$$ R \Lambda  = \Lambda  R =  R,$$
+$$ R \emptyset  = \emptyset  R = \emptyset,$$
+$$( R  S)  T  =  R (  S  T),$$
+e, in generale,
+$$ R  S \neq  S  R.$$
+
+Altre ancora sono le seguenti, 
+\begin{align*}
+    R(S + T) &= RS + RT;  (S + T)R = SR + TR; \\
+    R^* &= R^* R^* = (R^*)^* = (\Lambda + R)^*; \emptyset^* = \Lambda^* = \Lambda; \\
+    R^* &= \Lambda + R + R^2 + \cdots + R^k + R^{k+1}R^*; \mbox{ con } k \geq 0, \\
+        &  \mbox{ caso particolare } R^* = \Lambda + RR^*; \\
+    (R+S)^* &= (R^* + S^*)^* = (R^* S^*)^*  = (R^* S^*)R^* = R^*(SR^*)^*; \\
+    R^* R &= RR^*;  R(SR)^* = (RS)^*R; \\
+    (R^*S)^* &= \Lambda  + (R + S)^*S, (RS^*)^* =\Lambda + R(R + S)^*;
+\end{align*}
+
+ed infine la \emph{regola di Arden}: supponiamo $\Lambda \notin S$; allora
+
+\begin{align*}
+    R = SR + T & \mbox{ se e solo se } R = S^* T \\
+    R = RS + T & \mbox{ se e solo se } R = T S^*.
+\end{align*}
+
+Si noti che in generale vale che $(R + S)^* \neq R^* + S^*$. La maggior parte
+delle identità appena proposte può essere dimostrata mediante la tecnica della
+\emph{dimostrazione mediante parsificazione}. Tale strategia consiste nello
+riarrangiamento delle espressioni di modo da ottenere la tesi, in un
+procedimento che è detto ``riparsificazione'' dell'espressione.
+
+Ad esempio, supponiamo di voler dimostrare la seguente identità.
+
+\begin{identita}[$R(SR)^* = (RS)^* R$]
+    È vero che $R(SR)^* = (RS)^* R$.
+\end{identita}
+
+\textsc{Dimostrazione } --- Si consideri qualunque parola $w \in R(SR)^*$, cioè
+una parola composta nella seguente maniera:
+$$r_0(s_1r_1)(s_2r_2)(s_3r_3)\cdots(s_nr_n),$$ considerando un qualche $n \geq
+0$, con $n \in \mathbb{N}$, e dove ogni $r_i \in R$ e ogni $s_i \in S$. Ora,
+\emph{riparsificando} la stringa ottenuta tramite associatività si ottiene
+$$(r_0s_1)(r_1s_2)(r_2s_3)(r_3s_4)\cdots(r_{n-1}s_n)r_n.$$ Pertanto, la stringa
+$w$ ottenuta apparterrà a $w \in (RS)^*R$, e siccome $w$ è stata scelta in modo
+del tutto arbitrario ciò implica che $R(SR)^* \subseteq (RS)^* R$. In modo
+analogo si dimostra il viceversa $R(SR)^* \supseteq (RS)^* R$, perciò si
+ottiene l'equivalenza fra le due espressioni regolari come da identità.
+
+\begin{flushright}
+$\blacksquare$
+\end{flushright}
+
+Alternativamente, si possono adoperare identità già note per dimostrarne altre
+nuove. Ad esempio, $R = S^* T$ implica $R = SR + T$ viene dimostrata a partire
+da altre identità (per approfondimenti, slide 63).
+
+In definitiva, con tutta la trattazione teorica di cui sopra sono stati
+prodotti tre modelli del tutto equivalenti: il modello dell'\emph{automa a
+stati finiti}, il modello del \emph{grafo di transizione} ed infine quello
+delle \emph{espressioni regolari}. I tre modelli sono intercambiabili, è
+possibile descrivere l'uno mediante l'altro, e hanno tutti la capacità
+computazione di ``Livello 0'', quella in grado di produrre gli \emph{insiemi
+regolari}. Rappresentano dunque il livello più basso della capacità
+computazionale.
+
+L'anello di congiunzione fra questi tre modelli è rappresentato da un
+importante teorema, detto \emph{Teorema di Kleene}, che ci accingiamo a
+dimostrare. Prima di fare ciò, però, è necessario illustrare la nozione di
+\emph{grafo generalizzato}.
+
+\begin{definizione}[Grafo di transizione generalizzato]
+    Il grafo di transizione $T$ è un \emph{grafo di transizione generalizzato} se i suoi archi possono essere
+    etichettati anche da espressioni regolari invece che soltanto da parole.
+\end{definizione}
+
+\begin{thm}[Kleene]
+    Sia $T$ un \emph{grafo di transizione su $\Sigma$}. Allora
+\begin{enumerate}
+    \item per ogni grafo di transizione $T$ su $\Sigma$ esiste un'espressione regolare $R$ su $T$ tale che $\tilde R = \tilde T$; 
+    \item per ogni espressione regolare $R$ su $\Sigma$ esiste un automa finito $A$ su $\Sigma$ tale che $\tilde A = \tilde R$.
+\end{enumerate}
+\end{thm}
+
+\textsc{Dimostrazione } --- Per dimostrare il primo punto si descrive un
+algoritmo che genera un'espressione regolare $R$ a partire da un grafo di
+transizione $T$ tale che $\tilde R = \tilde T$. 
+
+Si proceda aggiungendo al grafo $T$ un vertice $x$ e degli archi $\Lambda$ che
+collegano tale vertice con tutti i vertici iniziali di $T$. Alla stessa
+maniera, si aggiunga un vertice $y$ collocato ``alla fine'' del grafo, cioè
+aggiungendo degli archi $\Lambda$ che conducono dai vertici finali di $T$ ad
+$y$. Il nuovo grafo modificato dovrà avere un unico vertice iniziale, $x$, ed
+un unico vertice finale, $y$. Un esempio di tale configurazione è mostrato in
+Figura~\ref{fig:kleene1}. Il nuovo grafo di transizione dovrà essere un
+\emph{grafo di transizione generalizzato} e lo indicheremo con $T'$.
+Inizialmente, i suoi archi non comprenderanno alcuna espressione regolare, ma
+soltanto parole.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=0.7\linewidth, height=\textheight, keepaspectratio]{./pics/kleene1.jpg}
+    \caption{Nuovo grafo che vede aggiunti un vertice iniziale $x$ ed un
+    vertice finale $y$, collegati al grafo precedente tramite archi $\Lambda$,
+rispettivamente, ai precedenti vertici iniziali e finali.}
+    \label{fig:kleene1}
+\end{figure}
+
+La parte successiva della dimostrazione consiste nell'eliminare tutti i vertici
+del nuovo grafo $T'$ fintanto che non saranno presenti esclusivamente i nuovi
+vertici $x$ ed $y$. Il nuovo arco ottenuto conterrà l'espressione regolare $R$
+tale che $\tilde T = \tilde R$, e il primo punto sarà dimostrato. Durante il
+processo di eliminazione, etichette ed archi vengono modificati. Gli archi
+possono essere etichettati da espressioni regolari ($T'$ è un grafo
+generalizzato). Il grafo generalizzato $T'$ accetta ancora lo stesso insieme di
+parole del grafo $T$, e ad ogni rimozione o cambiamento effettuato in maniera
+opportuna il nuovo grafo prodotto accetterà ancora il medesimo insieme di
+parole. Il processo termina quando otteniamo un grafo come quello in
+Figura~\ref{fig:kleene2}, ovverosia con i due soli vertici $x$ ed $y$;
+l'espressione regolare $R$ risultante sarà $\alpha_1 + \alpha_2 + \cdots +
+\alpha_n$.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=0.7\linewidth, height=\textheight, keepaspectratio]{./pics/kleene2.jpg}
+    \caption{Grafo di transizione generalizzato risultante a seguito del
+    procedimento algoritmico che ne ha portato la formazione. Esistono
+unicamente due vertici $x$ ed $y$, ed ogni arco $i$-esimo è etichettato con
+l'espressione regolare $\alpha_i$.}
+    \label{fig:kleene2}
+\end{figure}
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=0.7\linewidth, height=\textheight, keepaspectratio]{./pics/kleene3.jpg}
+    \caption{Procedimento di rimozione del nodo 3.}
+    \label{fig:kleene3}
+\end{figure}
+
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=0.7\linewidth, height=\textheight, keepaspectratio]{./pics/kleene4.jpg}
+    \caption{Esempio di procedimento completo di trasformazione di un grafo di transizione, dall'alto verso il basso.}
+    \label{fig:kleene4}
+\end{figure}
+
+\clearpage
+
+Per il punto 2, descriviamo un procedimento algoritmico noto come \emph{metodo
+del sottoinsieme} per costruire, a partire da una data espressione regolare
+$R$, un automa finito $A$ tale che $\tilde A = \tilde R$. Si procede a tal
+proposito in tre passi:
+\begin{enumerate}
+    \item si costruisce un grafo di transizione $T$ tale che $\tilde T = \tilde
+        R$. Si comincia con un grafo di transizione generalizzato della forma
+        mostrata in Figura~\ref{fig:kleene5}. Si divide in più parti
+        l'espressione regolare $R$ aggiungendo opportunamente nuovi vertici ed
+        archi, finché tutti loro siano etichettati da lettere oppure da
+        $\Lambda$. Si adoperano le regole mostrate in Figura~\ref{fig:kleene6};
+    \item sia $T$ il grafo di transizione generato seguendo i due passi
+        precedenti. Si costruirà la \emph{tabella di transizione} di $T$.
+        Supponiamo, per semplicità, che $\Sigma = \{a,b\}$. Sia $M$ un
+        qualunque sottoinsieme di vertici del grafo di transizione $T$; per
+        qualunque parola $w \in \Sigma^*$ definiamo $M_w$ il sottoinsieme di
+        tutti i vertici di $T$ che possono essere raggiunti con un $w$-cammino
+        da qualche vertice di $M$. Ad esempio, $M_{ab}$ è l'insieme dei vertici
+        di $T$ raggiungibili con un $ab$-cammino a partire da un vertice di
+        $M$. Similmente, esso è anche l'insieme dei vertici di $T$
+        raggiungibili con un $b$-cammino stavolta a partire da un vertice di
+        $M_a$. Esso è schematizzato in Figura~\ref{fig:kleene7};
+    \item l'ultimo passo consiste nel utilizzare la tabella di transizione per
+        costruire l'automa finito $A$ desiderato. In particolare, ad ogni
+        sottoinsieme $M$ della colonna 1 della tabella corrisponde un vertice
+        $\bar M$ per l'automa $A$. Da ogni vertice $\bar M$ di $A$ si diparte
+        un arco $a$ che conduce al vertice $M_a$, e un arco $b$ che conduce dal
+        vertice $\bar M_b$. Il vertice $\{\bar x\}_\Lambda$, corrispondente al
+        sottoinsieme nell'angolo sinistro superiore della tabella) è il solo
+        vertice iniziale dell'automa $A$. Un vertice $\bar M$ di $A$ è finale
+        se e solo se $M$ contiene un vertice finale di $T$.
+\end{enumerate}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=0.5\linewidth, height=\textheight, keepaspectratio]{./pics/kleene5.jpg}
+    \caption{Grafo di transizione generalizzato di partenza per il primo passo.}
+    \label{fig:kleene5}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/kleene6.jpg}
+    \caption{Regole di sostituzione per il passo due.}
+    \label{fig:kleene6}
+\end{figure}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/kleene7.jpg}
+    \caption{Illustrazione del $w$-cammino e del $ab$-cammino lungo i sottoinsiemi di vertici $M$, $M_a$ ed $M_{ab}$.}
+    \label{fig:kleene7}
+\end{figure}
+
+
+
+Dunque, il teorema è dimostrato.
+
+\begin{flushright}
+$\blacksquare$
+\end{flushright}
+
+
+\clearpage
+
+Dal momento che ogni automa finito è un grafo di transizione, dal teorema
+seguono immediatamente i seguenti fatti:
+\begin{itemize}
+    \item un insieme è regolare su $\Sigma$ se e solo se è accettato da qualche automa finito su $\Sigma$;
+    \item un insieme è regolare su $\Sigma$ se e solo se è accettato da qualche grafo di transizione su $\Sigma$.
+\end{itemize}
 
 
 
