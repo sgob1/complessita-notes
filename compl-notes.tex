@@ -2205,7 +2205,7 @@ $\Sigma$, poiché non può essere accettato da un automa a stati finiti, e dunqu
 Un esempio concreto di automa a stati finiti può essere un controllore di un comune portone elettrico.
 La funzionalità dell'automa è \emph{insita nei suoi stati}: il cancello può essere
 nello stato di \textsc{Aperto } oppure nello stato di \textsc{Chiuso}, rappresentando le
-corrispondenti condizioni in cui può trovarsi del portone. Vi sono quattro possibili condizioni di
+corrispondenti condizioni in cui può trovarsi il portone. Vi sono quattro possibili condizioni di
 input per la posizione di persone, dipendenti dalla posizione di esse relativamente al cancello:
 \textsc{Fronte}, \textsc{Retro}, \textsc{Entrambi}, \textsc{Nessuno}.
 
@@ -2451,7 +2451,7 @@ l'\textbf{insieme degli stati raggiunti}\footnote{Coerentemente a come abbiamo
 definito l'automa a stati finiti non deterministico, questa volta lo stato
 raggiunto a partire da un determinato nodo può produrre più possibili stati
 come esito di un singolo input.} da $A_N$ partendo da $q$ quando si è alla
-sinistra di $x$, ed esecuendo successivamente \emph{tutti i percorsi} $x$.
+sinistra di $x$, ed eseguendo successivamente \emph{tutti i percorsi} $x$.
 
 Di conseguenza, si può definire per ricorsione in modo analogo a quanto svolto prima:
 
@@ -2917,9 +2917,193 @@ seguono immediatamente i seguenti fatti:
     \item un insieme è regolare su $\Sigma$ se e solo se è accettato da qualche grafo di transizione su $\Sigma$.
 \end{itemize}
 
+Un ultimo esempio è quello fornito dalla Figura~\ref{fig:kleene8}.
 
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=1.0\linewidth, height=\textheight, keepaspectratio]{./pics/kleene8.jpg}
+    \label{fig:kleene8}
+\end{figure}
 
+\clearpage
 
+\chapter{Le grammatiche}
+
+Una \textbf{grammatica} è, intuitivamente, un insieme di regole che permettono
+di generare un \emph{linguaggio}. Fra le possibili grammatiche, una categoria
+in particolare riveste un ruolo importante, la categoria delle
+\emph{grammatiche libere dal contesto}, dette anche \emph{Context-Free
+Grammars} e abbreviate con CF. Tramite le grammatiche libere dal contesto viene
+descritta la sintassi dei linguaggi di programmazione. In parole povere, le
+grammatiche sono un modo ulteriore per generare insiemi di stringhe, appunto
+dei linguaggi.
+
+Una stringa appartiene ad un linguaggio quando essa è stata generata mediante
+le \emph{production rules} a partire da una stringa già appartenente al
+linguaggio. Si parte innanzitutto da una stringa. Adoperando le production
+rules si ottiene una nuova stringa modificata: quest'ultima appartiene ancora
+al linguaggio.
+
+\subsubsection{Grammatiche di tipo 0}
+
+Le prime tipologie di grammatiche sono dette \emph{grammatiche di tipo 0} o
+\emph{grammatiche a struttura di frase}. Queste grammatiche sono definite a
+partire da una quadrupla. 
+
+\begin{definizione}[Grammatica di tipo 0 o a struttura di frase] Una \emph{grammatica di tipo 0} o \emph{a struttura di frase} è una quadrupla $$G = \langle V, \Sigma, P, S\rangle$$ dove 
+\begin{itemize}
+    \item $V$ è un insieme finito di variabili, dette anche \emph{simboli non terminali}; 
+    \item $\Sigma$ è un insieme finito di \emph{simboli terminali} tale che $V \cap \Sigma =
+\emptyset$; 
+    \item $P$ è un insieme finito di \emph{produzioni} (le production rules),
+        con ogni produzione della forma $$\alpha \rightarrow \beta,$$ (al posto
+        di $\alpha$ si sostituisce $\beta$; sono dette anche \emph{regole di
+        riscrittura}) e inoltre $\alpha \in (V \cup \Sigma)^+ = (V \cup
+        \Sigma)^* - \{\Lambda\}$ e $\beta \in (V \cup \Sigma)^*$;
+    \item $S \in V$ è il \emph{simbolo inziale}.
+\end{itemize}
+\end{definizione}
+
+Le variabili non terminali saranno indicate dalla lettera maiuscola, mentre
+tutti i simboli terminali saranno denotati con la lettera minuscola.
+
+Data la definizione di grammatica di tipo 0, ci accingiamo a illustrare le
+possibili maniere in cui una parola di una certa grammatica possa essere
+generata da tale grammatica. L'insieme di tali parole generabili si dirà
+linguaggio.
+
+Una parola $w \in \Sigma^*$ si dice \emph{generata} da $G$ se esiste una
+sequenza finita di parole su $V \cup \Sigma$ (produzione) tale che $$S = w_0
+\Rightarrow w_1 \Rightarrow w_2 \Rightarrow \cdots \Rightarrow w_n, \mbox{ con
+} n \geq 1$$ tali che $w_0$ sia la variabile d'inizio $S$, e $w_n = w$ e la
+parola successiva $w_{i+1}$ sia ottenuta da $w_i, 0 \leq i < n$, sostituendo
+qualche occorrenza di una sottostringa $\alpha$ che sia dal lato sinistro di
+qualche produzione di $P$ in $w_i$ con il $\beta$ corrispondente che sia dal
+lato destro della produzione stessa. L'insieme delle parole generate da $G$ si
+dice \emph{linguaggio generato da $G$}.
+
+Ad esempio, sia $\Sigma = \{a, b\}$, e si consideri la grammatica $G_1$ con $V
+= \{S\}$ e $P = \{S \rightarrow aSb, S \rightarrow ab\}.$ Applicando la prima
+produzione $n-1$ volte e facendo seguire un'applicazione della seconda
+produzione alla fine, si ottiene la nuova parola
+
+$$S \Rightarrow aSb \Rightarrow a^2Sb^2 \Rightarrow \cdots \Rightarrow
+a^{n-1}Sb^{n-1} \Rightarrow a^{n}b^{n}.$$ È chiaro che queste sono le sole
+parole generate dalla grammatica, cosìcché il linguaggio generato dalla
+grammatica $G_1$ sarà proprio l'insieme di parole $$\mathcal L = \{a^n b^n | n\geq 1\}.$$
+
+Un insieme di parole su $\Sigma$ è un \emph{linguaggio di tipo 0} se può essere
+generato da qualche grammatica di tipo 0 su tale $\Sigma$. Il seguente teorema
+consolida tale affermazione.
+
+\begin{thm}[Chomsky]
+    Un insieme di parole su $\Sigma$ è \emph{ricorsivamente numerabile} se e
+    solo se è un linguaggio di tipo 0.
+\end{thm}
+
+A tal proposito, ricordiamo che un insieme è detto ricorsivamente numerabile se
+$C_A$ è parzialmente computabile, cioè se il predicato $x \in A$ è
+semidecidibile. Dal teorema segue il seguente predicato:
+
+\begin{center}
+\begin{quote}
+    \emph{Esiste una macchina di Turing che accetta ogni parola in $S$ e rifiuta o
+    cicla per ogni parola in $\Sigma^* - S$.}
+\end{quote}
+\end{center}
+
+Restrizioni sulla natura delle produzioni di una grammatica di tipo 0 possono
+essere fatte, dando così origine ad altri tre tipi di grammatiche costruite
+sopra la numero zero. Una grammatica può essere, pertanto,
+\begin{description}
+    \item[Tipo 1 (sensibile al contesto)] se per ogni produzione $\alpha
+        \rightarrow \beta$ in $P$ si ha che $|\alpha| \leq |\beta|$. Essa ha
+        vincoli sulla lunghezza della stringa;
+    \item[Tipo 2 (libera dal contesto, Context-Free)] se per ogni produzione
+        $\alpha \rightarrow \beta$ in $P$ si ha che $\alpha \in V$ e che $\beta
+        \in (V \cup \Sigma)^+$. Essa equivale ad automi con 1 memoria
+        push--down;
+    \item[Tipo 3 (regolare)] se ogni produzione in $P$ è della forma $$A
+        \rightarrow \sigma B$$ oppure $$A \rightarrow \sigma,$$ cioè sono
+        grammatiche in cui i simboli terminali stanno solo a destra. Le
+        grammatiche di tipo 3 esprimono gli insiemi ed i linguaggi regolari,
+        pertanto sono equivalenti ad automi a stati finiti.
+\end{description}
+
+È opportuno soffermarsi ora sulle grammatiche di Tipo 2, quelle libere dal
+contesto. Storicamente, esse furono adoperate per studiare la struttura delle
+lingue naturali, e rappresentano facilmente delle stringhe con struttura
+ottenibile mediante ricorsione. Fra le applicazioni rientrano i \emph{parser}
+per compilatori ed interpreti, i quali fanno ampio uso delle grammatiche di
+tipo 2.
+
+La differenza principale fra una grammatica di tipo 2 ed una di tipo 0 risiede
+nella definizione dell'$\alpha$ nella produzione $\alpha \rightarrow \beta$:
+nel caso delle grammatiche di tipo 0, $\alpha \in (V \cup \Sigma)^+$, mentre
+nel caso di quelle di tipo 2 si ha soltanto $\alpha \in V$. In altre parole,
+\emph{a sinistra ci sono soltanto variabili}. Un'altra piccola differenza sta
+nella definizione della variabile $\beta$: non più $\beta \in (V \cup
+\Sigma)^*$, bensì $\beta \in (V \cup \Sigma)^+$. Un linguaggio generato da una
+grammatica libera dal contesto prende il nome di \emph{Context-Free Language
+(CFL)}.
+
+Alcuni esempi di Context-Free language sono dati dalla
+Figura~\ref{fig:context-free}.
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[ width=0.7\linewidth, height=\textheight, keepaspectratio]{./pics/context-free.jpg}
+    \caption{Esempi di derivazioni di frasi e di stringhe mediante l'uso di
+    grammatiche di tipo 2.}
+    \label{fig:context-free}
+\end{figure}
+
+Una grammatica libera dal contesto viene solitamente specificata in una forma
+più consona alla trattazione. Sia una grammatica di tipo 2 con $\alpha \in V$ e
+$\beta \in (V \cup \Sigma)^+$; si dice che tale grammatica è in \emph{forma
+normale di Chomsky} se ogni produzione è della forma
+
+\begin{align}
+    A & \rightarrow BC & A, B, C \in V \\
+    A & \rightarrow \sigma & \sigma \mbox{ simbolo terminale }
+\end{align}
+
+con $B$ e $C$ che non possono essere variabili iniziali, e la produzione $S
+\rightarrow \Lambda$ con $S$ variabile iniziale viene accettata. Si può
+dimostrare che ogni grammatica libera dal contesto può essere resa in forma
+normale.
+
+Le grammatiche libere dal contesto sono equivalenti a degli automi a pila.
+Infatti, il teorema seguente (senza dimostrazione) ne evidenzia l'affinità.
+
+\begin{thm}
+    Un linguaggio è \emph{libero dal contesto} se e solo se può essere generato
+    da una macchina non deterministica con 1 memoria push--down, detto automa a
+    pila.
+\end{thm}
+
+Il seguente teorema non è certamente l'unico relativo alle equivalenze fra
+livelli di computazione e linguaggi. Difatti è possibile tracciare delle
+equivalenze dirette fra tipi di macchine e linguaggi, come vedremo ora.
+
+I \emph{linguaggi di tipo 0} sono equivalenti agli insiemi ricorsivamente
+enumerabili, che sono anche gli insiemi accettati da qualche macchina finita
+con due memorie pushdown. Questi linguaggi, detti a struttura di frase, sono
+equivalenti alla macchina di Turing. Le loro regole di produzione sono
+completamente libere: $\alpha$ e $\beta$ possono avere qualsiasi natura, fatta
+eccezione per $\beta$, che non può essere $\Lambda$.
+
+Immediatamente sotto alla gerarchia incontriamo gli insiemi ricorsivi. A
+seguire, si incontrano i \emph{linguaggi di tipo 1} e successivamente i
+\emph{linguaggi di tipo 2}. Questi ultimi sono equivalenti a tutti gli insiemi
+accettati da qualche macchina finita non deterministica con una singola memoria
+pushdown. I linguaggi di tipo 2 sono legati a grammatiche libere dal contesto,
+e sono dunque equivalenti agli automi a pila.
+
+Infine, i \emph{linguaggi di tipo 3} fanno da fanalino di coda, con
+l'equivalenza fra insiemi regolari, insiemi che sono accettati da qualche
+macchina finita senza memorie pushdown. Perciò, un linguaggio regolare sarà
+equivalente ad un automa a stati finiti senza memoria.
 
 
 
