@@ -36,7 +36,7 @@
 \usepackage[italian]{babel}
 %\usepackage[document]{ragged2e}
 \usepackage{fontspec}
-\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{amsmath,amssymb,amsfonts,bm}
 \usepackage{amsthm}
 \usepackage{mlmodern}
 \usepackage[all]{nowidow}
@@ -93,6 +93,11 @@
 \newtheorem{thm}{Teorema}
 \setlength{\tabcolsep}{0.5em} % for the horizontal padding
 {\renewcommand{\arraystretch}{1.35}% for the vertical padding
+
+\newtheorem{tesi}{Tesi}
+\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+{\renewcommand{\arraystretch}{1.35}% for the vertical padding
+
 
 \theoremstyle{definition}
 \newtheorem{definizione}{Definizione}[section]
@@ -151,10 +156,79 @@
 % --------------------------------------------------------------------------------
 
 
-\chapter{La macchina di Turing}
-\section{Descrizione della macchina}
+\chapter{Le funzioni Ricorsive e le funzioni computabili}
 
-Una \textbf{macchina di Turing} è una \textsc{macchina} che è descritta da un insieme di
+\section{La tesi di Church--Turing}
+
+Nella parte relativa alla \emph{Teoria della Computazione}, sono stati esaminati vari teoremi, sia positivi che negativi, riguardo alla decidibilità di predicati, computabilità di funzioni e le proprietà di cui esse godono. In definitiva, il risultato finale culmina nella seguente \textbf{Tesi di Church--Turing}, che, sebbene non dimostrata (non è e non può essere un teorema), stabilisce l'essenziale equivalenza fra i vari modelli di calcolo (macchina di Turing, modello RAM, $\lambda$-calcolo e così via).
+
+\begin{tesi}[di Church--Turing]
+    L'insieme delle funzioni \emph{intuitivamente ed effettivamente} calcolabili coincide con la classe $\mathcal C$ delle funzioni RAM-calcolabili.
+\end{tesi}
+
+Poiché esistono teoremi che assicurano l'equivalenza fra i vari modelli, tutti del tipo $\mathcal R = \mathcal T$, $\mathcal L = \mathcal T$, cioè che fanno esplicito riferimento all'insieme delle funzioni calcolabili dal modello della macchina di Turing, la tesi di Church--Turing è universalmente accettata nell'ambito dell'informatica. Essa infatti è giustificata dal fatto che partendo da diversi approcci alla computazione si giunge sempre allo stesso insieme di funzioni calcolabili, dati i teoremi di equivalenza tra le classi. Fino ad ora nessuno ha mai mostrato un esempio di una funzione effettivamente calcolabile, che non lo sia nel modello RAM.
+
+L'accettazione della tesi di Church Turing offre allora una nuova tecnica di dimostrazione della computabilità di una funzione, denominata \textbf{dimostrazione mediante Tesi di Church-Turing}: si tratta di fornire un algoritmo informale (che deve essere però rigoroso e non ambiguo) per illustrare il computo di una certa funzione. A questo punto, invocando la Tesi di Church-Turing si conclude immediatamente che la funzione è RAM-computabile. È chiaro, tuttavia, che un simile procedimento di dimostrazione è assai meno rigoroso di quelli adoperati nella precedente parte, e si preferisce evitare di adoperare la tesi di Church--Turing qualora fosse possibile.
+
+\section{La classe delle funzioni Primitive Ricorsive}
+
+Introduciamo ora la classe delle cosiddette funzioni \emph{Primitive Ricorsive}, denotata con $\mathcal {PR}.$
+
+\begin{definizione}[Funzioni Primitive Ricorsive]
+    La classe $\mathcal {PR}$ delle funzioni \emph{Primitive Ricorsive} è la più piccola classe di funzioni totali che contiene le funzioni base $\bf{0}, x+1, \cup_i^n$ ed è chiusa rispetto alle operazioni di \emph{sostituzione} e \emph{ricorsione}.
+\end{definizione}
+
+In base a quanto osservato nella prima parte, esso \textbf{non} contiene tutte le funzioni computabili, poiché sono assenti tutte le funzioni simili alla funzione di Ackermann, per cui è necessaria l'introduzione dell'operazione di \emph{minimazione illimitata}.
+
+Per scongiurare tale problema, Gödel-Kleene inclusero anche la minimazione illimitata in una classe $\mathcal R_0$ delle funzioni $\mu-$\emph{ricorsive} o \emph{totali ricorsive}.
+
+\begin{definizione}[Funzioni Ricorsive Totali]
+    La classe $\mathcal R_0$ delle funzioni $\mu-$\emph{ricorsive} o \emph{totali ricorsive} è la più piccola classe di \emph{funzioni totali} che contiene le funzioni base $\bm{0}, x+1, \cup_i^n$ ed è chiusa rispetto le operazioni di \emph{sostituzione}, \emph{ricorsione} e \emph{minimazione illimitata}. La classe contiene esclusivamente funzioni totali.
+\end{definizione}
+
+Questo insieme non contiene tutte le funzioni computabili. Infatti, è possibile costruire una funzione \[f(x) = \varphi_e(x) = \varphi_x(x) + 1\] che è banalmente calcolabile nel contesto del modello finora costruito, ma presenta un punto in cui non è calcolabile all'interno del modello stesso, il punto $x=e$ per cui si avrebbe
+\[\varphi_e(e) = \varphi_e(e) + 1,\] che è una contraddizione. L'unica possibilità è che la funzione $f$ \emph{non sia definita} nel punto $e$, perciò è necessario ammettere l'esistenza di funzioni parziali.
+
+In definitiva, per includere tutte le funzioni computabili, comprese quelle palesemente calcolabili nel nostro modello, è necessario introdurre anche le funzioni parziali nella classe $\mathcal {R}$ delle funzioni \emph{Parziali Ricorsive}, come descritto nella seguente definizione.
+
+\begin{definizione}[Funzioni Parziali Ricorsive]
+    La classe $\mathcal R$ delle funzioni \emph{parziali ricorsive} è la più piccola classe di \emph{funzioni parziali} che contiene le funzioni di base $\bm{0}, x+1, \cup_i^n$ ed è chiusa rispetto le operazioni di \emph{sostituzione}, \emph{ricorsione} e \emph{minimazione illimitata}. La classe contiene anche le funzioni parziali.
+\end{definizione}
+
+Dunque, vale la relazione d'inclusione \[\mathcal{PR} \subseteq \mathcal{R}_0 \subseteq \mathcal R,\] che pone in una qualche ``gerarchia'' le classi delle funzioni, con all'interno le funzioni Primitive Ricorsive, seguite dalle funzioni Totali Ricorsive e per poi concludere con le funzioni Parziali Ricorsive che contengono tutte le altre. Possiamo ora dimostrare un teorema che lega in modo indissolubile la classe delle funzioni parziali ricorsive alla classe delle funzioni computabili.
+
+\begin{thm}
+    \[\mathcal R = \mathcal C\]
+\end{thm}
+
+\textsc{Dimostrazione} --- L'inclusione nel senso $\mathcal R \subseteq \mathcal C$ segue immediatamente dai teoremi già visti della computabilità delle funzioni base, della sostituzione, ricorsione e della minimazione illimitata. Nell'altro senso, $\mathcal C \subseteq \mathcal R$, è necessario mostrare che è possibile associare una funzione $f(x)$, computata da $P$, a due funzioni $c$ e $j$ siffatte:
+
+\[c(\bm{x}, t) = \left\{
+        \begin{array}{l} \makecell{\mbox{il contenuto del registro } R_1 \mbox{ dopo } t \mbox{ passi della computazione } P(x) \\ \mbox{ se } P(x) \mbox{ non è andata a convergenza}} \\ \\ \makecell{\mbox{il contenuto finale del registro } R_1 \mbox{ se } P(x) \mbox{ è andata a convergenza}}
+        \end{array}
+    \right.
+\]
+
+\[j(\bm{x}, t) = \left\{
+        \begin{array}{l} \makecell{\mbox{l'indice della prossima istruzione dopo } t \mbox{ passi della computazione } P(x) \\ \mbox{ se } P(x) \mbox{ non è andata a convergenza}} \\ \\ \makecell{0 \mbox{ se } P(x) \mbox{ è andata a convergenza}}
+        \end{array}
+    \right.
+\]
+
+Se $f(x)$ è definita, $P(x)$ converge dopo un numero di passi $\hat t = \mu t \left(j(\bm{x}, t) = 0\right),$ per il quale si ha
+\[f(x) = c(\bm{x}, \hat t) = c(\bm{x}, \mu t \left(j(\bm{x}, t) = 0\right)).\] Se invece $f(x)$ non è definita, il programma $P(x)$ diverge e perciò $\mu t \left(j(\bm{x}, t) = 0\right)$ non è definita. In ambedue i casi siamo di fronte alla relazione
+
+\[f(x) \simeq c(\bm{x}, \mu t \left(j(\bm{x}, t) = 0\right)),\] pertanto è sufficiente mostrare la computabilità delle due funzioni $c(\bm{x}, t)$ e $j(\bm x, t)$. Si procede come nel caso della dimostrazione per la computabilità della funzione universale, e si giunge pertanto alla dimostrazione della computabilità di $f$.
+
+\begin{flushright}
+$\blacksquare$
+\end{flushright}
+
+\chapter{La macchina di Turing}
+
+\section{Descrizione della macchina di Turing}
+
+Una \textbf{macchina di Turing} è una macchina descritta da un insieme di
 \emph{simboli} $\Gamma = \{\alpha, \beta, \gamma, \delta, \dots\}$ \emph{finito} e da
 un insieme di \emph{stati} $\mathcal{Q} = \{q_1, q_2, \dots, q_n\}$ anch'esso
 \emph{finito}. La macchina di Turing dispone di un nastro di memoria
@@ -170,9 +244,11 @@ intrapresa un'azione fra le $3$ seguenti:
         appartenente all'alfabeto di simboli.
 \end{itemize}
 
+In altre parole, una macchina di Turing può essere pensata come un'individuo, un'operatore dotato di un proprio \emph{stato mentale} $q$ (felice, triste, allegro, arrabbiato, ecc.) e di due pile di fogli potenzialmente infinite, una alla sua destra ed una alla sua sinistra. Di fronte all'operatore vi è un foglio: l'operatore legge il simbolo in esso riportato, e a seconda del suo stato mentale decide se spostare il foglio nella pila a destra, spostare il foglio nella pila a sinistra, oppure se cancellarlo e scrivere un altro simbolo sul foglio stesso.
+
 Nello specifico, una macchina di Turing è univocamente identificata dalla sua
 \emph{matrice di transizione} $\delta  : \mathcal Q \times \Gamma \rightarrow
-\mathcal Q \times (\Gamma \cup \{L,R\})$\footnote{In talune circostanze, è
+\mathcal Q \times (\Gamma \cup \{L,R\})$\footnote{In particolari circostanze, è
 possibile trovare una definizione differente, cioè $$\delta  : \mathcal Q \times
 \Gamma \rightarrow \mathcal Q \times \Gamma \times \{L,R\};$$ in altre parole, è
 una macchina che \emph{si muove sempre sul nastro,} poiché per ogni stato è
@@ -193,8 +269,8 @@ stato in cui si trova. L'insieme delle azioni che la macchina di Turing compie
 modello RAM si sarebbe detto essere la sequenza di istruzioni elementari. In
 parole povere, non si scrive un vero e proprio programma come nel caso della
 macchina a modello RAM, bensì si specifica il passo da compiere alla lettura di
-un determinato simbolo sul nastro. I passi sono riportati in questa tabella, la
-matrice di transizione, e lì si descrive il meccanismo della macchina.
+un determinato simbolo sul nastro. I passi sono riportati nella matrice di
+transizione e tramite essa viene descritto il meccanismo della macchina.
 
 Una macchina di Turing può anche essere accompagnata da un alfabeto
 \emph{ausiliario}, ovverosia da un alfabeto $\mathcal V$ comprendente simboli
@@ -227,32 +303,28 @@ $\vdots$ & $\vdots$ & $\vdots$ & $\ddots$ &
 \caption{Possibile matrice di transizione per una macchina di Turing. Le righe
 corrispondono ai simboli dell'alfabeto $\Gamma$, mentre le colonne sono
 corrispondenti ai singoli stati dell'insieme $\mathcal
-Q$. Ogni elemento della tabella indica il simbolo da scrivere/stato in cui la
-macchina dovrà trovarsi al passo successivo,}\label{tab:matriceTransizione}
+Q$. Ogni elemento della tabella indica il simbolo da scrivere assieme allo stato in cui la
+macchina dovrà trovarsi al passo successivo.}\label{tab:matriceTransizione}
 \end{table}
 \bigskip
 
 
 Diversamente dal modello RAM, la quantità di memoria destinata ad ogni cella è
 \emph{limitata}, poiché vi può essere collocato soltanto un numero finito di
-simboli, quelli appunto dell'insieme $\Gamma$. Qua non si possono più inserire
-numeri grandissimi, bensì bisogna accontentarsi dei simboli che abbiamo inserito
+simboli, quelli appunto dell'insieme $\Gamma$. Non è più possibile introdurre in ciascuna cella una quantità arbitraria di informazione, bensì bisogna accontentarsi dei simboli presenti
 nel nostro alfabeto, un numero finito di essi. Ciononostante, la macchina di
 Turing ha dei vantaggi, ad esempio si presta meglio alla trattazione di
 stringhe, poiché i simboli possono rappresentare qualsivoglia tipologia di
 entità astratta, mentre per il modello RAM si avrebbe necessità di una codifica
-fra numeri reali e simboli da trattare. Non vi è più dunque la limitazione
+fra numeri reali e simboli, un'operazione delicata da trattare. Non vi è più dunque la limitazione
 imposta dal fatto che all'interno di una cella possa risiedere esclusivamente
-un numero naturale, non importa quanto grande sia; nella macchina di Turing le
-celle possono contenere simboli di qualsiasi natura essi siano. Lo
-``svantaggio'', tuttavia, è che all'interno di ogni cella non può essere
-contenuta una quantità \emph{arbitraria} di informazione, come invece avveniva
-per il modello RAM, che faceva uso dei numeri naturali. In ogni caso, le due
-macchine sono equivalenti, quindi possiamo in qualche modo ``scavalcare''
-questa limitazione che solo in apparenza è limitante.
+un numero naturale, non importa quanto grande sia: nella macchina di Turing le
+celle possono contenere veri e propri simboli, di qualsiasi natura essi siano.
+In ogni caso, le due macchine sono equivalenti, quindi possiamo in qualche modo
+``scavalcare'' le limitazioni rispetto al modello RAM, tali solo in apparenza.
 
 Tipicamente, assieme all'alfabeto che definisce una macchina di Turing viene definito
-un sottoinsieme sigma di \emph{simboli di input}, $\Sigma \subset \Gamma$, in
+un sottoinsieme $\Sigma$ di \emph{simboli di input}, $\Sigma \subset \Gamma$, in
 concomitanza al quale viene definito un simbolo vuoto, \emph{blank}, $b \in
 \Gamma - \Sigma$. Il simbolo $b$ incarna dunque l'idea di \emph{cella
 vuota} --- si pensi infatti al valore che una cella di memoria primaria
@@ -262,7 +334,7 @@ conterrebbe alcun valore d'interesse, dato che essa non è ancora stata
 ``toccata'' dall'esecuzione di alcun programma. Il simbolo \emph{blank} sta a
 significare proprio questo, ed è l'equivalente del valore `zero' del modello
 RAM, dove all'avvio del programma ogni cella di memoria fuorché quelle
-contenenti i valori di ingresso contiene il numero reale $0$. 
+contenenti i valori di ingresso contiene il numero reale $0$.
 
 Ricapitolando, ogni macchina di Turing viene univocamente definita da:
 \begin{itemize}
@@ -290,7 +362,7 @@ di transizione:
 L'insieme di tutte queste quaterne descrive l'insieme dei possibili
 comportamenti della macchina di Turing, dunque questo elenco è del tutto
 equivalente ad una matrice di transizione per come la abbiamo definita in
-precedenza.
+precedenza. D'altronde, ogni cella di tale matrice è effettivamente descritta da 4 elementi, lo stato $q_i$ in cui la macchina si trova attualmente, il simbolo $s_j$ letto dalla testina, il simbolo da scrivere $s_i$ e lo stato $q_k$ in cui si dovrà trovare la macchina alla prossima iterazione.
 
 In parole povere, anche così definita una macchina di Turing può sovrascrivere
 un simbolo presente sulla cella con un altro presente nel suo alfabeto,
@@ -301,8 +373,8 @@ Resta da scogliere il nodo relativo alla terminazione della macchina di Turing.
 Nel modello RAM, la terminazione avveniva qualora le istruzioni si fossero
 esaurite, o più precisamente qualora l'indice dell'istruzione successiva fosse
 quello di un'istruzione assente nella sequenza che definisce la procedura. In
-assenza del concetto di ``istruzione'', secondo quale regole dovrebbe terminare
-una macchina di Turing? 
+assenza del concetto di ``istruzione'', secondo quali regole dovrebbe terminare
+una macchina di Turing?
 
 Lo \emph{stop} della computazione di una macchina di Turing avviene qualora la
 coppia $q_i, s_j$ \textbf{non} sia presente nella matrice di transizione. Nel
@@ -310,20 +382,24 @@ caso di una coppia simbolo---stato non presente nella matrice di transizione,
 la macchina di Turing avrà terminazione, e vi sarà il riconoscimento del valore
 finale di computazione, espresso similmente al caso del modello RAM con una
 convenzione che permetta di identificare il valore finale del risultato della
-computazione. Dunque, una macchina di Turing si ferma quando non sa più che fare.
+computazione. Dunque, una macchina di Turing si ferma quando non sa più che
+fare. Nella pratica, ciò equivarrebbe alla creazione di un simbolo di
+terminazione $\kappa$ che, se incontrato durante la computazione della
+macchina, ne comporterebbe immediatamente la sua terminazione.
 
-Se lo stop della computazione è stato chiarito, ora resta da definire il metodo
-con cui andremo a recuperare il valore finale della computazione. Se per una
-macchina modello RAM potevamo recuperare il valore alla cella 0, con una
-macchina di Turing ciò non è più possibile (come possiamo, infatti,
+Ora che lo stop della computazione è stato chiarito, resta da definire il metodo
+con cui si andrà a recuperare il valore finale della computazione. Se per una
+macchina modello RAM era possibile recuperare il valore alla cella 0, con una
+macchina di Turing ciò non è più possibile. Come possiamo, infatti,
 immagazzinare in una singola cella un numero arbitrariamente grande? È evidente
 che con questa limitazione già citata nei paragrafi precedenti dobbiamo
-escogitare un nuovo stratagemma per ovviare al problema).
+escogitare un nuovo stratagemma per ovviare al problema.
+
 Convenzionalmente, l'esito di una macchina di Turing è una particolare
-configurazione di memoria dello stato finale. Si è infatti scelto che
+configurazione di memoria dello stato finale. Si è scelto che
 il risultato $f(x)$ sia da leggersi come il numero totale di occorrenze di simboli $1$
 (meno un'occorrenza) sul nastro nella configurazione iniziale, se la computazione è
-andata a convergenza, mentre il risultato sarà da considerarsi indefinito
+andata a convergenza, mentre il risultato sarà da considerarsi \emph{indefinito}
 altrimenti. La sequenza di occorrenze del simbolo $1$ verrà delimitata dal
 carattere \emph{blank}. Quindi vi saranno $f(x) + 1$ simboli
 \textquotesingle1\textquotesingle, e pertanto sarà da contare un simbolo
@@ -333,7 +409,7 @@ singolo simbolo \textquotesingle1\textquotesingle, per il risultato
 \textquotesingle1\textquotesingle\ saranno necessari invece 2 simboli
 \textquotesingle1\textquotesingle di fila, e così via). Per quanto invece
 riguarda i risultati di tipo \emph{vettoriale}, cioè del tipo
-$f(x_1,x_2,\dots,x_n)$, ebbene sarà sufficiente costruire $n$ ``quadrati'' in
+$f(x_1,x_2,\dots,x_n)$, ebbene sarà sufficiente costruire $n$ ``cavità'' in
 cui racchiudere gli $x+1$ simboli $1$, ciascuno delimitato dal simbolo
 \emph{b}. In altre parole, la situazione è quella descritta dalla
 Figura~\ref{fig:mdtRisultato}.
@@ -349,7 +425,7 @@ Per farla breve, preleveremo il risultato $x$ secondo la formula $$x = \# \mbox{
 
 
 
-Un difetto evidente della macchina di Turing è la sua difficoltà di trattazione. 
+Un difetto evidente della macchina di Turing è la sua difficoltà di trattazione.
 Per via dell'utilizzo tramite la matrice di transizione è particolarmente
 difficile scrivere programmi per una macchina di Turing~--~questo è principalmente
 dovuto al fatto che la macchina di Turing è una macchina `a stati', dove non vi è
@@ -359,7 +435,10 @@ stato per stato e simbolo per simbolo. Il programma non è più esprimibile come
 una successione di passi ``dall'alto verso il basso'', ma va scritto sotto
 forma di una criptica matrice di transizione dove i passi da definire sono
 quelli compiuti da una macchina di Turing a fronte di un determinato simbolo.
+La creazione di una procedura dunque deve essere integralmente tradotta nella
+creazione di una determinata matrice di transizione.
 
+Vediamo ora le operazioni che una macchina di Turing è in grado di svolgere.
 Una macchina di Turing, non importa come sia stata definita, può essere
 adoperata sostanzialmente per compiere $3$ operazioni:
 \begin{enumerate}
@@ -517,15 +596,15 @@ degli $N$ nastri.
 
 Tale rappresentazione, tuttavia, può avere il vantaggio di presentare una
 maggiore somiglianza con il tipo di computazione svolto all'interno di un
-computer moderno. Si pensi infatti alla memoria RAM, alla memoria cache, al
-disco rigido e così via; una macchina multinastro può ricalcare le varie memorie di un computer moderno. una macchina di Turing può dunque ``simulare''
+moderno computer. Si pensi infatti alla memoria RAM, alla memoria cache, al
+disco rigido e così via; una macchina multinastro può ricalcare le varie memorie di un computer moderno. Una macchina di Turing può dunque ``simulare''
 qualsiasi computer moderno\footnote{Un computer può a sua volta simulare da una
 macchina di Turing, dal momento che possono essere applicati potenzialmente
 infiniti banchi di memoria al computer --- nella pratica, tuttavia, sappiamo
 che ciò non è possibile, e i banchi di memoria non saranno mai del tutto
 \emph{illmitati}. Sarebbe bello altrimenti!} semplicemente introducendo tanti nastri e tante tracce quante
 sono quelle dei dispositivi fisici adoperati dal calcolatore moderno. Nella
-fattispecie, si avrà un nastro ed una traccia per la memoria RAM, un altro
+fattispecie, si avranno un nastro ed una traccia per la memoria RAM, un altro
 nastro ed un'altra traccia per la memoria a disco rigido, e così via. In
 realtà, si tratta esclusivamente di un artificio che ci consente di tracciare
 un collegamento fra il calcolatore moderno e la macchina di Turing, poiché una
@@ -535,7 +614,7 @@ singolo è più che sufficiente per calcolare qualsiasi funzione che è anche
 calcolabile da un nostro computer moderno, possiamo adoperare l'astrazione del
 multinastro per facilitarci nella comprensione e rendere il tutto più simile ad
 un computer. Anche se poi la macchina di Turing lo surclassa comunque, essendo
-dotata di \emph{memoria infinita} (mentre i nostri computer, no).
+dotata di \emph{memoria illimitata} (mentre i nostri computer, no).
 
 Il medesimo discorso si applica anche al primo tentativo di \emph{menomare} la
 macchina di Turing (una sorta di sabotaggio), nel senso che potremmo pensare di
@@ -565,7 +644,7 @@ simulando la macchina multitraccia.}
 \clearpage
 
 
-\subsection{Macchina RAM per \emph{accettare} stringhe}
+\subsection{L'accettore di stringhe}
 
 Uno dei possibili utilizzi per una macchina di Turing (o più in generale, per
 una macchina Turing-equivalente) è quello di \emph{accettore} di stringhe: la
@@ -591,8 +670,8 @@ questi due stati venisse raggiunto dalla macchina --- con conseguente
 accettazione o rifiuto della stringa a seconda dello stato finale. Un'altra
 possibilità è quella di accontentarci di \emph{semi-decidere} riguardo
 l'accettazione di una stringa, cioè di dotarsi di una macchina in grado di
-riconoscere sì la stringa in questione, ma di \emph{non poterla rifiutare},
-poiché in tal caso vi sarebbe un'infinita computazione, una divergenza.
+riconoscere sì la stringa in questione, ma di \emph{non essere in grado di rifiutarla},
+poiché in tal caso vi sarebbe un'infinita computazione, appunto una divergenza.
 
 Lo stato iniziale viene di solito denotato con $q_0$, e potrebbero esserci degli
 stati ulteriori ``intermedi'' fra quello iniziale e quelli terminanti. Un
