@@ -3128,6 +3128,125 @@ bio-calcolatore deve essere \emph{dedicato al problema}, ed il \emph{tempo} di
 ogni operazione biologica richiede ore o giorni. In altre parole, la
 complessità temporale viene sostituita con la \textbf{complessità sul peso}.
 
+\chapter{La Complessità}
+
+Esistono varie categorie di problemi algoritmici --- ciascuno di essi, tuttavia, è descritto da tre caratteristiche:
+\begin{enumerate}
+    \item da una \emph{descrizione generale} di tutti i suoi parametri;
+    \item da un \emph{predicato} che specifica le proprietà che è richiesto che la soluzione soddisfi;
+    \item un'\emph{istanza} di tale problema, specificando \emph{i particolari valori} per tutti i parametri del problema. Si dovrà produrre una \emph{descrizione dell'istanza} tramite una stringa. La lunghezza della descrizione dell'istanza è detta \emph{dimensione dell'input}.
+\end{enumerate}
+Per fare un esempio, supponiamo di voler risolvere il famigerato \emph{Traveling Salesman Problem} (TSP). Fra i parametri figureranno l'insieme $C = \{c_1, c_2, \dots, c_k\}$ di città, e l'insieme $D=\{d(c_1,c_2), d(c_1,c_3),\dots,d(c_{k-1},c_k)\}$ delle distanze che esistono fra di esse. Il predicato del problema sarà il seguente: trovare \[\langle c_{\pi(1)}, c_{\pi(2)}, \dots, c_{\pi_k} \rangle\] \emph{che minimizza la quantità} \[\sum_{j=1}^{k-1} d(c_{\pi(j)}, c_{\pi(j+1)}) + d(c_{\pi(1)},c_{\pi(k)}),\] con l'ultima distanza sommata che chiude l'anello. Fornire una particolare istanza del problema significa fornire dei valori numerici per il problema specificato, assegnando a ciascun parametro esistente un valore numerico. La \emph{descrizione dell'istanza} sarà una stringa che, ad esempio, potrebbe adoperare l'alfabeto $\{c, [, ], /, 0,1,2,3,4,5,6,7,8,9\}$, e potrebbe essere del tipo \texttt{c[1]c[2]c[3]c[4] // 10/5/9 // 6/9 // 3}, con la seguente descrizione \texttt{nodi // d 1-altri // d 2-altri // d 3-altri}.
+
+In generale, per moltissime classi di problemi non esiste una soluzione esatta in tempo polinomiale; dunque, si richiedono algoritmi in grado di fornire una soluzione \emph{efficiente}, cioè in grado di minimizzare le risorse di tempo (d'orologio) o di spazio (memoria) necessarie alla soluzione di un determinato problema intrattabile. Sono importanti dunque le due seguenti definizioni.
+
+\begin{definizione}[Complessità temporale] Si dice \emph{complessità temporale} il massimo numero di passi che è richiesto per la risoluzione di un'istanza del problema in funzione della dimensione $n$ dell'input. Diciamo che una funzione $f(n)$ è $O(g(n))$ (si legge ``o-grande di $g$ di $n$'') se esiste una costante $c$ tale che \[|f(n)| \leq c|g(n)|, \forall n\geq0.\]
+
+La complessità temporale è definita come una misura \emph{di caso peggiore}, cioè almeno un'istanza del problema di dimensione $n$ richiede una tale quantità del problema, anche se esistono alcune istanze che ne richiedono un tempo inferiore.
+\end{definizione}
+
+\begin{definizione}[Dimensione dell'input] Si dice \emph{dimensione dell'input} la lunghezza della stringa della descrizione dell'istanza ottenuta dallo schema di codifica scelto.
+\end{definizione}
+Per fare un esempio, con la codifica adoperata, la dimensione dell'input aumenta in modo quadratico per quanto riguarda il TSP, poiché al crescere del numero di città crescono in modo quadratico il numero degli archi. Come si scoprirà a breve, il TSP non rientra nella classe di problemi risolvibili in tempo polinomiale.
+
+\begin{definizione}[Algoritmo in tempo polinomiale e in tempo esponenziale]
+    Un'algoritmo si dice \emph{in tempo polinomiale} se calcola una funzione $f(n)$ che è $O(p(n))$, con $p(n)$ una qualche funzione polinomiale.
+
+    Algoritmi la cui complessità temporale non può essere limitata da una funzione polinomiale si dicono \emph{algoritmi in tempo esponenziale}.
+\end{definizione}
+
+La classe degli algoritmi risolubili in tempo polinomiale è dunque una classe molto particolare di funzioni che si vedono limitate in complessità temporale da un polinomio $p(n)$. La classe degli algoritmi non risolubili in tempo esponenziale non è limitata alle sole funzioni esponenziali, infatti alcuni esempi di esse sono
+\[
+\begin{array}{ccc}
+    O(2^n) & O(n^n) & O(n!) \\
+    O(n^{\log n}) & O(n^{\log \log n}) & O(n^{\sqrt(n)})
+\end{array}
+\]
+e le funzioni dell'ultima riga presentano una crescita debolissima, tuttavia non limitabile da un polinomio di alcun grado. Mostriamo ora alcuni esempi di algoritmi a tempo polinomiale, elencati nella Tabella~\ref{tab:polynomial-time-problems}. Solitamente, gli algoritmi polinomiali presentano un grado che al più è cubo.
+
+\begin{table}[ht]
+\centering
+\begin{tabular}{rcl}
+    \textbf{Sigla} & \textbf{Descrizione} & \textbf{Migliore algoritmo} \\
+    \hline
+    \\
+    GCD & \makecell{Trova il massimo comun divisore \\ di due interi $x$ ed $y$} & Algoritmo di Euclide \\
+    \\
+    STCONN & \makecell{Dato un grafo $G$ e due vertici $s$ e $t$ \\ trova un percorso da $s$ a $t$} & BFS o DFS (Theseus) \\
+    \\
+    SORT & \makecell{Trova la permutazione che ordina \\ gli elementi in ordine ascendente} & Mergesort (Von Neumann, 1945) \\
+    \\
+    LSOLVE & \makecell{Data una matrice $A$, un vettore $b$, \\ trova $x:Ax=b$} & Gaussian elimination (Edmonds, 1965) \\
+    \\
+    LP & \makecell{Data una matrice $A$, un vettore $b$, \\ trova $x:Ax\leq b$} & Ellipsoid (Khachiyian, 1979)
+    \\
+\end{tabular}
+\caption{Esempi di algoritmi risolutivi di problemi in tempo polinomiale.}\label{tab:polynomial-time-problems}
+\end{table}
+\bigskip
+
+La maggior parte degli algoritmi risolutivi in tempo esponenziale sono delle semplici \emph{variazioni della ricerca esaustiva}. Essi sono inoltre la maggior parte degli algoritmi risolutivi di noti problemi. Gli algoritmi a tempo polinomiale (PTA) sono generalmente concepiti solo tramite la conoscenza e la scoperta completa del funzionamento interno della struttura di un problema, di modo da evitare di percorrere la strada della ricerca esaustiva. Un problema, infatti, si dice \emph{intrattabile} qualora fosse così difficile che non esiste un algoritmo in tempo polinomiale in grado di risolverlo. Si può in un certo senso dire che un problema non è davvero risolto finché non viene scoperto un PTA in grado di risolverlo.
+
+Resta da chiedersi se la \emph{codifica} adoperata per descrivere un'istanza di un problema possa giocare un ruolo determinante nella trattabilità o intrattabilità di un problema. La risposta, purtroppo, è negativa: l'intrattabilità di un problema è \emph{essenzialmente indipendente} dal particolare schema di codifica adoperato o dal modello di computazione in uso.
+
+Per quanto riguarda la codifica, si individua che \emph{le lunghezze di input differiscono al più polinomialmente l'una con l'altra}. Per quanto concerne il modello di computazione, supponendo una macchina $A$ nell'atto di simulare una macchina $B$ con una macchina di Turing $T(n)$ avente $O(T(n))$, si scopre che al più si aumenta del cubo, ottenendo al massimo $O(T^3(n))$. Perciò, passare da una codifica all'altra o da un modello computazione all'altro non comporta variazioni \emph{essenziali} alla natura del problema, cioè non comporta variazioni di tipo esponenziale.
+
+Lo studio della teoria della complessità generalmente può servire a più scopi. In primis, se un problema viene mostrato essere \emph{inerentemente intrattabile}, cioè viene dimostrata la non esistenza di un algoritmo risolutivo in tempo polinomiale, ogni speranza viene lasciata alla scoperta di un algoritmo efficiente. A quel punto, è possibile procedere con la creazione di algoritmi in grado di risolvere \emph{istanze speciali} del problema, oppure di un algoritmo che fornisce soluzioni efficienti \emph{la maggior parte delle volte} che viene invocato. In secondo luogo, la teoria della complessità fornisce utili tecniche per provare che un problema è \emph{altrettanto difficile} quanto un secondo problema, mediante il procedimento della \emph{riduzione} al problema. Lo scopo è mostrare che il problema \emph{ridotto} associato ad un altro problema già noto è almeno difficile quanto il problema già noto. Dunque, l'intera branca della teoria della complessità si prefigge l'obiettivo di assistere gli inventori di algoritmi nel loro compito.
+
+\section{Le classi di problemi}
+
+La complessità computazionale suddivide i problemi in gerarchie ben definite; la prima fra le quali soggiace alla distinzione fra problemi \emph{decidibili}, per cui esiste un algoritmo, e problemi \emph{indecidibili} per cui un algoritmo risolutivo \emph{non può esistere}. Scendendo lungo la gerarchia, assistiamo alla suddivisione dei problemi decidibili in problemi \emph{dimostrabilmente intrattabili}, problemi \emph{presumibilmente intrattabili} ed infine la categoria dei problemi \emph{trattabili}.
+
+\subsection{I problemi indecidibili}
+I problemi indecidibili più noti sono i seguenti,
+\begin{enumerate}
+    \item l'\emph{Halting problem} di una macchina di Turing. Esso è descritto come segue: \emph{``data una macchina di Turing e la descrizione di un programma assieme ad un input finito, decidere se il programma termina l'esecuzione oppure se esso diverge''}. Alan Turing dimostrò nel 1936 che un algoritmo generale per la risoluzione del problema per tutti i possibili input e programmi non può esistere;
+    \item i predicati indecidibili risultanti dal \emph{Teorema di Rice};
+    \item la validità del calcolo logico del primo ordine, meglio noto come \emph{Entscheidungsproblem};
+    \item la piastrellatura di un pavimento. Dato un insieme di piastrelle con propri pattern, decidere se una qualsiasi area finita, di qualsiasi dimensione, può essere coperta in modo tale che i colori di ciascuna piastrella adiacente siano gli stessi;
+    \item la corrispondenza di parole di Post. Date due liste di $N$ parole, si trovi una concatenazione di tali parole \emph{corrispondenti} di modo che ambedue le liste compongano la medesima sequenza, anche riutilizzando più volte una stessa parola. Se eliminiamo l'ipotesi di corrispondenza, il problema diviene invece decidibile;
+    \item il serpente a domino. Si crei mediante le regole di piastrellatura già viste un domino di tessere. Si dimostra che il problema è decidibile sia per una porzione di piano finita che per una porzione di piano infinita, tuttavia non lo è per una porzione \emph{semi-infinita}.
+\end{enumerate}
+
+\subsection{I problemi dimostrabilmente intrattabili}
+Alcuni esempi di problemi dimostrabilmente intrattabili sono i seguenti,
+\begin{enumerate}
+    \item il problema dell'\emph{Equivalenza di espressioni regolari con quadratura}, cioè il problema di riconoscere se due espressioni regolari rappresentano differenti linguaggi nel caso in cui le espressioni siano limitate da quattro operatori: l'unione, la concatenazione, la stellatura di Kleene e la quadratura, dove per quadratura si intende due copie della medesima espressione, cioè $S^2 = S\cdot S$. È proprio la quadratura a rendere essenzialmente intrattabile il problema;
+    \item la \emph{Torre di Hanoi}, per cui sono necessarie $2^n - 1$ mosse con $n$ dischi.
+\end{enumerate}
+Tipicamente vi sono due cause per l'intrattabilità di un problema: o il problema è molto difficile, perciò si rende necessario un algoritmo in tempo esponenziale, oppure la \emph{soluzione stessa} richiede di essere così estesa che non può essere descritta avendo una lunghezza limitata da una funzione polinomiale. Un problema drammaticamente difficile che descrive il primo caso è, per una scacchiera $n\cdot n$ dotata di un arrangiamento di pezzi, individuare la strategia vincente per il giocatore Bianco. Per il secondo caso, invece, chiamiamo in causa la Torre di Hanoi (per la quale è necessaria un tempo esponenziale per produrre la soluzione stessa) o una variante del TSP con un parametro $b$ dove si richiede di individuare tutti i percorsi aventi lunghezza \emph{inferiore a $b$}. In questo caso, potrebbe risultare un numero esponenziale di percorsi, che può essere descritto esclusivamente da una rappresentazione non limitata da una funzione polinomiale.
+
+\subsection{I problemi presumibilmente intrattabili e la classe di problemi NP-Completi}
+I problemi presumibilmente intrattabili sono tutti i problemi per i quali non possiediamo un algoritmo risolutivo in tempo polinomiale, ma non abbiamo indizi sulla sua esistenza o non esistenza. Purtroppo, essi sono la maggioranza dei problemi noti.
+
+Esponiamo ora la classe dei problemi \emph{NP-Completi}, mediante dei concetti preliminari.
+
+\begin{itemize}
+    \item La \emph{Riducibilità in tempo polinomiale},
+    \begin{definizione}[Riducibilità in tempo polinomiale]
+        Un problema si dice \emph{riducibile in tempo polinomiale} se può essere \emph{ridotto} ad un'altro problema per cui è noto esistere un algoritmo risolutivo in tempo polinomiale.
+    \end{definizione}
+    La riducibilità in tempo polinomiale assicura che un problema possa essere convertito in un altro \emph{almeno difficile} quanto il primo, e che tale conversione comporti una complessità essenzialmente di tipo polinomiale per il primo problema.
+\item la \emph{Classe di problemi NP che può essere risolta da una macchina non deterministica}. Un computer non deterministico è in grado di solvere computazioni parallele in numero essenzialmente illimitato;
+\item se il problema della \emph{satisfiability} può essere risolto in tempo polinomiale da un algoritmo, allora può esserlo qualsiasi altro problema in NP. Il problema della satisfiability è detto \emph{SAT Problem}. Dunque, il SAT è il \emph{problema più difficile che esista}. Esso è il problema di valutare se un'espressione booleana $C$ qualsiasi, con insieme di variabili $X$, è soddisfabile, cioè se esiste una combinazione dei valori di verità delle variabili in $X$ tali per cui l'espressione $C$ risulta essere vera;
+\item Karp provò nel 1972 che una grande porzione di problemi combinatori, come il TSP, sono tanto difficili quanto il problema SAT. Tale classe di problemi è detta essere la classe dei \textbf{problemi NP-Completi}.
+\end{itemize}
+Una domanda cruciale è se i problemi \emph{NP-Completi} siano o meno intrattabili. La risposta non è attualmente nota, e il problema corrispondente è noto al pubblico come \emph{problema $P \neq NP$}.
+
+Alcuni problemi NP-Completi sono i seguenti problemi, visti dalla loro chiave di problema decisionale, cioè di problemi per cui si chiede di individuare il valore di verità di un predicato corrispondente al problema di ottimizzazione da risolvere:
+\begin{itemize}
+    \item l'\emph{isomorfismo del sottografo}. Dati due grafi $G_1$ e $G_2$, descritti mediante i loro vertici $V_1$ e $V_2$ e i loro archi $E_1$ ed $E_2$, determinare se $G_1$ contiene un sottografo isomorfico a $G_2$, cioè un sottografo che con gli stessi vertici ha gli stessi vicini.
+    \item il \emph{Problema del Commesso Viaggiatore con vincolo $b$} sulla dimensione del percorso. La variante del problema richiede di determinare l'\emph{esistenza di percorsi più corti di $b$}, cioè \[\sum_{j=1}^{k-1} d(c_{\pi(j)}, c_{\pi(j+1)}) + d(c_{\pi(1)},c_{\pi(k)}) \leq b.\] Anche qui, la risposta è un valore di verità booleano.
+    \item il \emph{problema della somma del sottoinsieme}. Sia dato un insieme $S=\{i_1, i_2, \dots, i_k\}$ di interi $i_l \in \mathbb{Z}$, determinare se esiste un sottoinsieme tale che la somma dei numeri in esso contenuti sia zero.
+\end{itemize}
+I problemi decisionali vengono preferiti in questo frangente per la loro predisposizione ad essere trattati con macchine di Turing \emph{accettori}. Sono inoltre strettamente connessi al problema di ottimizzazione corrispondente\footnote{Ad esempio, per risolvere il TSP con vincolo $b$ è prima richiesto individuare la soluzione, per poi confrontarla in lunghezza con $b$. Se fosse possibile risolvere il problema con vincolo in tempo polinomiale, significherebbe che è possibile individuare una soluzione in tempo polinomiale anche per il problema di ottimizzazione.}. Se, al contrario, si dimostrasse che il TSP con vincolo $b$, nella sua accezione di problema di decisione, è NP-Completo, allora sapremmo che il SAT è almeno difficile quanto quel problema. Inoltre, spesso i problemi decisionali non sono più semplici delle loro controparti non decisionali.
+
+I problemi decisionali hanno una controparte formale, i \emph{linguaggi}. L'idea è che si possa adoperare uno schema di codifica per codificare i problemi decisionali in linguaggi, di modo da essere formalmente trattati mediante la teoria della computabilità.
+
+\begin{definizione}[Linguaggio]
+    Sia $\Sigma$ un insieme di simboli e $\Sigma^*$ la sua stellatura. Si definisce \emph{linguaggio} $\mathcal L$ su $\Sigma$ un qualsiasi sottoinsieme di $\Sigma^*$.
+\end{definizione}
+
 
 \end{document}
 % --------------------------------------------------------------------------------

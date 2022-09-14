@@ -1,9 +1,9 @@
 # Fdb version 3
-["xdvipdfmx"] 1663141838 "compl-notes.xdv" "compl-notes.pdf" "compl-notes" 1663141839
-  "compl-notes.xdv" 1663141838 1493828 c56489d151fe02f1ee46e8ce77dc0af0 "xelatex"
+["xdvipdfmx"] 1663148600 "compl-notes.xdv" "compl-notes.pdf" "compl-notes" 1663148600
+  "compl-notes.xdv" 1663148600 1652648 8af3c000752fbce794ab96997ddfc5e9 "xelatex"
   (generated)
   "compl-notes.pdf"
-["xelatex"] 1663141837 "compl-notes.tex" "compl-notes.xdv" "compl-notes" 1663141839
+["xelatex"] 1663148599 "compl-notes.tex" "compl-notes.xdv" "compl-notes" 1663148600
   "/home/sirduke/.texlive2021/texmf-var/web2c/xetex/xelatex.fmt" 1662965354 5091119 c554f40c706ca37708b7223a0e0d7b9d ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/zapfding/pzdr.tfm" 1136768653 1528 f853c4d1b4e0550255e02831fdc8496f ""
@@ -165,11 +165,11 @@
   "/usr/share/texlive/texmf-dist/tex/latex/url/url.sty" 1388531844 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty" 1463002160 55589 34128738f682d033422ca125f82e5d62 ""
   "/usr/share/texlive/texmf-dist/web2c/texmf.cnf" 1642711416 40136 b05acc85e8425979e52682d98a2bcacf ""
-  "compl-notes.aux" 1663141838 30053 a358d0786908406e83f9a51d478a94e1 "xelatex"
-  "compl-notes.out" 1663141838 10702 8150b234ee12028ebea49ea54b966247 "xelatex"
-  "compl-notes.tex" 1663141837 175933 803004b6f10cffb92889bc8c5698a31f ""
-  "compl-notes.toc" 1663141838 4492 e563d5943dc7dc53a699fec74d791095 "xelatex"
-  "compl-titlepage.aux" 1663141838 960 6e7515ffdfc41767b381affb0c3e7865 "xelatex"
+  "compl-notes.aux" 1663148600 31153 2d62ad59a27ced3a4b65a360628fb05f "xelatex"
+  "compl-notes.out" 1663148600 11909 7af5f9e6a58472f3b10e8f77d4d8bf26 "xelatex"
+  "compl-notes.tex" 1663148599 192584 6ee68eb2ec254b6477b688ace2832fb1 ""
+  "compl-notes.toc" 1663148600 5002 9cea82ef4f326570364d1b16c03825c9 "xelatex"
+  "compl-titlepage.aux" 1663148599 960 6e7515ffdfc41767b381affb0c3e7865 "xelatex"
   "compl-titlepage.tex" 1656747601 1386 f5b4ce1cbaaf4cf289928780f9364f05 ""
   "pics/accettoreWWR.jpg" 1656512989 134813 989fdc91abe2451b53909c68fcc6c662 ""
   "pics/alberi-filogenetici.jpg" 1656512989 159714 cec375ea48d9ee0a63bbaaad039c45dd ""
