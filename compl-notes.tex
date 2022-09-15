@@ -89,12 +89,18 @@
 \renewcommand{\footrulewidth}{1.0pt}
 \renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 
-%\theoremstyle{theorem}
-\newtheorem{thm}{Teorema}
+\newtheoremstyle{newlinethm}{2em}{2em}{\slshape}{2pt}{\bfseries}{\newline}{2em}{}
+\theoremstyle{newlinethm}
+\newtheorem{thm}{Teorema}[section]
 \setlength{\tabcolsep}{0.5em} % for the horizontal padding
 {\renewcommand{\arraystretch}{1.35}% for the vertical padding
 
-\newtheorem{tesi}{Tesi}
+\theoremstyle{theorem}
+\newtheorem{lemma}{Lemma}[section]
+\setlength{\tabcolsep}{0.5em} % for the horizontal padding
+{\renewcommand{\arraystretch}{1.35}% for the vertical padding
+
+\newtheorem{tesi}{Tesi}[section]
 \setlength{\tabcolsep}{0.5em} % for the horizontal padding
 {\renewcommand{\arraystretch}{1.35}% for the vertical padding
 
@@ -989,7 +995,7 @@ L'idea è quella, dunque, di \emph{simulare} il non determinismo compiendo un
 numero crescente in modo esponenziale di passi, uno per ogni ramo dell'albero
 non deterministico di computazione.
 
-\begin{thm}
+\begin{thm}\label{thm:equivalenza-det-nondet}
     Ogni macchina di Turing non deterministica $T_M(n)$ ha un'equivalente
     macchina di Turing deterministica con ordine $2^{O(T_M(n))}$.
 \end{thm}
@@ -3136,13 +3142,13 @@ Esistono varie categorie di problemi algoritmici --- ciascuno di essi, tuttavia,
     \item da un \emph{predicato} che specifica le proprietà che è richiesto che la soluzione soddisfi;
     \item un'\emph{istanza} di tale problema, specificando \emph{i particolari valori} per tutti i parametri del problema. Si dovrà produrre una \emph{descrizione dell'istanza} tramite una stringa. La lunghezza della descrizione dell'istanza è detta \emph{dimensione dell'input}.
 \end{enumerate}
-Per fare un esempio, supponiamo di voler risolvere il famigerato \emph{Traveling Salesman Problem} (TSP). Fra i parametri figureranno l'insieme $C = \{c_1, c_2, \dots, c_k\}$ di città, e l'insieme $D=\{d(c_1,c_2), d(c_1,c_3),\dots,d(c_{k-1},c_k)\}$ delle distanze che esistono fra di esse. Il predicato del problema sarà il seguente: trovare \[\langle c_{\pi(1)}, c_{\pi(2)}, \dots, c_{\pi_k} \rangle\] \emph{che minimizza la quantità} \[\sum_{j=1}^{k-1} d(c_{\pi(j)}, c_{\pi(j+1)}) + d(c_{\pi(1)},c_{\pi(k)}),\] con l'ultima distanza sommata che chiude l'anello. Fornire una particolare istanza del problema significa fornire dei valori numerici per il problema specificato, assegnando a ciascun parametro esistente un valore numerico. La \emph{descrizione dell'istanza} sarà una stringa che, ad esempio, potrebbe adoperare l'alfabeto $\{c, [, ], /, 0,1,2,3,4,5,6,7,8,9\}$, e potrebbe essere del tipo \texttt{c[1]c[2]c[3]c[4] // 10/5/9 // 6/9 // 3}, con la seguente descrizione \texttt{nodi // d 1-altri // d 2-altri // d 3-altri}.
+Per fare un esempio, supponiamo di voler risolvere il famigerato \emph{Traveling Salesman Problem} (TSP). Fra i parametri figureranno l'insieme $C = \{c_1, c_2, \dots, c_k\}$ di città, e l'insieme $D=\{d(c_1,c_2), d(c_1,c_3),\dots,d(c_{k-1},c_k)\}$ delle distanze che esistono fra di esse. Il predicato del problema sarà il seguente: trovare \[\langle c_{\pi_{(1)}}, c_{\pi_{(2)}}, \dots, c_{\pi_{(k)}} \rangle\] \emph{che minimizza la quantità} \[\sum_{j=1}^{k-1} d(c_{\pi_{(j)}}, c_{\pi_{(j+1)}}) + d(c_{\pi_{(1)}},c_{\pi_{(k)}}),\] con l'ultima distanza sommata che chiude l'anello. Fornire una particolare istanza del problema significa fornire dei valori numerici per il problema specificato, assegnando a ciascun parametro esistente un valore numerico. La \emph{descrizione dell'istanza} sarà una stringa che, ad esempio, potrebbe adoperare l'alfabeto $\{c, [, ], /, 0,1,2,3,4,5,6,7,8,9\}$, e potrebbe essere del tipo \texttt{c[1]c[2]c[3]c[4] // 10/5/9 // 6/9 // 3}, con la seguente descrizione \texttt{nodi // d 1-altri // d 2-altri // d 3-altri}.
 
 In generale, per moltissime classi di problemi non esiste una soluzione esatta in tempo polinomiale; dunque, si richiedono algoritmi in grado di fornire una soluzione \emph{efficiente}, cioè in grado di minimizzare le risorse di tempo (d'orologio) o di spazio (memoria) necessarie alla soluzione di un determinato problema intrattabile. Sono importanti dunque le due seguenti definizioni.
 
 \begin{definizione}[Complessità temporale] Si dice \emph{complessità temporale} il massimo numero di passi che è richiesto per la risoluzione di un'istanza del problema in funzione della dimensione $n$ dell'input. Diciamo che una funzione $f(n)$ è $O(g(n))$ (si legge ``o-grande di $g$ di $n$'') se esiste una costante $c$ tale che \[|f(n)| \leq c|g(n)|, \forall n\geq0.\]
 
-La complessità temporale è definita come una misura \emph{di caso peggiore}, cioè almeno un'istanza del problema di dimensione $n$ richiede una tale quantità del problema, anche se esistono alcune istanze che ne richiedono un tempo inferiore.
+La complessità temporale è definita come una misura \emph{di caso peggiore}, cioè almeno un'istanza del problema di dimensione $n$ richiede una tale quantità di tempo per risolvere il problema, anche se esistono alcune istanze che ne richiedono un tempo inferiore.
 \end{definizione}
 
 \begin{definizione}[Dimensione dell'input] Si dice \emph{dimensione dell'input} la lunghezza della stringa della descrizione dell'istanza ottenuta dallo schema di codifica scelto.
@@ -3155,11 +3161,11 @@ Per fare un esempio, con la codifica adoperata, la dimensione dell'input aumenta
     Algoritmi la cui complessità temporale non può essere limitata da una funzione polinomiale si dicono \emph{algoritmi in tempo esponenziale}.
 \end{definizione}
 
-La classe degli algoritmi risolubili in tempo polinomiale è dunque una classe molto particolare di funzioni che si vedono limitate in complessità temporale da un polinomio $p(n)$. La classe degli algoritmi non risolubili in tempo esponenziale non è limitata alle sole funzioni esponenziali, infatti alcuni esempi di esse sono
+La classe degli algoritmi risolubili in tempo polinomiale è dunque una classe molto particolare di funzioni che si vedono limitate in complessità temporale da un polinomio $p(n)$. La classe degli algoritmi non risolubili in tempo polinomiale non è limitata alle sole funzioni esponenziali, infatti alcuni esempi di esse sono
 \[
 \begin{array}{ccc}
     O(2^n) & O(n^n) & O(n!) \\
-    O(n^{\log n}) & O(n^{\log \log n}) & O(n^{\sqrt(n)})
+    O(n^{\log n}) & O(n^{\log \log n}) & O(n^{\sqrt{n}})
 \end{array}
 \]
 e le funzioni dell'ultima riga presentano una crescita debolissima, tuttavia non limitabile da un polinomio di alcun grado. Mostriamo ora alcuni esempi di algoritmi a tempo polinomiale, elencati nella Tabella~\ref{tab:polynomial-time-problems}. Solitamente, gli algoritmi polinomiali presentano un grado che al più è cubo.
@@ -3170,39 +3176,39 @@ e le funzioni dell'ultima riga presentano una crescita debolissima, tuttavia non
     \textbf{Sigla} & \textbf{Descrizione} & \textbf{Migliore algoritmo} \\
     \hline
     \\
-    GCD & \makecell{Trova il massimo comun divisore \\ di due interi $x$ ed $y$} & Algoritmo di Euclide \\
+    \texttt{GCD} & \makecell{Trova il massimo comun divisore \\ di due interi $x$ ed $y$} & Algoritmo di Euclide \\
     \\
-    STCONN & \makecell{Dato un grafo $G$ e due vertici $s$ e $t$ \\ trova un percorso da $s$ a $t$} & BFS o DFS (Theseus) \\
+    \texttt{STCONN} & \makecell{Dato un grafo $G$ e due vertici $s$ e $t$ \\ trova un percorso da $s$ a $t$} & BFS o DFS (Theseus) \\
     \\
-    SORT & \makecell{Trova la permutazione che ordina \\ gli elementi in ordine ascendente} & Mergesort (Von Neumann, 1945) \\
+    \texttt{SORT} & \makecell{Trova la permutazione che ordina \\ gli elementi in ordine ascendente} & Mergesort (Von Neumann, 1945) \\
     \\
-    LSOLVE & \makecell{Data una matrice $A$, un vettore $b$, \\ trova $x:Ax=b$} & Gaussian elimination (Edmonds, 1965) \\
+    \texttt{LSOLVE} & \makecell{Data una matrice $A$, un vettore $b$, \\ trova $x:Ax=b$} & Gaussian elimination (Edmonds, 1965) \\
     \\
-    LP & \makecell{Data una matrice $A$, un vettore $b$, \\ trova $x:Ax\leq b$} & Ellipsoid (Khachiyian, 1979)
+    \texttt{LP} & \makecell{Data una matrice $A$, un vettore $b$, \\ trova $x:Ax\leq b$} & Ellipsoid (Khachiyian, 1979)
     \\
 \end{tabular}
 \caption{Esempi di algoritmi risolutivi di problemi in tempo polinomiale.}\label{tab:polynomial-time-problems}
 \end{table}
 \bigskip
 
-La maggior parte degli algoritmi risolutivi in tempo esponenziale sono delle semplici \emph{variazioni della ricerca esaustiva}. Essi sono inoltre la maggior parte degli algoritmi risolutivi di noti problemi. Gli algoritmi a tempo polinomiale (PTA) sono generalmente concepiti solo tramite la conoscenza e la scoperta completa del funzionamento interno della struttura di un problema, di modo da evitare di percorrere la strada della ricerca esaustiva. Un problema, infatti, si dice \emph{intrattabile} qualora fosse così difficile che non esiste un algoritmo in tempo polinomiale in grado di risolverlo. Si può in un certo senso dire che un problema non è davvero risolto finché non viene scoperto un PTA in grado di risolverlo.
+La maggior parte degli algoritmi risolutivi in tempo esponenziale sono delle semplici \emph{variazioni della ricerca esaustiva}. Essi sono inoltre la maggior parte degli algoritmi risolutivi di noti problemi. Gli algoritmi a tempo polinomiale (PTA) sono generalmente concepiti solo tramite la conoscenza e profonde intuizioni sul funzionamento interno della struttura di un problema, di modo da evitare di percorrere la strada della ricerca esaustiva. Un problema, infatti, si dice \emph{intrattabile} qualora fosse così difficile che non esiste un algoritmo in tempo polinomiale in grado di risolverlo. Si può in un certo senso dire che un problema non è davvero ``risolto'' finché non viene scoperto un PTA in grado di risolverlo.
 
 Resta da chiedersi se la \emph{codifica} adoperata per descrivere un'istanza di un problema possa giocare un ruolo determinante nella trattabilità o intrattabilità di un problema. La risposta, purtroppo, è negativa: l'intrattabilità di un problema è \emph{essenzialmente indipendente} dal particolare schema di codifica adoperato o dal modello di computazione in uso.
 
 Per quanto riguarda la codifica, si individua che \emph{le lunghezze di input differiscono al più polinomialmente l'una con l'altra}. Per quanto concerne il modello di computazione, supponendo una macchina $A$ nell'atto di simulare una macchina $B$ con una macchina di Turing $T(n)$ avente $O(T(n))$, si scopre che al più si aumenta del cubo, ottenendo al massimo $O(T^3(n))$. Perciò, passare da una codifica all'altra o da un modello computazione all'altro non comporta variazioni \emph{essenziali} alla natura del problema, cioè non comporta variazioni di tipo esponenziale.
 
-Lo studio della teoria della complessità generalmente può servire a più scopi. In primis, se un problema viene mostrato essere \emph{inerentemente intrattabile}, cioè viene dimostrata la non esistenza di un algoritmo risolutivo in tempo polinomiale, ogni speranza viene lasciata alla scoperta di un algoritmo efficiente. A quel punto, è possibile procedere con la creazione di algoritmi in grado di risolvere \emph{istanze speciali} del problema, oppure di un algoritmo che fornisce soluzioni efficienti \emph{la maggior parte delle volte} che viene invocato. In secondo luogo, la teoria della complessità fornisce utili tecniche per provare che un problema è \emph{altrettanto difficile} quanto un secondo problema, mediante il procedimento della \emph{riduzione} al problema. Lo scopo è mostrare che il problema \emph{ridotto} associato ad un altro problema già noto è almeno difficile quanto il problema già noto. Dunque, l'intera branca della teoria della complessità si prefigge l'obiettivo di assistere gli inventori di algoritmi nel loro compito.
+Lo studio della teoria della complessità generalmente può servire a più scopi. In primis, se un problema viene mostrato essere \emph{inerentemente intrattabile}, cioè viene dimostrata la non esistenza di un algoritmo risolutivo in tempo polinomiale, ogni speranza viene lasciata alla scoperta di un algoritmo efficiente, cioè di un algoritmo che risolve il problema con tecniche euristiche, senza necessariamente incappare nella soluzione esatta, ricercando anzi una soluzione accettabile con probabilità alta. A quel punto, è possibile procedere con la creazione di algoritmi in grado di risolvere \emph{istanze speciali} del problema, oppure di un algoritmo che fornisce soluzioni efficienti \emph{la maggior parte delle volte} che viene invocato. In secondo luogo, la teoria della complessità fornisce utili tecniche per provare che un problema è \emph{altrettanto difficile} quanto un secondo problema, mediante il procedimento della \emph{riduzione} al problema. Lo scopo è mostrare che un problema \emph{ridotto} ad un altro problema già noto è almeno difficile quanto il problema già noto. Dunque, l'intera branca della teoria della complessità si prefigge l'obiettivo di assistere gli inventori di algoritmi nel loro compito.
 
 \section{Le classi di problemi}
 
-La complessità computazionale suddivide i problemi in gerarchie ben definite; la prima fra le quali soggiace alla distinzione fra problemi \emph{decidibili}, per cui esiste un algoritmo, e problemi \emph{indecidibili} per cui un algoritmo risolutivo \emph{non può esistere}. Scendendo lungo la gerarchia, assistiamo alla suddivisione dei problemi decidibili in problemi \emph{dimostrabilmente intrattabili}, problemi \emph{presumibilmente intrattabili} ed infine la categoria dei problemi \emph{trattabili}.
+La complessità computazionale suddivide i problemi in gerarchie ben definite; la prima fra le quali soggiace alla distinzione fra problemi \emph{decidibili}, per cui esiste un algoritmo, e problemi \emph{indecidibili} per cui un algoritmo risolutivo \emph{non può esistere}. Scendendo lungo la gerarchia, assistiamo alla suddivisione dei problemi decidibili in problemi \emph{dimostrabilmente intrattabili}, problemi \emph{presumibilmente intrattabili} ed infine la categoria dei problemi \emph{trattabili}. Purtroppo, alla categoria dei problemi presumibilmente intrattabili appartengono la maggior parte dei problemi interessanti.
 
 \subsection{I problemi indecidibili}
 I problemi indecidibili più noti sono i seguenti,
 \begin{enumerate}
     \item l'\emph{Halting problem} di una macchina di Turing. Esso è descritto come segue: \emph{``data una macchina di Turing e la descrizione di un programma assieme ad un input finito, decidere se il programma termina l'esecuzione oppure se esso diverge''}. Alan Turing dimostrò nel 1936 che un algoritmo generale per la risoluzione del problema per tutti i possibili input e programmi non può esistere;
     \item i predicati indecidibili risultanti dal \emph{Teorema di Rice};
-    \item la validità del calcolo logico del primo ordine, meglio noto come \emph{Entscheidungsproblem};
+    \item la validità del calcolo logico del primo ordine, meglio noto come \emph{Ent\-schei\-dungs\-pro\-blem};
     \item la piastrellatura di un pavimento. Dato un insieme di piastrelle con propri pattern, decidere se una qualsiasi area finita, di qualsiasi dimensione, può essere coperta in modo tale che i colori di ciascuna piastrella adiacente siano gli stessi;
     \item la corrispondenza di parole di Post. Date due liste di $N$ parole, si trovi una concatenazione di tali parole \emph{corrispondenti} di modo che ambedue le liste compongano la medesima sequenza, anche riutilizzando più volte una stessa parola. Se eliminiamo l'ipotesi di corrispondenza, il problema diviene invece decidibile;
     \item il serpente a domino. Si crei mediante le regole di piastrellatura già viste un domino di tessere. Si dimostra che il problema è decidibile sia per una porzione di piano finita che per una porzione di piano infinita, tuttavia non lo è per una porzione \emph{semi-infinita}.
@@ -3221,16 +3227,16 @@ I problemi presumibilmente intrattabili sono tutti i problemi per i quali non po
 
 Esponiamo ora la classe dei problemi \emph{NP-Completi}, mediante dei concetti preliminari.
 
-\begin{itemize}
+\begin{enumerate}
     \item La \emph{Riducibilità in tempo polinomiale},
     \begin{definizione}[Riducibilità in tempo polinomiale]
         Un problema si dice \emph{riducibile in tempo polinomiale} se può essere \emph{ridotto} ad un'altro problema per cui è noto esistere un algoritmo risolutivo in tempo polinomiale.
     \end{definizione}
-    La riducibilità in tempo polinomiale assicura che un problema possa essere convertito in un altro \emph{almeno difficile} quanto il primo, e che tale conversione comporti una complessità essenzialmente di tipo polinomiale per il primo problema.
-\item la \emph{Classe di problemi NP che può essere risolta da una macchina non deterministica}. Un computer non deterministico è in grado di solvere computazioni parallele in numero essenzialmente illimitato;
-\item se il problema della \emph{satisfiability} può essere risolto in tempo polinomiale da un algoritmo, allora può esserlo qualsiasi altro problema in NP. Il problema della satisfiability è detto \emph{SAT Problem}. Dunque, il SAT è il \emph{problema più difficile che esista}. Esso è il problema di valutare se un'espressione booleana $C$ qualsiasi, con insieme di variabili $X$, è soddisfabile, cioè se esiste una combinazione dei valori di verità delle variabili in $X$ tali per cui l'espressione $C$ risulta essere vera;
+    La riducibilità in tempo polinomiale assicura che un problema possa essere convertito in un altro \emph{almeno difficile} quanto il primo, e che tale conversione comporti una complessità essenzialmente di tipo polinomiale per il primo problema, di modo da non stravolgerne la natura.
+\item la \emph{Classe di problemi NP che può essere risolta da una macchina non deterministica in tempo polinomiale}. Un computer non deterministico è in grado di risolvere computazioni parallele in numero essenzialmente illimitato, ``appiattendo'' la complessità temporale di tipo esponenziale in una complessità sostanzialmente polinomiale;
+\item se il problema della \emph{satisfiability} può essere risolto in tempo polinomiale da un algoritmo, allora può esserlo qualsiasi altro problema in NP. Il problema della satisfiability è detto \emph{SAT Problem}. Dunque, il SAT è il \emph{problema più difficile che esista nella classe NP}. Esso è il problema di valutare se un'espressione booleana $C$ qualsiasi, con insieme di variabili $X$, è soddisfacibile, cioè se esiste una combinazione dei valori di verità delle variabili in $X$ tali per cui l'espressione $C$ risulta essere vera;
 \item Karp provò nel 1972 che una grande porzione di problemi combinatori, come il TSP, sono tanto difficili quanto il problema SAT. Tale classe di problemi è detta essere la classe dei \textbf{problemi NP-Completi}.
-\end{itemize}
+\end{enumerate}
 Una domanda cruciale è se i problemi \emph{NP-Completi} siano o meno intrattabili. La risposta non è attualmente nota, e il problema corrispondente è noto al pubblico come \emph{problema $P \neq NP$}.
 
 Alcuni problemi NP-Completi sono i seguenti problemi, visti dalla loro chiave di problema decisionale, cioè di problemi per cui si chiede di individuare il valore di verità di un predicato corrispondente al problema di ottimizzazione da risolvere:
@@ -3246,7 +3252,152 @@ I problemi decisionali hanno una controparte formale, i \emph{linguaggi}. L'idea
 \begin{definizione}[Linguaggio]
     Sia $\Sigma$ un insieme di simboli e $\Sigma^*$ la sua stellatura. Si definisce \emph{linguaggio} $\mathcal L$ su $\Sigma$ un qualsiasi sottoinsieme di $\Sigma^*$.
 \end{definizione}
+Un linguaggio permette di applicare una codifica $e$ ad un problema $\Pi$. In questo caso si dirà che il problema $\Pi$ e la codifica $e$ \emph{partizionano} $\Sigma^*$ in tre classi di stringhe:
+\begin{enumerate}
+    \item le \emph{stringhe che non codificano} il problema $\Pi$;
+    \item le \emph{stringhe $Y_\Pi$ che codificano istanze positive} del problema $\Pi$, le cosiddette \emph{yes-strings};
+    \item le \emph{stringhe che codificano istanze negative} del problema $\Pi$, le cosiddette \emph{no-strings}.
+\end{enumerate}
+Definendo $e(I)$ come la \emph{codifica $e$ dell'istanza $I$}, possiamo definire l'insieme di tutte le yes-strings per il problema $\Pi$ come \[Y_\Pi = L[\Pi, e] = \left\{x \in \Sigma^* \left|\right. x = e(I), I \in Y_\Pi\right\}.\]
 
+Le codifiche possono applicare modifiche alla lunghezza dell'input. Questo poiché una codifica di un problema tende a modificare, di fatto, l'input riarrangiando le informazioni su stringhe di lunghezze che dipendono in modo sostanziale dalla scelta della codifica stessa. Tuttavia, fra codifiche \emph{ragionevoli} le lunghezze di input sono messe in relazione da funzioni polinomiali, cioè non vengono introdotti termini esponenziali che muterebbero in maniera essenziale la natura dela problema $\Pi$ stesso. In definitiva, siano $e_1$ ed $e_2$ codifiche ragionevoli di un medesimo problema, allora si può affermare che una certa proprietà viene mantenuta sia dal linguaggio $L[\Pi, e_1]$ che dal linguaggio $L[\Pi, e_2]$, cioè che \emph{le proprietà sono indipendenti dalla codifica}.
+
+Ci accingiamo ora a formalizzare il concetto di algoritmo, e lo faremo tramite la macchina di Turing deterministica (DTM).
+
+\begin{definizione}[Accettazione di un input $x$]
+    Un programma $M$ per una macchina di Turing deterministica (DTM) con alfabeto di ingresso $\Sigma$ \emph{accetta $x \in \Sigma^*$} se e solo se $M$ si arresta nello stato $q_Y$ di accettazione, quando viene fornito l'input $x$.
+
+    Il linguaggio $L_M$ riconosciuto da $M$ è dato dall'insieme \[L_M = \{x \in \Sigma^* \left|\right. \mbox{ accetta } x\}\]
+\end{definizione}
+
+Si osserva che la definizione \textbf{non} richiede che il programma $M$ termini per \textbf{tutte} le stringhe d'ingressi, bensì soltanto per quelle presenti nel linguaggio $L_M$; siamo dunque in presenza di una funzione parziale. Siamo ora pronti per formalizzare il concetto di \emph{risoluzione di un problema}.
+\begin{definizione}[Risoluzione di un problema]
+    Un programma $M$ per una macchina di Turing deterministica (DTM) \emph{risolve} il problema di decisione $\Pi$ con schema di codifica $e$ se $M$ termina per tutte le stringhe d'ingresso del suo alfabeto $\Sigma$ d'ingresso, e se \[L_M = L[\Pi, e].\]
+\end{definizione}
+La definizione ci suggerisce che una DTM sia in grado di risolvere un problema $\Pi$ con codifica $e$, cioè di fornire una risposta ``Yes'' oppure ``No'' agli input appartenenti ad $L[\Pi, e]$ (le yes-instances), alle cosiddette no-instances e alle stringhe che non codificano. Naturalmente, per certi tipi di input potremmo incappare in dei cicli infiniti, perciò ci potrebbe essere una divergenza.
+
+Subentrate queste due definizioni importanti di accettazione dell'input e di risoluzione del problema, è finalmente possibile esprimere la complessità temporale in termini formali.
+\begin{definizione}[Tempo di computazione]
+    Si definisce \emph{tempo di computazione di un programma $M$ per una DTM con ingresso $x$} il numero di passi necessari alla computazione affinché uno stato di terminazione sia raggiunto.
+\end{definizione}
+Inoltre, definiamo anche la \emph{funzione di complessità temporale} $T_M(n)$.
+\begin{definizione}[Funzione di complessità temporale]
+    Per un programma $M$ di una DTM che termina per tutti gli input $x \in \Sigma^*$ si definisce \emph{funzione di complessità temporale} una funzione $T_M : \mathbb Z^+ \rightarrow \mathbb Z^+$ tale che \[T_M(n) = \max \left\{m : \exists x \in \Sigma^*, |x| = n :\makecell{\mbox{ la computazione di } M \mbox{ su } x \\ \mbox{ richieda tempo di computazione } m}\right\}.\]
+\end{definizione}
+
+Ad esempio, supponiamo di voler risolvere il \emph{problema del cammino hamiltoniano} (HC). Sia data un'istanza di un grafo $G = (V,E)$; si determini se $G$ contiene un cammino hamiltoniano, cioè un ordinamento $\langle v_1, v_2, \dots, v_n\rangle$ di vertici di $G$, dove $n = |V|$ e tale che $\{v_n, v_1\} \in E$ e inoltre $\{v_i,v_{i+1}\} \in E$ per ogni valore di $i, 1\leq i < n$. Ebbene, l'algoritmo migliore per risolvere tale problema con una dimensione dell'input $|x| = n$ ha funzione di complessità temporale \[T_M(n) = O(2^n),\] cioè richiede un tempo esponenziale per la risoluzione.
+
+\begin{definizione}[Programma DTM in tempo polinomiale]
+    Un programma $M$ per una DTM si dice \emph{programma DTM in tempo polinomiale} se esiste un polinomio $p$ tale che, per ogni $n \in \mathbb Z^+$, vale \[T_M(n) \leq p(n),\] cioè se la funzione è limitata superiormente dal polinomio $p(n)$.
+
+    Diciamo che un problema decisionale $\Pi$ con codifica $e$ \emph{appartiene all'insieme $P$} con $P = \{L : \exists \mbox{ un programma DTM in tempo polinomiale } M : L=L_M\}$ se $L[\Pi, e] \in P$, ovvero se esiste un programma DTM in tempo polinomiale che risolve $\Pi$ con la codifica $e$.
+\end{definizione}
+
+In termini meno formali, $P$ è l'insieme di tutti i problemi decisionali che possono essere risolti da un programma DTM in tempo polinomiale. Essi, generalmente, sono considerati problemi facili da risolvere, in contrasto ai problemi intrattabili. Poiché, in linea di principio, è sempre possibile passare da un modello di computazione all'altro senza introdurre stravolgimenti alla natura della complessità temporale di un dato problema (ad esempio, passare dal modello di Turing al modello RAM richiede una variazione alla complessità temporale che è al più limitata superiormente da un polinomio) parleremo di \emph{algoritmi in tempo polinomiale}, senza specificare il modello in uso. Per motivi analoghi omettiamo anche lo specifico schema di codifica $e$, dal momento che per codifiche ragionevoli saremmo in presenza di un aumento o di una diminuzione del tempo di computazione che è essenzialmente polinomiale.
+
+\section{Gli Algoritmi Non Deterministici}
+
+Passiamo ora ad introdurre un'altra caratteristica fondamentale della classe di problemi NP. Quest'ultima, infatti, si prefigge di includere tutti i problemi presumibilmente intrattabili, ma per cui è possibile \emph{controllare} la validità di una soluzione data in tempo polinomiale. Ad esempio, nel problema del commesso viaggiatore con vincolo $b$ non esiste alcun algoritmo esatto in tempo polinomiale; tuttavia, data una soluzione candidata $\bar x$, essa è immediatamente verificabile in tempo polinomiale. Lo stesso può dirsi per gli altri problemi NP che abbiamo incontrato, fra cui il problema del cammino hamiltoniano. In altre parole, la classe NP cerca di catturare la nozione di \emph{verificabilità in tempo polinomiale}.
+
+Questa proprietà conduce al concetto di \emph{Algoritmo Non Deterministico} (NDA), caratterizzato da due passaggi:
+\begin{enumerate}
+    \item il passo \emph{di generazione di soluzioni candidate} (guessing stage): data un'istanza $I$ di un problema $\Pi$, un oracolo produce soluzioni $S$;
+    \item il passo \emph{di controllo delle soluzioni candidate} (checking stage): date $I$ ed $S$, controlliamo in modo deterministico se
+\begin{itemize}
+    \item la macchina si arresta nello stato di accettazione;
+    \item la macchina si arresta nello stato di refutazione;
+    \item la macchina cicla indefinitamente (divergenza).
+\end{itemize}
+\end{enumerate}
+Si dice che un algoritmo non deterministico \emph{risolve} un problema di decisione $\Pi$ se le due proprietà illustrate valgono per tutte le istanze $I \in D_\Pi$, dove $D_\Pi$ è l'insieme di tutte le istanze del problema $\Pi$. Se $I\in Y_\Pi$ allora esistono alcune soluzioni $S$ che, quando generate per l'input $I$, conducono ad uno stato di accettazione durante la fase di verifica; viceversa, se $I \notin Y_\Pi$, allora non esistono tali soluzioni, cioè in fase di verifica con input $I$ ed $S$ non otterremo alcuno stato di accettazione, ma solo stati di refutazione o saremo in prossimità di una divergenza. Come esempio di ciò, nel TSP esisterà una soluzione generata $S$ che conduce allo stato di accettazione per l'istanza $I$ del problema se e solo se esiste un cammino della lunghezza desiderata per $I$.
+
+Anche gli algoritmi NDA possono operare in tempo polinomiale. Si dice infatti che un NDA \emph{opera in tempo polinomiale} se esiste un polinomio $p$ tale che, per ogni $I \in Y_\Pi$, esiste una soluzione generata $S$ che conduce allo stato di accettazione in fase di verifica entro un tempo polinomiale $p(|I|)$ dove per $|I|$ si intende la lunghezza dell'istanza. Informalmente, definiamo la classe NP come \emph{la classe di tutti i problemi decisionali che possono essere risolti in tempo polinomiale da algoritmi non deterministici}, un'astrazione per dire che possiamo controllare in tempo polinomiale se, fra il numero esponenziale di soluzioni presenti, ce n'è una che conduce alla risposta \texttt{yes}. Dunque, un NDA sarebbe in grado, in linea di principio, di produrre soluzioni in modo non deterministico, cioè tutte assieme; la fase di verifica avverrebbe poi in tempo polinomiale da un algoritmo deterministico. 
+
+Naturalmente, gli NDA non si presentano come un metodo concreto di risoluzione dei problemi, poiché è sostanzialmente impossibile produrre agenti di calcolo reali e non deterministici, peraltro dotati di un oracolo in grado di generare il numero sufficiente di soluzioni. Inoltre tale strategia non differirebbe in definitiva dalla semplice \emph{ricerca esaustiva} delle soluzioni. Tuttavia, gli NDA ci permettono di catturare la nozione di verificabilità in tempo polinomiale.
+
+Tramite gli NDA possiamo rimodulare il concetto di NDTM. In altre parole, una macchina di Turing non deterministica può essere pensata come una macchina con due testine: la prima il modulo di generazione delle soluzioni (l'oracolo), la seconda il controllo di stato finito. L'oracolo scrive soltanto sul nastro, mentre il controllo delle soluzioni dovrà prima leggere le soluzioni, e poi scrivere eventualmente sul nastro a seconda dell'esito dell'avvenuto controllo. Il modello prevede l'aggiunta di due stati terminanti $q_Y$ e $q_N$, percio la nuova funzione di transizione sarà \[\delta:(\mathcal Q - \{q_Y, q_N\}) \times \Gamma \rightarrow \mathcal Q \times \Gamma \times \{L, R\},\] con notevoli somiglianze rispetto alle macchine di Turing non deterministiche già incontrate in passato.
+
+Il funzionamento di una simile NDTM è il seguente. Durante la fase di guessing la codifica $x$ dell'istanza $I$ è scritta sul nastro sotto forma di simboli `1' di lunghezza $|x|$, con il resto delle celle $b$. Il modulo guessing dirige la testina di sola scrittura, sia per scrivere qualche simbolo da $\Gamma$ sul nastro che per muoversi a sinistra (o per fermarsi). Alla fine del processo esso produrrà la soluzione candidata $S$. A questo punto il modulo guessing diventa inattivo, e lo stadio di controllo viene attivato nello stato $q_0$. Lo stadio di controllo parte da dove lo stadio guessing aveva terminato, e segue le regole tradizionali di ingaggio di una macchina di Turing deterministica. La computazione si arresta qualora si fosse giunti agli stati $q_Y$ oppure $q_N$ con, rispettivamente, il significato di computazione accettata o computazione refutata.
+
+Qualsiasi programma $M$ per una NDTM avrà un numero infinito di possibili calcoli per ciascuna stringa di input $x$, una per ogni stringa generata $S$ da $\Gamma^*$. Dunque, diremo che un programma $M$ per una NDTM \emph{accetta $x$} se almeno una fra queste computazione è una computazione accettata, cioè se almeno una di esse termina con lo stato $q_Y$. Il relativo linguaggio riconosciuto da $M$ sarà \[L_M = \{x \in \Sigma^*: M \mbox{ accetta } x\}.\] Possiamo infine ridefinire la funzione di complessità temporale e gli algoritmi in tempo polinomiale nel modo di seguito.
+
+\begin{definizione}[Funzione di complessità temporale]
+    Per un programma $M$ di una NDTM che termina per tutti gli input $x \in \Sigma^*$ e che accetta $x$ se esiste almeno una computazione che termina con lo stato di accettazione, si definisce \emph{funzione di complessità temporale} una funzione $T_M : \mathbb Z^+ \rightarrow \mathbb Z^+$ tale che \[T_M(n) = \max \left\{m : \exists x \in L_M, |x| = n :\makecell{\mbox{ la computazione di } M \mbox{ su } x \\ \mbox{ richieda tempo di computazione } m}\right\}.\]
+\end{definizione}
+
+\begin{definizione}[Programma DTM in tempo polinomiale]
+    Un programma $M$ per una NDTM si dice \emph{programma NDTM in tempo polinomiale} se esiste un polinomio $p$ tale che, per ogni $n \in \mathbb Z^+$, vale \[T_M(n) \leq p(n),\] cioè se la funzione è limitata superiormente dal polinomio $p(n)$.
+
+    Diciamo che un problema decisionale $\Pi$ con codifica $e$ \emph{appartiene all'insieme $NP$} con $NP = \{L : \exists \mbox{ un programma NDTM in tempo polinomiale } M : L=L_M\}$ se $L[\Pi, e] \in NP$, ovvero se esiste un programma NDTM in tempo polinomiale che risolve $\Pi$ con la codifica $e$.
+\end{definizione}
+
+Alcuni problemi non appartengono alla classe NP. Ad esempio, il problema complementare al TSP: \emph{``è vero che \textbf{nessun} percorso fra le città ha lunghezza $b$ o inferiore?''}. Non c'è modo di controllare la verità di questo predicato senza esaminare tutti i possibili percorsi, cioè senza effettuare una ricerca esaustiva dello spazio delle possibilità.
+
+\subsection{$P$ versus $NP$}
+
+Sicuramente vale che $P \subseteq NP$. Infatti, ogni problema decisionale risolubile da una DTM è risolubile anche da una NDTM; ciò equivale ad osservare che qualsiasi algoritmo DTM può essere utilizzato come stadio di controllo per un NDTM. Inoltre, il Teorema~\ref{thm:equivalenza-det-nondet} assicura che se $\Pi \in NP$, allora esiste un polinomio $p$ tale che $\Pi$ può essere risolto da una DTM avente complessità temporale $O(2^{p(n)})$, cioè che ogni NDTM può essere \emph{simulata} in tempo esponenziale da una DTM.
+
+Il problema $P = NP$ resta uno dei maggiori problemi aperti della teoria informatica, per cui viene richiesto di mostrare se qualsiasi problema verificabile in tempo polinomiale può essere anche risolto in tempo polinomiale. Ad oggi si ritiene che $P \neq NP$, poiché non è stato mostrato alcun algoritmo in tempo polinomiale per problemi in NP, come per il TSP.
+
+\section{Le trasformazioni polinomiali di linguaggi}
+
+Un punto chiave nello studio delle classi NP riguarda la \emph{trasformazione polinomiale di linguaggi}. Esse rendono possibile creare una sorta di ``ponte'' fra due linguaggi differenti, un ponte che deve essere computabile in tempo polinomiale.
+
+\begin{definizione}[Trasformazione polinomiale di linguaggi]
+    Siano $L_1 \subseteq \Sigma_1^*$ e $L_2 \subseteq \Sigma_2^*$ linguaggi. Allora si dice $f$ \emph{trasformazione polinomiale di linguaggi} una funzione \[f:\Sigma_1^* \rightarrow \Sigma_2^*\] tale che 
+\begin{enumerate}
+    \item esiste una DTM che computa $f$;
+    \item per tutti gli $x \in \Sigma_1^*$, si ha che \[x \in L_1 \Leftrightarrow f(x) \in L_2.\]
+\end{enumerate}
+In tal caso scriviamo $L_1 \leqq_P L_2$ e diciamo che $L_1$ è \emph{ridotto in tempo polinomiale} ad $L_2$.
+\end{definizione}
+Dalla definizione seguono due lemmi importanti,
+\begin{lemma}
+    Se $L_1 \leqq_P L_2$, allora $L_1 \in P \Rightarrow L_2 \in P$.
+\end{lemma}
+per cui vale la contronominale, e inoltre
+\begin{lemma}
+    Se $L_1 \leqq_P L_2$, e $L_2 \leqq_P L_3$ allora $L_1 \leqq_P L_3$.
+\end{lemma}
+
+Poiché esiste una relazione diretta fra linguaggi e problemi ad essi associati, si può gettare le basi per la creazione di un ``ponte'' anche fra problemi.
+Difatti, se $\Pi_1$ e $\Pi_2$ sono problemi decisionali associati alle codifiche $e_1$ ed $e_2$, scriveremo che $\Pi_1 \leqq_P \Pi_2$ se esiste una trasformazione polinomiale $f$ fra linguaggi che va da $L[\Pi_1, e_1]$ a $L[\Pi_2, e_2]$.
+
+\begin{definizione}[Trasformazione polinomiale di problemi]
+    Sia $D_\Pi$ l'insieme di tutte le istanze di un problema $\Pi$. Si dice \emph{trasformazione polinomiale di problemi} dal problema $\Pi_1$ al problema $\Pi_2$ una funzione \[f : D_{\Pi_1} \rightarrow D_{\Pi_2}\] tale che
+\begin{enumerate}
+    \item esiste un algoritmo in tempo polinomiale per una DTM che computa $f$;
+    \item per tutte le istanze $I \in D_{\Pi_1}$ si ha che \[I \in Y_{\Pi_1} \Leftrightarrow f(I) \in Y_{\Pi_2}.\] In tal caso scriviamo $\Pi_1 \leqq_P \Pi_2$ e diciamo che $\Pi_1$ è \emph{ridotto in tempo polinomiale} a $\Pi_2$.
+\end{enumerate}
+
+\end{definizione}
+
+In parole povere ciò equivale a dire che \emph{il problema $\Pi_2$ è almeno difficile quanto il problema $\Pi_1$}.
+\begin{definizione}[Liguaggi (problemi) polinomialmente equivalenti]
+    Due linguaggi $L_1$ ed $L_2$ (problemi $\Pi_1$ e $\Pi_2$) si dicono \emph{polinomialmente equivalenti} se valgono entrambe
+    \[
+    \begin{array}{ccc}
+        L_1 \leqq_P L_2 & \mbox{ e } & L_2 \leqq_P L_1 \\
+        (\Pi_1 \leqq_P \Pi_2 & \mbox{ e } & \Pi_2 \leqq_P \Pi_1).
+    \end{array}
+\]
+\end{definizione}
+Dunque, la relazione $(\leqq_P)$ induce un ordinamento parziale fra i linguaggi; la classe di equivalenza più piccola da questo punto di vista è quella dei problemi $\Pi \in P$, che corrisponde ai problemi più semplici da risolvere.
+
+\begin{definizione}[NP-Completezza]
+    Un problema decisionale $\Pi \in NP$ è detto essere un \emph{problema NP-Completo} se, per tutti gli altri problemi $\Pi' \in NP$, vale che $\Pi' \leqq_P \Pi$, cioè se qualsiasi problema appartenente ad $NP$ è riducibile in tempo polinomiale al problema $\Pi$.
+\end{definizione}
+Un esempio di un problema $\Pi$ NP-Completo è il SAT problem (satisfiability problem). Esso dunque può essere interpretato in una nuova chiave come \emph{il problema più difficile della classe NP}. Tutti i problemi NP-Completi sono equivalenti al problema SAT che, fra l'altro, è almeno difficile quanto qualsiasi altro problema NP. Come conseguenza di ciò, se qualsiasi problema NP-Completo potesse essere risolto in tempo polinomiale allora lo sarebbero \emph{tutti} i problemi della classe NP; viceversa, se qualsiasi problema in $NP$ fosse intrattabile allora lo sarebbero anche \emph{tutti} i problemi della classe NP-Completa. Al giorno d'oggi non sappiamo se il SAT appartenga \emph{esclusivamente} alla classe dei problemi $NP$, o se possa in qualche misura appartenere alla classe $P$. Nel primo caso assisteremmo a $P \neq NP$, nel secondo caso sarebbe invece vero che $P = NP$.
+
+La situazione congetturata oggigiorno è la seguente: la classe di problemi $P$ risiede all'interno di una ipotetica classe di problemi ``NP-Intermedi'', cioè di tutti i problemi che non stanno né in $P$ né solo in $NP$. Nella classe di problemi NP sono contenuti i problemi NP-Completi, come il SAT. Al di fuori di essa vi sono i problemi NP-Hard, cosiddetti in virtù della loro dimostrata intrattabilità, come l'Halting Problem. I problemi NP-Hard sono almeno difficili quanto il più difficile problema in NP. Se mai venisse dimostrata la congettura $P = NP$, gli insiemi $P$, NP-Completi, NP-Intermedi ed $NP$ collasserebbero tutti in un unico insieme di problemi, tutti fra loro equivalenti.
+
+\section{Il problema della soddisfacibilità}
+
+Il \emph{problema della soddisfacibilità} è il primo esempio di problema NP-Completo a cui assistiamo. Esso fu scoperto nel 1971 da Cook.
+
+L'istanza è un insieme di variabili $X$ e una collezione $C$ di frasi logiche. È necessario determinare se esiste una configurazione delle variabili in $X$ tale da soddisfare $C$. Esso si tratta di un problema decisionale. Si può dimostrare che $L\leqq_P L_{SAT}, \forall L \in NP$.
+
+Alcuni esempi di problemi NP-Completi si trovano alle slide, pagina 116---124.
 
 \end{document}
 % --------------------------------------------------------------------------------
