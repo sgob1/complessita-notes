@@ -296,7 +296,7 @@ che ne permette la distinzione). Tipicamente, l'utilizzo dell'alfabeto
 ausiliario è importante nel caso specifico in cui si adoperino procedure per le
 quali è utile ricordare se una cella sia già stata in precedenza processata
 dalla macchina di Turing, oppure no --- in ogni caso, l'alfabeto ausiliario è
-meramente un sussidio che permette una semplificazione della procedura o aiuta
+soltanto un sussidio che permette una semplificazione della procedura o aiuta
 ad interpretare il comportamento della macchina, non è in nessun modo un
 qualsivoglia tipo di estensione della macchina di Turing. Come sarà mostrato in
 seguito, ciascuna altra possibile definizione di macchina di Turing è, dal
@@ -369,7 +369,7 @@ termine dell'esecuzione di $\alpha$. In particolare, l'operazione che la
 macchina di Turing effettua dipende dal simbolo $\alpha$ scritto nella matrice
 di transizione:
 \begin{itemize}
-    \item se $\alpha = s_i$, sostituisci il simbolo $s_j$ con $s_i$;
+    \item se $\alpha = s_\alpha$, sostituisci il simbolo $s_j$ con $s_\alpha$;
     \item se $\alpha = R$, muovi la testina a destra;
     \item se $\alpha = L$, muovi la testina a sinistra.
 \end{itemize}
@@ -377,14 +377,14 @@ di transizione:
 L'insieme di tutte queste quaterne descrive l'insieme dei possibili
 comportamenti della macchina di Turing, dunque questo elenco è del tutto
 equivalente ad una matrice di transizione per come la abbiamo definita in
-precedenza. D'altronde, ogni cella di tale matrice è effettivamente descritta da 4 elementi, lo stato $q_i$ in cui la macchina si trova attualmente, il simbolo $s_j$ letto dalla testina, il simbolo da scrivere $s_i$ (o $\alpha$) e lo stato $q_k$ in cui si dovrà trovare la macchina alla prossima iterazione.
+precedenza. D'altronde, ogni cella di tale matrice è effettivamente descritta da 4 elementi, lo stato $q_i$ in cui la macchina si trova attualmente, il simbolo $s_j$ letto dalla testina, il simbolo da scrivere $s_\alpha$ (o il movimento da intraprendere) e lo stato $q_k$ in cui si dovrà trovare la macchina alla prossima iterazione.
 
 In parole povere, anche così definita una macchina di Turing può sovrascrivere
 un simbolo presente sulla cella con un altro presente nel suo alfabeto,
 $\Gamma$, può spostare la testina di un'unità a destra, e può fare altrettanto
 a sinistra.
 
-Resta da scogliere il nodo relativo alla terminazione della macchina di Turing.
+Resta da sciogliere il nodo relativo alla terminazione della macchina di Turing.
 Nel modello RAM, la terminazione avveniva qualora le istruzioni si fossero
 esaurite, o più precisamente qualora l'indice dell'istruzione successiva fosse
 quello di un'istruzione assente nella sequenza che definisce la procedura. In
@@ -1293,7 +1293,7 @@ computazionale, bensì funge esclusivamente da semplificazione notevole per la
 rappresentazione a grafi. Una definizione più rigorosa è la seguente.
 
 \begin{definizione}[Automa a stati finiti non deterministico]
-Un \textbf{automa a stati finiti non deterministico} è una $5$-tupla $\mathcal Q, \Sigma, \delta, q_0,
+Un \textbf{automa a stati finiti non deterministico} è una $5$-tupla $(\mathcal Q, \Sigma, \delta, q_0,
 \mathcal F)$ dove 
 \begin{enumerate}
     \item $\mathcal Q$ è un insieme finito di \emph{stati};
@@ -1414,7 +1414,7 @@ un \emph{linguaggio regolare}. Ciò dà luogo al seguente teorema.
     Sia $\mathcal A_N = \langle \mathcal Q, \Sigma, \delta_N : \mathcal Q \times \Sigma \rightarrow \mathcal P ( \mathcal Q ), q_0, \mathcal F_N \rangle$ un automa a stati finiti non deterministico. Esiste $\mathcal A_D = \langle \mathcal P ( \mathcal Q ), \Sigma, \delta_D, \{q_0\}, \mathcal F_D \rangle$ tale che \[\mathcal L (\mathcal A_D) = \mathcal L (\mathcal A_N).\]
 \end{thm}
 
-\textsc{Dimostrazione} --- Iniziamo specificando il significato delle varie componenti di $\mathcal A_D$. Avremo che $\mathcal P (\mathcal Q) = \left\{P_1, P_2, \dots, P_{2^m}\right\}$ è l'insieme contenente tutti i possibili insiemi degli stati, interpretabili come \emph{percorsi}. Inoltre, vale che \[\delta_D (P, a) = \bigcup_{p \in P} \delta_N(p, a), P \in \mathcal P ( \mathcal Q),\] cioè lo stato raggiunto mediante un automa a stati finiti deterministico può essere espresso mediante una formula comprendente l'insieme degli stati raggiunti da un automa a stati finiti non deterministico. Infine, $\mathcal F_D = \left\{P_i | P_i \cap \mathcal F_D \neq \emptyset\right\}$.
+\textsc{Dimostrazione} --- Iniziamo specificando il significato delle varie componenti di $\mathcal A_D$. Avremo che $\mathcal P (\mathcal Q) = \left\{P_1, P_2, \dots, P_{2^m}\right\}$ è l'insieme contenente tutti i possibili insiemi degli stati, interpretabili come \emph{percorsi}. Inoltre, vale che \[\delta_D (P, a) = \bigcup_{p \in P} \hat\delta_N(p, a), P \in \mathcal P ( \mathcal Q),\] cioè lo stato raggiunto mediante un automa a stati finiti deterministico può essere espresso mediante una formula comprendente l'insieme degli stati raggiunti da un automa a stati finiti non deterministico. Infine, $\mathcal F_D = \left\{P_i | P_i \cap \mathcal F_D \neq \emptyset\right\}$.
 
 Per la dimostrazione si procede per induzione. L'ipotesi induttiva è la seguente, \[\hat \delta_N (q_0, x) = \hat \delta_D(\{q_0\}, x).\]
 
@@ -1717,7 +1717,7 @@ In altre parole, \emph{generalizziamo} il concetto di grafo di transizione facen
 \begin{thm}[di Kleene]
     Sia $T$ un \emph{grafo di transizione su $\Sigma$}. Allora
 \begin{enumerate}
-    \item per ogni grafo di transizione $T$ su $\Sigma$ esiste un'espressione regolare $R$ su $T$ tale che $\tilde R = \tilde T$; 
+    \item per ogni grafo di transizione $T$ su $\Sigma$ esiste un'espressione regolare $R$ su $\Sigma$ tale che $\tilde R = \tilde T$; 
     \item per ogni espressione regolare $R$ su $\Sigma$ esiste un automa finito $A$ su $\Sigma$ tale che $\tilde A = \tilde R$.
 \end{enumerate}
 \end{thm}
@@ -3242,7 +3242,7 @@ Una domanda cruciale è se i problemi \emph{NP-Completi} siano o meno intrattabi
 Alcuni problemi NP-Completi sono i seguenti problemi, visti dalla loro chiave di problema decisionale, cioè di problemi per cui si chiede di individuare il valore di verità di un predicato corrispondente al problema di ottimizzazione da risolvere:
 \begin{itemize}
     \item l'\emph{isomorfismo del sottografo}. Dati due grafi $G_1$ e $G_2$, descritti mediante i loro vertici $V_1$ e $V_2$ e i loro archi $E_1$ ed $E_2$, determinare se $G_1$ contiene un sottografo isomorfico a $G_2$, cioè un sottografo che con gli stessi vertici ha gli stessi vicini.
-    \item il \emph{Problema del Commesso Viaggiatore con vincolo $b$} sulla dimensione del percorso. La variante del problema richiede di determinare l'\emph{esistenza di percorsi più corti di $b$}, cioè \[\sum_{j=1}^{k-1} d(c_{\pi(j)}, c_{\pi(j+1)}) + d(c_{\pi(1)},c_{\pi(k)}) \leq b.\] Anche qui, la risposta è un valore di verità booleano.
+    \item il \emph{Problema del Commesso Viaggiatore con vincolo $b$} sulla dimensione del percorso. La variante del problema richiede di determinare l'\emph{esistenza di percorsi più corti di $b$}, cioè \[\sum_{j=1}^{k-1} d(c_{\pi_{(j)}}, c_{\pi_{(j+1)}}) + d(c_{\pi_{(1)}},c_{\pi_{(k)}}) \leq b.\] Anche qui, la risposta è un valore di verità booleano.
     \item il \emph{problema della somma del sottoinsieme}. Sia dato un insieme $S=\{i_1, i_2, \dots, i_k\}$ di interi $i_l \in \mathbb{Z}$, determinare se esiste un sottoinsieme tale che la somma dei numeri in esso contenuti sia zero.
 \end{itemize}
 I problemi decisionali vengono preferiti in questo frangente per la loro predisposizione ad essere trattati con macchine di Turing \emph{accettori}. Sono inoltre strettamente connessi al problema di ottimizzazione corrispondente\footnote{Ad esempio, per risolvere il TSP con vincolo $b$ è prima richiesto individuare la soluzione, per poi confrontarla in lunghezza con $b$. Se fosse possibile risolvere il problema con vincolo in tempo polinomiale, significherebbe che è possibile individuare una soluzione in tempo polinomiale anche per il problema di ottimizzazione.}. Se, al contrario, si dimostrasse che il TSP con vincolo $b$, nella sua accezione di problema di decisione, è NP-Completo, allora sapremmo che il SAT è almeno difficile quanto quel problema. Inoltre, spesso i problemi decisionali non sono più semplici delle loro controparti non decisionali.
@@ -3260,7 +3260,7 @@ Un linguaggio permette di applicare una codifica $e$ ad un problema $\Pi$. In qu
 \end{enumerate}
 Definendo $e(I)$ come la \emph{codifica $e$ dell'istanza $I$}, possiamo definire l'insieme di tutte le yes-strings per il problema $\Pi$ come \[Y_\Pi = L[\Pi, e] = \left\{x \in \Sigma^* \left|\right. x = e(I), I \in Y_\Pi\right\}.\]
 
-Le codifiche possono applicare modifiche alla lunghezza dell'input. Questo poiché una codifica di un problema tende a modificare, di fatto, l'input riarrangiando le informazioni su stringhe di lunghezze che dipendono in modo sostanziale dalla scelta della codifica stessa. Tuttavia, fra codifiche \emph{ragionevoli} le lunghezze di input sono messe in relazione da funzioni polinomiali, cioè non vengono introdotti termini esponenziali che muterebbero in maniera essenziale la natura dela problema $\Pi$ stesso. In definitiva, siano $e_1$ ed $e_2$ codifiche ragionevoli di un medesimo problema, allora si può affermare che una certa proprietà viene mantenuta sia dal linguaggio $L[\Pi, e_1]$ che dal linguaggio $L[\Pi, e_2]$, cioè che \emph{le proprietà sono indipendenti dalla codifica}.
+Le codifiche possono applicare modifiche alla lunghezza dell'input. Questo poiché una codifica di un problema tende a modificare, di fatto, l'input riarrangiando le informazioni su stringhe di lunghezze che dipendono in modo sostanziale dalla scelta della codifica stessa. Tuttavia, fra codifiche \emph{ragionevoli} le lunghezze di input sono messe in relazione da funzioni polinomiali, cioè non vengono introdotti termini esponenziali che muterebbero in maniera essenziale la natura del problema $\Pi$ stesso. In definitiva, siano $e_1$ ed $e_2$ codifiche ragionevoli di un medesimo problema, allora si può affermare che una certa proprietà viene mantenuta sia dal linguaggio $L[\Pi, e_1]$ che dal linguaggio $L[\Pi, e_2]$, cioè che \emph{le proprietà di un linguaggio sono indipendenti dalla codifica}.
 
 Ci accingiamo ora a formalizzare il concetto di algoritmo, e lo faremo tramite la macchina di Turing deterministica (DTM).
 
@@ -3290,10 +3290,10 @@ Ad esempio, supponiamo di voler risolvere il \emph{problema del cammino hamilton
 \begin{definizione}[Programma DTM in tempo polinomiale]
     Un programma $M$ per una DTM si dice \emph{programma DTM in tempo polinomiale} se esiste un polinomio $p$ tale che, per ogni $n \in \mathbb Z^+$, vale \[T_M(n) \leq p(n),\] cioè se la funzione è limitata superiormente dal polinomio $p(n)$.
 
-    Diciamo che un problema decisionale $\Pi$ con codifica $e$ \emph{appartiene all'insieme $P$} con $P = \{L : \exists \mbox{ un programma DTM in tempo polinomiale } M : L=L_M\}$ se $L[\Pi, e] \in P$, ovvero se esiste un programma DTM in tempo polinomiale che risolve $\Pi$ con la codifica $e$.
+    Diciamo che un problema decisionale $\Pi$ con codifica $e$ \emph{appartiene alla classe $P$} con $P = \{L : \exists \mbox{ un programma DTM in tempo polinomiale } M : L=L_M\}$ se $L[\Pi, e] \in P$, ovvero se esiste un programma DTM in tempo polinomiale che risolve $\Pi$ con la codifica $e$.
 \end{definizione}
 
-In termini meno formali, $P$ è l'insieme di tutti i problemi decisionali che possono essere risolti da un programma DTM in tempo polinomiale. Essi, generalmente, sono considerati problemi facili da risolvere, in contrasto ai problemi intrattabili. Poiché, in linea di principio, è sempre possibile passare da un modello di computazione all'altro senza introdurre stravolgimenti alla natura della complessità temporale di un dato problema (ad esempio, passare dal modello di Turing al modello RAM richiede una variazione alla complessità temporale che è al più limitata superiormente da un polinomio) parleremo di \emph{algoritmi in tempo polinomiale}, senza specificare il modello in uso. Per motivi analoghi omettiamo anche lo specifico schema di codifica $e$, dal momento che per codifiche ragionevoli saremmo in presenza di un aumento o di una diminuzione del tempo di computazione che è essenzialmente polinomiale.
+In termini meno formali, $P$ è l'insieme di tutti i problemi decisionali che possono essere risolti da un programma DTM in tempo polinomiale. Essi, generalmente, sono considerati problemi facili da risolvere, in contrasto ai problemi intrattabili. Poiché, in linea di principio, è sempre possibile passare da un modello di computazione all'altro senza introdurre stravolgimenti alla natura della complessità temporale di un dato problema (ad esempio, passare dal modello di Turing al modello RAM richiede una variazione alla complessità temporale che è al più limitata superiormente da un polinomio) parleremo di \emph{algoritmi in tempo polinomiale}, senza specificare il modello in uso. Per motivi analoghi omettiamo anche lo specifico schema di codifica $e$, dal momento che per codifiche ragionevoli saremmo in presenza di un aumento o di una diminuzione del tempo di computazione che è essenzialmente di natura polinomiale.
 
 \section{Gli Algoritmi Non Deterministici}
 
@@ -3319,19 +3319,19 @@ Tramite gli NDA possiamo rimodulare il concetto di NDTM. In altre parole, una ma
 
 Il funzionamento di una simile NDTM è il seguente. Durante la fase di guessing la codifica $x$ dell'istanza $I$ è scritta sul nastro sotto forma di simboli `1' di lunghezza $|x|$, con il resto delle celle $b$. Il modulo guessing dirige la testina di sola scrittura, sia per scrivere qualche simbolo da $\Gamma$ sul nastro che per muoversi a sinistra (o per fermarsi). Alla fine del processo esso produrrà la soluzione candidata $S$. A questo punto il modulo guessing diventa inattivo, e lo stadio di controllo viene attivato nello stato $q_0$. Lo stadio di controllo parte da dove lo stadio guessing aveva terminato, e segue le regole tradizionali di ingaggio di una macchina di Turing deterministica. La computazione si arresta qualora si fosse giunti agli stati $q_Y$ oppure $q_N$ con, rispettivamente, il significato di computazione accettata o computazione refutata.
 
-Qualsiasi programma $M$ per una NDTM avrà un numero infinito di possibili calcoli per ciascuna stringa di input $x$, una per ogni stringa generata $S$ da $\Gamma^*$. Dunque, diremo che un programma $M$ per una NDTM \emph{accetta $x$} se almeno una fra queste computazione è una computazione accettata, cioè se almeno una di esse termina con lo stato $q_Y$. Il relativo linguaggio riconosciuto da $M$ sarà \[L_M = \{x \in \Sigma^*: M \mbox{ accetta } x\}.\] Possiamo infine ridefinire la funzione di complessità temporale e gli algoritmi in tempo polinomiale nel modo di seguito.
+Qualsiasi programma $M$ per una NDTM avrà un numero infinito di possibili calcoli per ciascuna stringa di input $x$, una per ogni stringa generata $S$ da $\Gamma^*$. Dunque, diremo che un programma $M$ per una NDTM \emph{accetta $x$} se almeno una fra queste computazioni è una computazione accettata, cioè se almeno una di esse termina con lo stato $q_Y$. Il relativo linguaggio riconosciuto da $M$ sarà \[L_M = \{x \in \Sigma^*: M \mbox{ accetta } x\}.\] Possiamo infine ridefinire la funzione di complessità temporale e gli algoritmi in tempo polinomiale nel modo di seguito.
 
 \begin{definizione}[Funzione di complessità temporale]
     Per un programma $M$ di una NDTM che termina per tutti gli input $x \in \Sigma^*$ e che accetta $x$ se esiste almeno una computazione che termina con lo stato di accettazione, si definisce \emph{funzione di complessità temporale} una funzione $T_M : \mathbb Z^+ \rightarrow \mathbb Z^+$ tale che \[T_M(n) = \max \left\{m : \exists x \in L_M, |x| = n :\makecell{\mbox{ la computazione di } M \mbox{ su } x \\ \mbox{ richieda tempo di computazione } m}\right\}.\]
 \end{definizione}
 
-\begin{definizione}[Programma DTM in tempo polinomiale]
+\begin{definizione}[Programma NDTM in tempo polinomiale]
     Un programma $M$ per una NDTM si dice \emph{programma NDTM in tempo polinomiale} se esiste un polinomio $p$ tale che, per ogni $n \in \mathbb Z^+$, vale \[T_M(n) \leq p(n),\] cioè se la funzione è limitata superiormente dal polinomio $p(n)$.
 
     Diciamo che un problema decisionale $\Pi$ con codifica $e$ \emph{appartiene all'insieme $NP$} con $NP = \{L : \exists \mbox{ un programma NDTM in tempo polinomiale } M : L=L_M\}$ se $L[\Pi, e] \in NP$, ovvero se esiste un programma NDTM in tempo polinomiale che risolve $\Pi$ con la codifica $e$.
 \end{definizione}
 
-Alcuni problemi non appartengono alla classe NP. Ad esempio, il problema complementare al TSP: \emph{``è vero che \textbf{nessun} percorso fra le città ha lunghezza $b$ o inferiore?''}. Non c'è modo di controllare la verità di questo predicato senza esaminare tutti i possibili percorsi, cioè senza effettuare una ricerca esaustiva dello spazio delle possibilità.
+Alcuni problemi non appartengono alla classe NP. Ad esempio, il problema complementare al TSP: \emph{``è vero che \textbf{nessun} percorso fra le città ha lunghezza $b$ o inferiore?''}. Non c'è modo di controllare la verità di questo predicato senza prima esaminare tutti i possibili percorsi, cioè senza effettuare una ricerca esaustiva dello spazio delle possibilità.
 
 \subsection{$P$ versus $NP$}
 
@@ -3346,7 +3346,7 @@ Un punto chiave nello studio delle classi NP riguarda la \emph{trasformazione po
 \begin{definizione}[Trasformazione polinomiale di linguaggi]
     Siano $L_1 \subseteq \Sigma_1^*$ e $L_2 \subseteq \Sigma_2^*$ linguaggi. Allora si dice $f$ \emph{trasformazione polinomiale di linguaggi} una funzione \[f:\Sigma_1^* \rightarrow \Sigma_2^*\] tale che 
 \begin{enumerate}
-    \item esiste una DTM che computa $f$;
+    \item esiste una DTM che computa $f$ in tempo polinomiale;
     \item per tutti gli $x \in \Sigma_1^*$, si ha che \[x \in L_1 \Leftrightarrow f(x) \in L_2.\]
 \end{enumerate}
 In tal caso scriviamo $L_1 \leqq_P L_2$ e diciamo che $L_1$ è \emph{ridotto in tempo polinomiale} ad $L_2$.
@@ -3366,7 +3366,7 @@ Difatti, se $\Pi_1$ e $\Pi_2$ sono problemi decisionali associati alle codifiche
 \begin{definizione}[Trasformazione polinomiale di problemi]
     Sia $D_\Pi$ l'insieme di tutte le istanze di un problema $\Pi$. Si dice \emph{trasformazione polinomiale di problemi} dal problema $\Pi_1$ al problema $\Pi_2$ una funzione \[f : D_{\Pi_1} \rightarrow D_{\Pi_2}\] tale che
 \begin{enumerate}
-    \item esiste un algoritmo in tempo polinomiale per una DTM che computa $f$;
+    \item esiste una DTM che computa $f$ in tempo polinomiale;
     \item per tutte le istanze $I \in D_{\Pi_1}$ si ha che \[I \in Y_{\Pi_1} \Leftrightarrow f(I) \in Y_{\Pi_2}.\] In tal caso scriviamo $\Pi_1 \leqq_P \Pi_2$ e diciamo che $\Pi_1$ è \emph{ridotto in tempo polinomiale} a $\Pi_2$.
 \end{enumerate}
 
