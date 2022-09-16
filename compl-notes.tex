@@ -748,7 +748,7 @@ compiere univocamente una sola azione, descritta dal grafo.
 
 Se così non fosse, si avrebbero più cammini possibili per uno stesso
 simbolo~--~un'ipotesi che come vedremo in seguito sarà violata assumendo che
-una macchina di Turing possa non essere di tipo \emph{deterministico}.
+una macchina di Turing possa essere di tipo \emph{non deterministico}.
 
 \begin{figure}[b]
     \centering
@@ -1171,7 +1171,7 @@ resto.}
 \end{figure}
 
 Siamo ora pronti a fornire la prima definizione di automa a stati finiti.
-\begin{definizione}[Automa finito 1]
+\begin{definizione}[Automa finito]
 Un \textbf{automa finito} A su $\Sigma$, dove $\Sigma = \{\sigma_1, \sigma_2,
 \dots, \sigma_n\}$, è un grafo finito orientato in cui da ogni vertice escono
 $n$ archi, con ogni arco etichettato con un diverso $\sigma_i$, con $1 \leq i
@@ -1187,8 +1187,8 @@ iniziale sia anche un vertice finale. Talvolta i vertici sono chiamati
 La seconda definizione di automa finito è più formale, ed equivalente alla
 precedente.
 
-\begin{definizione}[Automa finito 2]
-Un \textbf{automa finito} è una $5$-tupla $(\mathcal Q, \Sigma, \delta, q_0,
+\begin{definizione}[Automa finito deterministico]
+Un \textbf{automa finito deterministico} è una $5$-tupla $A_D = (\mathcal Q, \Sigma, \delta, q_0,
 \mathcal F)$ dove
 \begin{enumerate}
     \item $\mathcal Q$ è un insieme finito di \emph{stati};
@@ -1293,7 +1293,7 @@ computazionale, bensì funge esclusivamente da semplificazione notevole per la
 rappresentazione a grafi. Una definizione più rigorosa è la seguente.
 
 \begin{definizione}[Automa a stati finiti non deterministico]
-Un \textbf{automa a stati finiti non deterministico} è una $5$-tupla $(\mathcal Q, \Sigma, \delta, q_0,
+Un \textbf{automa a stati finiti non deterministico} è una $5$-tupla $A_N = (\mathcal Q, \Sigma, \delta, q_0,
 \mathcal F)$ dove 
 \begin{enumerate}
     \item $\mathcal Q$ è un insieme finito di \emph{stati};
@@ -1323,9 +1323,9 @@ l'\textbf{insieme degli stati raggiunti}\footnote{Coerentemente a come abbiamo
 definito l'automa a stati finiti non deterministico, questa volta lo stato
 raggiunto a partire da un determinato nodo può produrre più possibili stati
 come esito di un singolo input.} da $A_N$ partendo da $q$ quando si è alla
-sinistra di $x$, ed eseguendo successivamente \emph{tutti i percorsi} $x$.
+sinistra di $x$, ed eseguendo successivamente \emph{tutti i percorsi} $x$, cioè seguendo la parola $x$ e instradando la computazione su rami differenti sfruttando il non determinismo dell'automa.
 
-Di conseguenza, si può definire per ricorsione in modo analogo a quanto svolto prima:
+Di conseguenza, si può definire per ricorsione in modo analogo a quanto svolto prima, l'\emph{insieme degli stati raggiunti:}
 
 $$
 \left\{
@@ -1337,10 +1337,8 @@ $$
 $$
 
 Si avrà infine che $A_N$ accetta una parola $x$ se $\hat{\delta}_N(q_0, x) \cap F
-\neq \emptyset$, cioè
-
-$$L(A_N) = \{x \in \Sigma^* | \hat{\delta}_N(q_0, x) \cap F \neq \emptyset \}$$
-
+\neq \emptyset$, cioè se esiste almeno un elemento in comune fra gli insiemi degli stati raggiunti e l'insieme degli stati terminanti. Perciò,
+\[L(A_N) = \{x \in \Sigma^* | \hat{\delta}_N(q_0, x) \cap F \neq \emptyset \}\]
 in modo congruo e simile a quanto visto per un automa $A_D$ deterministico.
 
 \subsection{Equivalenza fra automi NFA ed automi DFA}
@@ -1850,7 +1848,7 @@ Una \textbf{grammatica} è, intuitivamente, un insieme di regole che permettono
 di generare un \emph{linguaggio}. Fra le possibili grammatiche, una categoria
 in particolare riveste un ruolo importante, la categoria delle
 \emph{grammatiche libere dal contesto}, dette anche \emph{Context-Free
-Grammars} e abbreviate con CF. Tramite le grammatiche libere dal contesto viene
+Grammars} e abbreviate con la sigla CF. Tramite le grammatiche libere dal contesto viene
 descritta la sintassi dei linguaggi di programmazione. In parole povere, le
 grammatiche sono un modo ulteriore per generare insiemi di stringhe, appunto
 dei linguaggi.
@@ -3197,7 +3195,7 @@ Resta da chiedersi se la \emph{codifica} adoperata per descrivere un'istanza di 
 
 Per quanto riguarda la codifica, si individua che \emph{le lunghezze di input differiscono al più polinomialmente l'una con l'altra}. Per quanto concerne il modello di computazione, supponendo una macchina $A$ nell'atto di simulare una macchina $B$ con una macchina di Turing $T(n)$ avente $O(T(n))$, si scopre che al più si aumenta del cubo, ottenendo al massimo $O(T^3(n))$. Perciò, passare da una codifica all'altra o da un modello computazione all'altro non comporta variazioni \emph{essenziali} alla natura del problema, cioè non comporta variazioni di tipo esponenziale.
 
-Lo studio della teoria della complessità generalmente può servire a più scopi. In primis, se un problema viene mostrato essere \emph{inerentemente intrattabile}, cioè viene dimostrata la non esistenza di un algoritmo risolutivo in tempo polinomiale, ogni speranza viene lasciata alla scoperta di un algoritmo efficiente, cioè di un algoritmo che risolve il problema con tecniche euristiche, senza necessariamente incappare nella soluzione esatta, ricercando anzi una soluzione accettabile con probabilità alta. A quel punto, è possibile procedere con la creazione di algoritmi in grado di risolvere \emph{istanze speciali} del problema, oppure di un algoritmo che fornisce soluzioni efficienti \emph{la maggior parte delle volte} che viene invocato. In secondo luogo, la teoria della complessità fornisce utili tecniche per provare che un problema è \emph{altrettanto difficile} quanto un secondo problema, mediante il procedimento della \emph{riduzione} al problema. Lo scopo è mostrare che un problema \emph{ridotto} ad un altro problema già noto è almeno difficile quanto il problema già noto. Dunque, l'intera branca della teoria della complessità si prefigge l'obiettivo di assistere gli inventori di algoritmi nel loro compito.
+Lo studio della teoria della complessità generalmente può servire a più scopi. In primis, se un problema viene mostrato essere \emph{inerentemente intrattabile}, cioè viene dimostrata la non esistenza di un algoritmo risolutivo in tempo polinomiale, ogni speranza viene lasciata alla scoperta di un algoritmo efficiente, cioè di un algoritmo che risolve il problema con tecniche euristiche, senza necessariamente incappare nella soluzione esatta, ricercando anzi una soluzione accettabile con probabilità alta. A quel punto, è possibile procedere con la creazione di algoritmi in grado di risolvere \emph{istanze speciali} del problema, oppure di un algoritmo che fornisce soluzioni efficienti \emph{la maggior parte delle volte} che viene invocato. In secondo luogo, la teoria della complessità fornisce utili tecniche per provare che un problema è \emph{altrettanto difficile} quanto un secondo problema, mediante il procedimento della \emph{riduzione al problema}. Lo scopo è mostrare che un problema \emph{ridotto} ad un altro problema già noto è almeno difficile quanto il problema già noto. Dunque, l'intera branca della teoria della complessità si prefigge l'obiettivo di assistere gli inventori di algoritmi nel loro compito.
 
 \section{Le classi di problemi}
 
@@ -3247,7 +3245,7 @@ Alcuni problemi NP-Completi sono i seguenti problemi, visti dalla loro chiave di
 \end{itemize}
 I problemi decisionali vengono preferiti in questo frangente per la loro predisposizione ad essere trattati con macchine di Turing \emph{accettori}. Sono inoltre strettamente connessi al problema di ottimizzazione corrispondente\footnote{Ad esempio, per risolvere il TSP con vincolo $b$ è prima richiesto individuare la soluzione, per poi confrontarla in lunghezza con $b$. Se fosse possibile risolvere il problema con vincolo in tempo polinomiale, significherebbe che è possibile individuare una soluzione in tempo polinomiale anche per il problema di ottimizzazione.}. Se, al contrario, si dimostrasse che il TSP con vincolo $b$, nella sua accezione di problema di decisione, è NP-Completo, allora sapremmo che il SAT è almeno difficile quanto quel problema. Inoltre, spesso i problemi decisionali non sono più semplici delle loro controparti non decisionali.
 
-I problemi decisionali hanno una controparte formale, i \emph{linguaggi}. L'idea è che si possa adoperare uno schema di codifica per codificare i problemi decisionali in linguaggi, di modo da essere formalmente trattati mediante la teoria della computabilità.
+I problemi decisionali hanno una controparte formale, i \emph{linguaggi}. L'idea è che si possa adoperare uno schema di codifica per codificare i problemi decisionali in linguaggi, di modo da essere formalmente trattati mediante la teoria della computabilità. Quello che si cerca di fare è, in questo frangente, adoperare un linguaggio di stringhe come \emph{ingresso} alla macchina, e trattare la macchina stessa come un accettore di stringhe. Nel caso in cui la stringa fosse accettata, si avrebbe il raggiungimento dello stato di accettazione, nel caso di rifiuto della stringa, invece, il raggiungimento dello stato di refutazione.
 
 \begin{definizione}[Linguaggio]
     Sia $\Sigma$ un insieme di simboli e $\Sigma^*$ la sua stellatura. Si definisce \emph{linguaggio} $\mathcal L$ su $\Sigma$ un qualsiasi sottoinsieme di $\Sigma^*$.
@@ -3282,7 +3280,7 @@ Subentrate queste due definizioni importanti di accettazione dell'input e di ris
 \end{definizione}
 Inoltre, definiamo anche la \emph{funzione di complessità temporale} $T_M(n)$.
 \begin{definizione}[Funzione di complessità temporale]
-    Per un programma $M$ di una DTM che termina per tutti gli input $x \in \Sigma^*$ si definisce \emph{funzione di complessità temporale} una funzione $T_M : \mathbb Z^+ \rightarrow \mathbb Z^+$ tale che \[T_M(n) = \max \left\{m : \exists x \in \Sigma^*, |x| = n :\makecell{\mbox{ la computazione di } M \mbox{ su } x \\ \mbox{ richieda tempo di computazione } m}\right\}.\]
+    Per un programma $M$ di una DTM che termina per tutti gli input $x \in \Sigma^*$ si definisce \emph{funzione di complessità temporale} una funzione $T_M : \mathbb Z^+ \rightarrow \mathbb Z^+$ tale che \[T_M(n) = \max \left\{m : \exists x \in \Sigma^*, |x| = n \left|\makecell{\mbox{ la computazione di } M \mbox{ su } x \\ \mbox{ richieda tempo di computazione } m}\right.\right\}.\]
 \end{definizione}
 
 Ad esempio, supponiamo di voler risolvere il \emph{problema del cammino hamiltoniano} (HC). Sia data un'istanza di un grafo $G = (V,E)$; si determini se $G$ contiene un cammino hamiltoniano, cioè un ordinamento $\langle v_1, v_2, \dots, v_n\rangle$ di vertici di $G$, dove $n = |V|$ e tale che $\{v_n, v_1\} \in E$ e inoltre $\{v_i,v_{i+1}\} \in E$ per ogni valore di $i, 1\leq i < n$. Ebbene, l'algoritmo migliore per risolvere tale problema con una dimensione dell'input $|x| = n$ ha funzione di complessità temporale \[T_M(n) = O(2^n),\] cioè richiede un tempo esponenziale per la risoluzione.
@@ -3297,7 +3295,7 @@ In termini meno formali, $P$ è l'insieme di tutti i problemi decisionali che po
 
 \section{Gli Algoritmi Non Deterministici}
 
-Passiamo ora ad introdurre un'altra caratteristica fondamentale della classe di problemi NP. Quest'ultima, infatti, si prefigge di includere tutti i problemi presumibilmente intrattabili, ma per cui è possibile \emph{controllare} la validità di una soluzione data in tempo polinomiale. Ad esempio, nel problema del commesso viaggiatore con vincolo $b$ non esiste alcun algoritmo esatto in tempo polinomiale; tuttavia, data una soluzione candidata $\bar x$, essa è immediatamente verificabile in tempo polinomiale. Lo stesso può dirsi per gli altri problemi NP che abbiamo incontrato, fra cui il problema del cammino hamiltoniano. In altre parole, la classe NP cerca di catturare la nozione di \emph{verificabilità in tempo polinomiale}.
+Passiamo ora ad introdurre un'altra caratteristica fondamentale della classe di problemi NP. Quest'ultima, infatti, si prefigge di includere tutti i problemi presumibilmente intrattabili, ma per cui è possibile \emph{controllare} la validità di una soluzione data in tempo polinomiale. Ad esempio, nel problema del commesso viaggiatore con vincolo $b$ non esiste alcun algoritmo esatto in tempo polinomiale; tuttavia, data una soluzione candidata $\bar x$, essa è immediatamente verificabile in tempo polinomiale. Lo stesso può dirsi per gli altri problemi NP che abbiamo incontrato, fra cui il problema del cammino hamiltoniano. Come vedremo a breve, la classe NP cerca di catturare la nozione di \emph{verificabilità in tempo polinomiale}.
 
 Questa proprietà conduce al concetto di \emph{Algoritmo Non Deterministico} (NDA), caratterizzato da due passaggi:
 \begin{enumerate}
@@ -3322,7 +3320,7 @@ Il funzionamento di una simile NDTM è il seguente. Durante la fase di guessing 
 Qualsiasi programma $M$ per una NDTM avrà un numero infinito di possibili calcoli per ciascuna stringa di input $x$, una per ogni stringa generata $S$ da $\Gamma^*$. Dunque, diremo che un programma $M$ per una NDTM \emph{accetta $x$} se almeno una fra queste computazioni è una computazione accettata, cioè se almeno una di esse termina con lo stato $q_Y$. Il relativo linguaggio riconosciuto da $M$ sarà \[L_M = \{x \in \Sigma^*: M \mbox{ accetta } x\}.\] Possiamo infine ridefinire la funzione di complessità temporale e gli algoritmi in tempo polinomiale nel modo di seguito.
 
 \begin{definizione}[Funzione di complessità temporale]
-    Per un programma $M$ di una NDTM che termina per tutti gli input $x \in \Sigma^*$ e che accetta $x$ se esiste almeno una computazione che termina con lo stato di accettazione, si definisce \emph{funzione di complessità temporale} una funzione $T_M : \mathbb Z^+ \rightarrow \mathbb Z^+$ tale che \[T_M(n) = \max \left\{m : \exists x \in L_M, |x| = n :\makecell{\mbox{ la computazione di } M \mbox{ su } x \\ \mbox{ richieda tempo di computazione } m}\right\}.\]
+    Per un programma $M$ di una NDTM che termina per tutti gli input $x \in \Sigma^*$ e che accetta $x$ se esiste almeno una computazione che termina con lo stato di accettazione, si definisce \emph{funzione di complessità temporale} una funzione $T_M : \mathbb Z^+ \rightarrow \mathbb Z^+$ tale che \[T_M(n) = \max \left\{m : \exists x \in L_M, |x| = n \left|\makecell{\mbox{ la computazione di } M \mbox{ su } x \\ \mbox{ richieda tempo di computazione } m}\right.\right\}.\]
 \end{definizione}
 
 \begin{definizione}[Programma NDTM in tempo polinomiale]
@@ -3341,7 +3339,7 @@ Il problema $P = NP$ resta uno dei maggiori problemi aperti della teoria informa
 
 \section{Le trasformazioni polinomiali di linguaggi}
 
-Un punto chiave nello studio delle classi NP riguarda la \emph{trasformazione polinomiale di linguaggi}. Esse rendono possibile creare una sorta di ``ponte'' fra due linguaggi differenti, un ponte che deve essere computabile in tempo polinomiale.
+Un punto chiave nello studio delle classi NP riguarda la \emph{trasformazione polinomiale di linguaggi}. Esse rendono possibile creare una sorta di ``ponte'' fra due linguaggi differenti, un ponte che deve essere computabile in tempo polinomiale. Quest'ultimo requisito è fondamentale per garantire il non stravolgimento della natura del linguaggio.
 
 \begin{definizione}[Trasformazione polinomiale di linguaggi]
     Siano $L_1 \subseteq \Sigma_1^*$ e $L_2 \subseteq \Sigma_2^*$ linguaggi. Allora si dice $f$ \emph{trasformazione polinomiale di linguaggi} una funzione \[f:\Sigma_1^* \rightarrow \Sigma_2^*\] tale che 
