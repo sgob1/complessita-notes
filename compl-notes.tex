@@ -1412,22 +1412,22 @@ un \emph{linguaggio regolare}. Ciò dà luogo al seguente teorema.
     Sia $\mathcal A_N = \langle \mathcal Q, \Sigma, \delta_N : \mathcal Q \times \Sigma \rightarrow \mathcal P ( \mathcal Q ), q_0, \mathcal F_N \rangle$ un automa a stati finiti non deterministico. Esiste $\mathcal A_D = \langle \mathcal P ( \mathcal Q ), \Sigma, \delta_D, \{q_0\}, \mathcal F_D \rangle$ tale che \[\mathcal L (\mathcal A_D) = \mathcal L (\mathcal A_N).\]
 \end{thm}
 
-\textsc{Dimostrazione} --- Iniziamo specificando il significato delle varie componenti di $\mathcal A_D$. Avremo che $\mathcal P (\mathcal Q) = \left\{P_1, P_2, \dots, P_{2^m}\right\}$ è l'insieme contenente tutti i possibili insiemi degli stati, interpretabili come \emph{percorsi}. Inoltre, vale che \[\delta_D (P, a) = \bigcup_{p \in P} \hat\delta_N(p, a), P \in \mathcal P ( \mathcal Q),\] cioè lo stato raggiunto mediante un automa a stati finiti deterministico può essere espresso mediante una formula comprendente l'insieme degli stati raggiunti da un automa a stati finiti non deterministico. Infine, $\mathcal F_D = \left\{P_i | P_i \cap \mathcal F_D \neq \emptyset\right\}$.
+\textsc{Dimostrazione} --- Iniziamo specificando il significato delle varie componenti di $\mathcal A_D$. Avremo che $\mathcal P (\mathcal Q) = \left\{P_1, P_2, \dots, P_{2^m}\right\}$ è l'insieme contenente tutti i possibili insiemi degli stati, interpretabili come \emph{percorsi}. Inoltre, vale che \[\delta_D (P, a) = \bigcup_{p \in P} \delta_N(p, a), P \in \mathcal P ( \mathcal Q),\] ed infine, $\mathcal F_D = \left\{P_i | P_i \cap \mathcal F_D \neq \emptyset\right\}$.
 
 Per la dimostrazione si procede per induzione. L'ipotesi induttiva è la seguente, \[\hat \delta_N (q_0, x) = \hat \delta_D(\{q_0\}, x).\]
 
 Dunque,
-\begin{itemize}
+\begin{enumerate}
     \item per $|x|=0$, la dimostrazione è banale poiché siamo in presenza del simbolo $x=\Lambda$ e perciò lo stato di arrivo coincide con quello d'inizio;
     \item per $|x| = m$ si suppone vera l'ipotesi induttiva. Si dimostra che vale per stringhe di lunghezza $m+1$. Sia $xa$ una stringa di lunghezza $m + 1$ e si voglia calcolare $\hat \delta_D(\{q_0\}, xa).$ Si ha che
         \begin{align*}
             \hat\delta_D(\{q_0\}, xa) &= \delta_D(\hat\delta_D(\{q_0\}, x), a) & \mbox{per definizione di }\hat\delta_D \\
                                       &= \delta_D(\hat\delta_N(q_0, x), a) & \mbox{ per ipotesi induttiva al passo } m\\
-                                      &= \bigcup_{p\in\hat\delta_N(q_0, x)} \hat\delta_N(p, a) & \mbox{per definizione di } \delta_D(P,a)\\
+                                      &= \bigcup_{p\in\hat\delta_N(q_0, x)} \delta_N(p, a) & \mbox{per definizione di } \delta_D(P,a)\\
                                       &= \hat\delta_N(q_0, xa), &
         \end{align*}
         dove l'ultimo passo deriva dalla definizione di $\hat\delta_N(q_0, xa) = \bigcup_{p \in \hat\delta_N(q, x)} \hat\delta_N (p, a)$.
-\end{itemize}
+\end{enumerate}
 
 La tesi segue dalla seguente concatenazione di predicati,
 \begin{align*}
@@ -2782,7 +2782,7 @@ anch'esso finito di 20 simboli, detti \emph{amminoacidi}. La codifica di queste
 catene di simboli può essere effettuata, come è ragionevole aspettarsi,
 mediante tecniche informatiche.
 
-Ad esempio, di seguito sono riportate i 20 amminoacidi
+Ad esempio, di seguito sono riportati i 20 amminoacidi
 
 \begin{quote}
     \footnotesize{
